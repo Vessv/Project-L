@@ -15,6 +15,8 @@ public class RelayManager : MonoBehaviour
 {
     public static RelayManager instance { get; private set; }
 
+    public string joinCodeString;
+
     [SerializeField]
     private string enviroment = "production";
 
@@ -60,6 +62,7 @@ public class RelayManager : MonoBehaviour
         relayHostData.joinCode = await Relay.Instance.GetJoinCodeAsync(relayHostData.AllocationID);
 
         Debug.Log("join code:" + relayHostData.joinCode);
+        joinCodeString = relayHostData.joinCode;
 
         Transport.SetRelayServerData(relayHostData.ipv4address, relayHostData.port, relayHostData.allocationIdBytes, relayHostData.key, relayHostData.connectionData);
 

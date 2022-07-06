@@ -11,8 +11,9 @@ public class UnitAction : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actionsUI = GameObject.FindGameObjectWithTag("ActionsUI");
+        if (!IsLocalPlayer) return;
         unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<UnitO>();
+        actionsUI.SetActive(true);
         actionsUI.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction);
     }
 

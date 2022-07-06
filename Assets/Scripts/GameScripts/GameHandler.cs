@@ -37,6 +37,7 @@ public class GameHandler : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        if (!IsServer) return;
         foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
             GameObject player = Instantiate(playerPrefab);
@@ -118,7 +119,7 @@ public class GameHandler : NetworkBehaviour
         if (!current)
         {
             UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
-            unit.SetSelectedActionServerRpc("");
+            unit.selectedAction.Value = "";
             //actionsUI.SetActive(false);
             NextTurn();
         }

@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class LobbyUI : NetworkBehaviour
@@ -8,6 +9,8 @@ public class LobbyUI : NetworkBehaviour
     [Header("References")]
     [SerializeField] private LobbyPlayerCard[] lobbyPlayerCards;
     [SerializeField] private Button startGameButton;
+    [SerializeField] private TextMeshProUGUI joinCodeString;
+
 
     private NetworkList<LobbyPlayerState> lobbyPlayers;
 
@@ -26,6 +29,8 @@ public class LobbyUI : NetworkBehaviour
         if (IsServer)
         {
             startGameButton.gameObject.SetActive(true);
+
+            joinCodeString.text = RelayManager.instance.joinCodeString;
 
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
