@@ -240,13 +240,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 999689300300813912}
     m_Modifications:
+    - target: {fileID: 456322131049611556, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 7168510597813573128, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168510597813573128, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7168510597813573132, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
       propertyPath: m_Pivot.x
@@ -335,10 +335,6 @@ PrefabInstance:
     - target: {fileID: 7168510599183235837, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 951099334
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168510599183235839, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7168510599212069078, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
       propertyPath: GlobalObjectIdHash

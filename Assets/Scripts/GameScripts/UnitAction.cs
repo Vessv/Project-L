@@ -15,10 +15,15 @@ public class UnitAction : NetworkBehaviour
         unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<UnitO>();
         actionsUI.SetActive(true);
         actionsUI.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction);
+        actionsUI.transform.GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction2);
     }
 
     public void SetSelectedAction()
     {
         unit.SetSelectedActionServerRpc("Move");
+    }
+    public void SetSelectedAction2()
+    {
+        unit.SetSelectedActionServerRpc("Shoot");
     }
 }

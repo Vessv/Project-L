@@ -134,8 +134,17 @@ public class GameHandler : NetworkBehaviour
     void MoveAction(Vector3 previous, Vector3 current)
     {
         UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
-        GetComponent<MoveAction>().Setup(unit);
-        GetComponent<MoveAction>().Move(unit);
+        if(unit.selectedAction.Value == "Move")
+        {
+            GetComponent<MoveAction>().Setup(unit);
+            GetComponent<MoveAction>().Move();
+        } else 
+        if(unit.selectedAction.Value == "Shoot")
+        {
+            GetComponent<AttackAction>().Setup(unit);
+            GetComponent<AttackAction>().Shoot(grid.GetGridObject(unit.targetPositionRpc.Value).GetUnit());
+        }
+
     }
 
     //Next turn logic

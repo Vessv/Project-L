@@ -18,7 +18,7 @@ public class MoveAction : BaseAction
         if (unit == null) return;
         if (unit.state.Value != UnitO.State.Moving) return;
 
-            if (pathVectorList != null && pathVectorList.Count > 0)
+        if (pathVectorList != null && pathVectorList.Count > 0)
         {
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(unit.transform.position, targetPosition) > 0.05f)
@@ -37,6 +37,7 @@ public class MoveAction : BaseAction
                 if (currentPathIndex >= pathVectorList.Count)
                 {
                     pathVectorList.Clear();
+                    GameHandler.instance.GetGrid().GetGridObject(unit.targetPositionRpc.Value).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
                     unit.state.Value = UnitO.State.Normal;
                     //EndTurnServerRpc();
@@ -54,7 +55,7 @@ public class MoveAction : BaseAction
         }
     }
 
-    public void Move(UnitO unit)
+    public void Move()
     {
         currentPathIndex = 0;
 
@@ -64,6 +65,7 @@ public class MoveAction : BaseAction
         if (pathVectorList != null && pathVectorList.Count > 1)
         {
             pathVectorList.RemoveAt(0);
+            GameHandler.instance.GetGrid().GetGridObject(unit.transform.position).RemoveUnit();
             //OnPositionReachedServerRpc();
         }
         else

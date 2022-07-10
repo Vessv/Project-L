@@ -11,18 +11,20 @@ public class UnitO : NetworkBehaviour
 
     public NetworkVariable<bool> isMyTurn = new NetworkVariable<bool>();
     public NetworkVariable<State> state = new NetworkVariable<State>();
-    private NetworkVariable<Vector3> playerPosition = new NetworkVariable<Vector3>();
+    public NetworkVariable<Vector3> playerPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<Vector3> targetPositionRpc = new NetworkVariable<Vector3>();
     public string[] unitActions;
     public NetworkVariable<FixedString64Bytes> selectedAction = new NetworkVariable<FixedString64Bytes>();
 
 
-    NetworkTimeSystem timeSystem;
+    public HealthSystem healthSystem;
+
 
 
     private void Awake()
     {
         //Application.targetFrameRate = 60;
+        healthSystem = new HealthSystem(1 * 10);
 
     }
 
@@ -52,6 +54,10 @@ public class UnitO : NetworkBehaviour
             SetStateServerRpc(State.Moving);
             SumbitTargetPositionServerRpc(Utils.GetMouseWorldPosition());
 
+        } else if(Input.GetMouseButtonDown(0) && state.Value == State.Normal && selectedAction.Value == "Shoot")
+        {
+            SetStateServerRpc(State.Attacking);
+            SumbitTargetPositionServerRpc(Utils.GetMouseWorldPosition());
         }
     }
 
@@ -60,6 +66,11 @@ public class UnitO : NetworkBehaviour
         Normal,
         Moving,
         Attacking
+    }
+
+    public HealthSystem GetHealthSystem()
+    {
+        return healthSystem;
     }
 
     [ServerRpc]

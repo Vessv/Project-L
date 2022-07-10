@@ -46,10 +46,10 @@ public class UnitCombatGrid : NetworkBehaviour
         }*/
         if (Input.GetMouseButtonDown(1))
         {
-            GameHandler_GridCombatSystem.instance.GetGrid().GetGridObject(transform.position).SetUnit(this);
+            //GameHandler_GridCombatSystem.instance.GetGrid().GetGridObject(transform.position).SetUnit(this);
             if (transform.position.x < 1)
             {
-                Attack(GameHandler_GridCombatSystem.instance.GetGrid().GetGridObject(Utils.GetMouseWorldPosition()).GetUnit());
+                //Attack(GameHandler_GridCombatSystem.instance.GetGrid().GetGridObject(Utils.GetMouseWorldPosition()).GetUnit());
             }
         }
     }
