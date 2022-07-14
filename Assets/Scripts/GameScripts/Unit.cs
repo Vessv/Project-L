@@ -42,7 +42,7 @@ public class Unit : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && IsLocalPlayer)
         {
-            Click2();
+            //Click2();
         }
     }
 
@@ -55,29 +55,9 @@ public class Unit : NetworkBehaviour
     public bool CanShoot => SelectedAction.Value == UnitAction.Action.Shoot;
 
 
-    public void Click2()
-    {
-        Debug.Log("isLocalPlayer: " + IsLocalPlayer);
-        if (!CanInteract) return;
-
-        Debug.Log("Click" + CanInteract + IsLocalPlayer + IsMyTurn.Value);
-
-
-        if (CanPlay)
-        {
-            SubmitActionStateServerRpc(ActionState.Busy);
-            SubmitTargetPositionServerRpc(Utils.GetMouseWorldPosition());
-
-        }
-    }
-
     public void Click(InputAction.CallbackContext context)
     {
-        Debug.Log("isLocalPlayer: " + IsLocalPlayer);
         if (!CanInteract || !context.performed) return;
-
-        Debug.Log("Click" + CanInteract + IsLocalPlayer + IsMyTurn.Value);
-
 
         if (CanPlay)
         {
