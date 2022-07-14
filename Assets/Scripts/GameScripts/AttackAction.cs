@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackAction : BaseAction
 {
-    public override ActionType GetActionType() => ActionType.Move;
+    public override ActionType GetActionType() => ActionType.Shoot;
 
     public int Damage;
 
@@ -14,13 +14,13 @@ public class AttackAction : BaseAction
         
     }
 
-    public void Shoot(UnitO enemy)
+    public void Shoot(Unit enemy)
     {
-        //GameHandler.instance.GetGrid().GetGridObject(unit.targetPositionRpc.Value).GetUnit();
+        //GameHandler.instance.GetGrid().GetGridObject(unit.TargetPositionRpc.Value).GetUnit();
         enemy.GetHealthSystem().Damage(1);
         Debug.Log("Damaged:" + enemy.name);
-        unit.state.Value = UnitO.State.Normal;
-        unit.isMyTurn.Value = false;
+        unit.ActionStatus.Value = Unit.ActionState.Normal;
+        unit.IsMyTurn.Value = false;
 
     }
 }

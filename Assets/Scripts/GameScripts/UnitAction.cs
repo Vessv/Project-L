@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class UnitAction : NetworkBehaviour
 {
     public GameObject actionsUI;
-    UnitO unit;
+    Unit unit;
     // Start is called before the first frame update
     void Start()
     {
         if (!IsLocalPlayer) return;
-        unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<UnitO>();
+        unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Unit>();
         actionsUI.SetActive(true);
         actionsUI.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction);
         actionsUI.transform.GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction2);
@@ -20,10 +20,17 @@ public class UnitAction : NetworkBehaviour
 
     public void SetSelectedAction()
     {
-        unit.SetSelectedActionServerRpc("Move");
+        unit.SubmitUnitActionServerRpc(Action.Move);
     }
     public void SetSelectedAction2()
     {
-        unit.SetSelectedActionServerRpc("Shoot");
+        unit.SubmitUnitActionServerRpc(Action.Shoot);
+    }
+
+    public enum Action
+    {
+        None,
+        Move,
+        Shoot
     }
 }

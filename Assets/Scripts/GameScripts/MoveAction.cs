@@ -16,7 +16,7 @@ public class MoveAction : BaseAction
     {
         if (!IsServer) return;
         if (unit == null) return;
-        if (unit.state.Value != UnitO.State.Moving) return;
+        if (unit.ActionStatus.Value != Unit.ActionState.Busy && unit.SelectedAction.Value != UnitAction.Action.Move) return;
 
         if (pathVectorList != null && pathVectorList.Count > 0)
         {
@@ -37,11 +37,11 @@ public class MoveAction : BaseAction
                 if (currentPathIndex >= pathVectorList.Count)
                 {
                     pathVectorList.Clear();
-                    GameHandler.instance.GetGrid().GetGridObject(unit.targetPositionRpc.Value).SetUnit(unit);
+                    GameHandler.instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
-                    unit.state.Value = UnitO.State.Normal;
+                    unit.ActionStatus.Value = Unit.ActionState.Normal;
                     //EndTurnServerRpc();
-                    unit.isMyTurn.Value = false;
+                    unit.IsMyTurn.Value = false;
                     //onPositionReached?.Invoke();
                 }
             }
@@ -51,7 +51,7 @@ public class MoveAction : BaseAction
         {
             //notReachable?.Invoke();
             Debug.Log("Not rechable");
-            unit.state.Value = UnitO.State.Normal;
+            unit.ActionStatus.Value = Unit.ActionState.Normal;
         }
     }
 
@@ -60,7 +60,7 @@ public class MoveAction : BaseAction
         currentPathIndex = 0;
 
         pathVectorList.Clear();
-        pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.targetPositionRpc.Value);
+        pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.TargetPosition.Value);
 
         if (pathVectorList != null && pathVectorList.Count > 1)
         {
@@ -71,7 +71,7 @@ public class MoveAction : BaseAction
         else
         {
             //notReachableServerRpc();
-            unit.state.Value = UnitO.State.Normal;
+            unit.ActionStatus.Value = Unit.ActionState.Normal;
             Debug.Log("path vector list is lower than 1");
         }
     }

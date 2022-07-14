@@ -15,7 +15,7 @@ public class GameHandler : NetworkBehaviour
     public GameObject playerPrefab;
 
     //All the grids needed for the game to work
-    private Grid<GridObject> grid;
+    private Grid<GridObject> gameGrid;
     private Pathfinding pathfindingGrid;
     private Tilemap tilemapGrid;
 
@@ -25,15 +25,13 @@ public class GameHandler : NetworkBehaviour
 
     //Turn vars
     bool[] hasBeenRegistered = new bool[5];
-    private NetworkVariable<ulong> currentTurn = new NetworkVariable<ulong>();
+    private NetworkVariable<ulong> CurrentTurn = new NetworkVariable<ulong>();
     int turnIndex;
 
-    //Pathfinding vars
-    //List<Vector3> pathVectorList = new List<Vector3>();
-    //public float speed = 4f;
-    //int currentPathIndex;
-
-    //public GameObject actionsUI;
+    [SerializeField]
+    MoveAction moveAction;
+    [SerializeField]
+    AttackAction attackAction;
 
     public override void OnNetworkSpawn()
     {
@@ -43,19 +41,36 @@ public class GameHandler : NetworkBehaviour
             GameObject player = Instantiate(playerPrefab);
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
         }
+
+        currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<Unit>();
+        currentUnit.IsMyTurn.Value = true;
     }
 
-    //Initalize singletonm, grids and turnIndex
-    void Start()
+    //Initalize singleton, grids and turnIndex
+    private void Awake()
     {
         instance = this;
+
+        moveAction = GetComponent<MoveAction>();
+        attackAction = GetComponent<AttackAction>();
+
         enviromentPrefabs = enviromentPrefabHolder.GetComponent<EnviromentHolder>().enviromentPrefabs;
-        grid = new Grid<GridObject>(18, 10, 1f, new Vector3(0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(grid, x, y));
+
+        gameGrid = new Grid<GridObject>(18, 10, 1f, new Vector3(0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(gameGrid, x, y));
         tilemapGrid = new Tilemap(18, 10, 1f, new Vector3(0, 0));
         pathfindingGrid = new Pathfinding(18, 10, 1f, new Vector3(0, 0));
+
+        turnIndex = 0;
+
+    }
+
+    void Start()
+    {
+
         CreateWorld();
         InstantiateWorld();
-        turnIndex = 0;
+
+        //Move to a method
         NetworkManager.Singleton.OnClientDisconnectCallback += (id) =>
         {
             if (!IsServer) return;
@@ -65,41 +80,34 @@ public class GameHandler : NetworkBehaviour
 
     }
 
+    bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
+
+    [SerializeField]
+    Unit currentUnit;
     // Update is called once per frame
     void Update()
     {
-        if (!IsServer || turnIndex < 0) return;
-        UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
+        if (!IsServer || !hasPlayers) return;
 
-        /*foreach (NetworkObject networkObject in NetworkManager.Singleton.ConnectedClientsList[turnIndex].OwnedObjects)
-        {
-            if (networkObject.tag == "ActionsUI")
-            {
-                actionsUI = networkObject.gameObject;
-            }
-        }*/
-
-        if (hasBeenRegistered[turnIndex] == false)
+        if (!hasBeenRegistered[turnIndex])
         {
             hasBeenRegistered[turnIndex] = true;
-            AddListeners(unit);
+            AddListeners(currentUnit);
         }
-        unit.isMyTurn.Value = true;
-        //actionsUI.SetActive(true);
-        //if (unit.state.Value == UnitO.State.Moving) Move(unit);
+        currentUnit.IsMyTurn.Value = true;
 
     }
 
-    void AddListeners(UnitO unit)
+    void AddListeners(Unit unit)
     {
-        unit.isMyTurn.OnValueChanged += OnTurnEnd;
-        unit.targetPositionRpc.OnValueChanged += MoveAction;
+        unit.IsMyTurn.OnValueChanged += OnTurnEnd;
+        unit.TargetPosition.OnValueChanged += DoAction;
         //actionsUI.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction);
     }
 
     /*public void SetSelectedAction()
     {
-        UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
+        Unit unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<Unit>();
         unit.SetSelectedActionServerRpc("Move");
     }*/
 
@@ -110,7 +118,7 @@ public class GameHandler : NetworkBehaviour
 
     public Grid<GridObject> GetGrid()
     {
-        return grid;
+        return gameGrid;
     }
 
     //OnTurnEnd remove the listener and do NextTurn();
@@ -118,31 +126,21 @@ public class GameHandler : NetworkBehaviour
     {
         if (!current)
         {
-            UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
-            unit.selectedAction.Value = "";
-            //actionsUI.SetActive(false);
+            currentUnit.SelectedAction.Value = UnitAction.Action.None;
             NextTurn();
         }
     }
-
-    /*void MoveAction(Vector3 previous, Vector3 current)
+    void DoAction(Vector3 previous, Vector3 current)
     {
-        UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
-        SetTargetPositionTo(unit);
-    }*/
-
-    void MoveAction(Vector3 previous, Vector3 current)
-    {
-        UnitO unit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<UnitO>();
-        if(unit.selectedAction.Value == "Move")
+        if (currentUnit.CanMove)
         {
-            GetComponent<MoveAction>().Setup(unit);
-            GetComponent<MoveAction>().Move();
+            moveAction.Setup(currentUnit);
+            moveAction.Move();
         } else 
-        if(unit.selectedAction.Value == "Shoot")
+        if(currentUnit.CanShoot)
         {
-            GetComponent<AttackAction>().Setup(unit);
-            GetComponent<AttackAction>().Shoot(grid.GetGridObject(unit.targetPositionRpc.Value).GetUnit());
+            attackAction.Setup(currentUnit);
+            attackAction.Shoot(gameGrid.GetGridObject(currentUnit.TargetPosition.Value).GetUnit());
         }
 
     }
@@ -153,7 +151,8 @@ public class GameHandler : NetworkBehaviour
         ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
         turnIndex++;
         if (turnIndex >= turnIds.Length) turnIndex = 0;
-        currentTurn.Value = turnIds[turnIndex];
+        CurrentTurn.Value = turnIds[turnIndex];
+        currentUnit = NetworkManager.Singleton.ConnectedClientsList[turnIndex].PlayerObject.GetComponent<Unit>();
         Debug.Log("current turn: " + turnIndex + " maxTurn: " + turnIds.Length);
 
     }
@@ -185,73 +184,13 @@ public class GameHandler : NetworkBehaviour
         }
     }
 
-    /*public void SetTargetPositionTo(UnitO unit)
-    {
-        currentPathIndex = 0;
-
-        pathVectorList.Clear();
-        pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.targetPositionRpc.Value);
-
-        if (pathVectorList != null && pathVectorList.Count > 1)
-        {
-            pathVectorList.RemoveAt(0);
-            //OnPositionReachedServerRpc();
-        }
-        else
-        {
-            //notReachableServerRpc();
-            unit.state.Value = UnitO.State.Normal;
-            Debug.Log("path vector list is lower than 1");
-        }
-    }*/
-
-    /*
-    private void Move(UnitO unit)
-    {
-        if (pathVectorList != null && pathVectorList.Count > 0)
-        {
-            Vector3 targetPosition = pathVectorList[currentPathIndex];
-            if (Vector3.Distance(unit.transform.position, targetPosition) > 0.05f)
-            {
-                Vector3 moveDir = (targetPosition - unit.transform.position).normalized;
-
-                unit.transform.position = unit.transform.position + moveDir * speed * Time.deltaTime;
-                if (Vector3.Distance(unit.transform.position, targetPosition) < 0.05f)
-                {
-                    unit.transform.position = targetPosition;
-                }
-            }
-            else
-            {
-                currentPathIndex++;
-                if (currentPathIndex >= pathVectorList.Count)
-                {
-                    pathVectorList.Clear();
-                    //unit.SetStateServerRpc(State.Normal);
-                    unit.state.Value = UnitO.State.Normal;
-                    //EndTurnServerRpc();
-                    unit.isMyTurn.Value = false;
-                    //onPositionReached?.Invoke();
-                }
-            }
-
-        }
-        else
-        {
-            //notReachable?.Invoke();
-            Debug.Log("Not rechable");
-            unit.state.Value = UnitO.State.Normal;
-        }
-    }
-    */
-
     //GridObject needed to keep track of the players in the grid
     public class GridObject
     {
         private Grid<GridObject> grid;
         private int x;
         private int y;
-        UnitO unit;
+        Unit unit;
 
         public GridObject(Grid<GridObject> grid, int x, int y)
         {
@@ -260,13 +199,13 @@ public class GameHandler : NetworkBehaviour
             this.y = y;
         }
 
-        public void SetUnit(UnitO unit)
+        public void SetUnit(Unit unit)
         {
             this.unit = unit;
             instance.GetPathfindingGrid().GetGrid().GetGridObject(x, y).SetWalkable(false);
         }
 
-        public UnitO GetUnit()
+        public Unit GetUnit()
         {
             return this.unit;
         }

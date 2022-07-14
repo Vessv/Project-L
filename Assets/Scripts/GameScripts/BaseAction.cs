@@ -14,16 +14,16 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
     public event EventHandler OnActionComplete;
 
 
-
-    protected UnitO unit;
+    [SerializeField]
+    protected Unit unit;
     protected bool isActive;
     protected Action onActionComplete;
 
-    public UnitO GetUnit() => unit;
+    public Unit GetUnit() => unit;
 
     public bool IsActive() => isActive;
 
-    public void Setup(UnitO unit)
+    public void Setup(Unit unit)
     {
         this.unit = unit;
     }

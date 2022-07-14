@@ -6,8 +6,8 @@ public interface IUnitAction
 {
 
     ActionType GetActionType();
-    void Setup(UnitO unit);
-    UnitO GetUnit();
+    void Setup(Unit unit);
+    Unit GetUnit();
     bool IsActive();
 
 }
