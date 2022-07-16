@@ -30,7 +30,7 @@ public class LobbyUI : NetworkBehaviour
         {
             startGameButton.gameObject.SetActive(true);
 
-            joinCodeString.text = RelayManager.instance.joinCodeString;
+            joinCodeString.text = RelayManager.Instance.joinCodeString;
 
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;

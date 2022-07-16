@@ -493,9 +493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cf43e7bbcb2d04b9c37c7e99983405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enviromentPrefabs:
+  EnviromentPrefabs:
   - {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
-  - {fileID: 5175427678723387002, guid: 54c2b911a5da82f4384e0beee56ff390, type: 3}
 --- !u!4 &2112692265
 Transform:
   m_ObjectHideFlags: 0
@@ -526,6 +525,14 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 999689300300813914, guid: 58580564db175284c9096eca078db3c3, type: 3}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 999689300300813914, guid: 58580564db175284c9096eca078db3c3, type: 3}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: EnviromentPrefabHolder
+      value: 
+      objectReference: {fileID: 2112692263}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: enviromentPrefabHolder
       value: 

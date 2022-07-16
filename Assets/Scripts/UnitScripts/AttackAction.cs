@@ -8,15 +8,8 @@ public class AttackAction : BaseAction
 
     public int Damage;
 
-    // Update is called once per frame
-    void Update()
+    public void Attack(Unit enemy)
     {
-        
-    }
-
-    public void Shoot(Unit enemy)
-    {
-        //GameHandler.instance.GetGrid().GetGridObject(unit.TargetPositionRpc.Value).GetUnit();
         enemy.GetHealthSystem().Damage(1);
         Debug.Log("Damaged:" + enemy.name);
         unit.ActionStatus.Value = Unit.ActionState.Normal;

@@ -9,44 +9,13 @@ using UnityEngine.InputSystem;
 public class Unit : NetworkBehaviour
 {
 
-    //NetworkVariables
     public NetworkVariable<bool> IsMyTurn = new NetworkVariable<bool>();
     public NetworkVariable<ActionState> ActionStatus = new NetworkVariable<ActionState>();
     public NetworkVariable<Vector3> PlayerPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<Vector3> TargetPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<UnitAction.Action> SelectedAction = new NetworkVariable<UnitAction.Action>();
 
-
-
-    public HealthSystem healthSystem;
-
-
-
-    private void Awake()
-    {
-        //Application.targetFrameRate = 60;
-        healthSystem = new HealthSystem(1 * 10);
-
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (IsLocalPlayer) SubmitActionStateServerRpc(ActionState.Normal);
-        if (IsLocalPlayer) SubmitPositionServerRpc(new Vector3(0.5f, 0.5f));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && IsLocalPlayer)
-        {
-            //Click2();
-        }
-    }
-
-
+    private HealthSystem _healthSystem;
     bool CanInteract => IsMyTurn.Value && IsLocalPlayer;
     public bool IsBusy => ActionStatus.Value == ActionState.Busy;
     public bool CanPlay => !IsBusy && SelectedAction.Value != UnitAction.Action.None;
@@ -55,15 +24,35 @@ public class Unit : NetworkBehaviour
     public bool CanShoot => SelectedAction.Value == UnitAction.Action.Shoot;
 
 
+    void Awake()
+    {
+        //Application.targetFrameRate = 60;
+        _healthSystem = new HealthSystem(1 * 10);
+
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (!IsLocalPlayer) return;
+        SubmitActionStateServerRpc(ActionState.Normal);
+        SubmitPositionServerRpc(new Vector3(0.5f, 0.5f));
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
+
     public void Click(InputAction.CallbackContext context)
     {
         if (!CanInteract || !context.performed) return;
 
         if (CanPlay)
         {
-            SubmitActionStateServerRpc(ActionState.Busy);
             SubmitTargetPositionServerRpc(Utils.GetMouseWorldPosition());
-
         }
     }
 
@@ -75,7 +64,7 @@ public class Unit : NetworkBehaviour
 
     public HealthSystem GetHealthSystem()
     {
-        return healthSystem;
+        return _healthSystem;
     }
 
     [ServerRpc]

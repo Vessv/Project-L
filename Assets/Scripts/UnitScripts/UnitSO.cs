@@ -5,14 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New unit", menuName = "Unit")]
 public class UnitSO : ScriptableObject
 {
-    public string unitName;
-    public Sprite unitSprite;
+    public string UnitName;
+    public Sprite UnitSprite;
 
-    public int strenght;
-    public int vitality;
-    public int agility;
+    public int Strenght;
+    public int Vitality;
+    public int Agility;
 
-    public Faction faction;
+    public Faction UnitFaction;
     public enum Faction
     {
         Hero,

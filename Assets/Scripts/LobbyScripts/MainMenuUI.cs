@@ -28,7 +28,7 @@ public class MainMenuUI : NetworkBehaviour
 
         startHostButton?.onClick.AddListener(async () =>
         {
-            if (RelayManager.instance.isRelayEnabled) await RelayManager.instance.SetupRelay();
+            if (RelayManager.Instance.isRelayEnabled) await RelayManager.Instance.SetupRelay();
             //if (NetworkManager.Singleton.StartHost()) NetworkLog.LogInfoServer("Host Started");
             PlayerPrefs.SetString("PlayerName", displayNameInputField.text);
 
@@ -37,8 +37,8 @@ public class MainMenuUI : NetworkBehaviour
 
         startClientButton?.onClick.AddListener(async () =>
         {
-            if (RelayManager.instance.isRelayEnabled && !string.IsNullOrEmpty(joinCodeInput.text))
-                await RelayManager.instance.JoinRelay(joinCodeInput.text);
+            if (RelayManager.Instance.isRelayEnabled && !string.IsNullOrEmpty(joinCodeInput.text))
+                await RelayManager.Instance.JoinRelay(joinCodeInput.text);
             //if (NetworkManager.Singleton.StartClient()) NetworkLog.LogInfoServer("Client Joined");
 
 

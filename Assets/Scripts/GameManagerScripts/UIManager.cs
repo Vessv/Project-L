@@ -8,16 +8,16 @@ using TMPro;
 public class UIManager : NetworkBehaviour
 {
     [SerializeField]
-    private Button startHostButton;
+    private Button _startHostButton;
 
     [SerializeField]
-    private Button startClientButton;
+    private Button _startClientButton;
 
     [SerializeField]
-    private TMP_InputField joinCodeInput;
+    private TMP_InputField _joinCodeInput;
 
     [SerializeField] 
-    private TMP_InputField displayNameInputField;
+    private TMP_InputField _displayNameInputField;
 
 
 
@@ -27,19 +27,19 @@ public class UIManager : NetworkBehaviour
     {
         PlayerPrefs.GetString("PlayerName");
 
-        startHostButton?.onClick.AddListener(async () =>
+        _startHostButton?.onClick.AddListener(async () =>
         {
-            if (RelayManager.instance.isRelayEnabled) await RelayManager.instance.SetupRelay();
-            //PlayerPrefs.SetString("PlayerName", displayNameInputField.text);
+            if (RelayManager.Instance.isRelayEnabled) await RelayManager.Instance.SetupRelay();
+            //PlayerPrefs.SetString("PlayerName", _displayNameInputField.text);
             if (NetworkManager.Singleton.StartHost()) NetworkLog.LogInfoServer("Host Started");
             //GameNetPortal.Instance.StartHost();
         });
 
-        startClientButton?.onClick.AddListener(async () =>
+        _startClientButton?.onClick.AddListener(async () =>
         {
-            if (RelayManager.instance.isRelayEnabled && !string.IsNullOrEmpty(joinCodeInput.text)) 
-                await RelayManager.instance.JoinRelay(joinCodeInput.text);
-            //PlayerPrefs.SetString("PlayerName", displayNameInputField.text);
+            if (RelayManager.Instance.isRelayEnabled && !string.IsNullOrEmpty(_joinCodeInput.text)) 
+                await RelayManager.Instance.JoinRelay(_joinCodeInput.text);
+            //PlayerPrefs.SetString("PlayerName", _displayNameInputField.text);
 
             //ClientGameNetPortal.Instance.StartClient();
 

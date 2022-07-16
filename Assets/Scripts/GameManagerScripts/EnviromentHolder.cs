@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class EnviromentHolder : MonoBehaviour
 {
-    public Transform[] enviromentPrefabs;
+    public Transform[] EnviromentPrefabs;
 }

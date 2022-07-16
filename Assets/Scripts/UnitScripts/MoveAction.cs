@@ -7,8 +7,8 @@ public class MoveAction : BaseAction
     public override ActionType GetActionType() => ActionType.Move;
 
     //Pathfinding vars
-    List<Vector3> pathVectorList = new List<Vector3>();
-    public float speed = 4f;
+    List<Vector3> _pathVectorList = new List<Vector3>();
+    public float Speed = 4f;
     int currentPathIndex;
 
     // Update is called once per frame
@@ -16,16 +16,16 @@ public class MoveAction : BaseAction
     {
         if (!IsServer) return;
         if (unit == null) return;
-        if (unit.ActionStatus.Value != Unit.ActionState.Busy && unit.SelectedAction.Value != UnitAction.Action.Move) return;
+        if (unit.ActionStatus.Value != Unit.ActionState.Busy || unit.SelectedAction.Value != UnitAction.Action.Move) return;
 
-        if (pathVectorList != null && pathVectorList.Count > 0)
+        if (_pathVectorList != null && _pathVectorList.Count > 0)
         {
-            Vector3 targetPosition = pathVectorList[currentPathIndex];
+            Vector3 targetPosition = _pathVectorList[currentPathIndex];
             if (Vector3.Distance(unit.transform.position, targetPosition) > 0.05f)
             {
                 Vector3 moveDir = (targetPosition - unit.transform.position).normalized;
 
-                unit.transform.position = unit.transform.position + moveDir * speed * Time.deltaTime;
+                unit.transform.position = unit.transform.position + moveDir * Speed * Time.deltaTime;
                 if (Vector3.Distance(unit.transform.position, targetPosition) < 0.05f)
                 {
                     unit.transform.position = targetPosition;
@@ -34,10 +34,10 @@ public class MoveAction : BaseAction
             else
             {
                 currentPathIndex++;
-                if (currentPathIndex >= pathVectorList.Count)
+                if (currentPathIndex >= _pathVectorList.Count)
                 {
-                    pathVectorList.Clear();
-                    GameHandler.instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
+                    _pathVectorList.Clear();
+                    GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
                     unit.ActionStatus.Value = Unit.ActionState.Normal;
                     //EndTurnServerRpc();
@@ -59,13 +59,13 @@ public class MoveAction : BaseAction
     {
         currentPathIndex = 0;
 
-        pathVectorList.Clear();
-        pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.TargetPosition.Value);
+        _pathVectorList.Clear();
+        _pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.TargetPosition.Value);
 
-        if (pathVectorList != null && pathVectorList.Count > 1)
+        if (_pathVectorList != null && _pathVectorList.Count > 1)
         {
-            pathVectorList.RemoveAt(0);
-            GameHandler.instance.GetGrid().GetGridObject(unit.transform.position).RemoveUnit();
+            _pathVectorList.RemoveAt(0);
+            GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).RemoveUnit();
             //OnPositionReachedServerRpc();
         }
         else

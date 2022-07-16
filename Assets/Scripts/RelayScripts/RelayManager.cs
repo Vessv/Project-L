@@ -13,21 +13,21 @@ using Unity.Services.Relay;
 
 public class RelayManager : MonoBehaviour
 {
-    public static RelayManager instance { get; private set; }
+    public static RelayManager Instance { get; private set; }
 
     public string joinCodeString;
 
     [SerializeField]
-    private string enviroment = "production";
+    private string _enviroment = "production";
 
     [SerializeField]
-    private int maxConnections = 10;
+    private int _maxConnections = 10;
 
-    string RelayJoinCode;
+    string _relayJoinCode;
 
     private void Start()
     {
-        instance = this;
+        Instance = this;
     }
 
     public bool isRelayEnabled => Transport != null && 
@@ -37,7 +37,7 @@ public class RelayManager : MonoBehaviour
 
     public async Task<RelayHostData> SetupRelay()
     {
-        InitializationOptions options = new InitializationOptions().SetEnvironmentName(enviroment);
+        InitializationOptions options = new InitializationOptions().SetEnvironmentName(_enviroment);
 
         await UnityServices.InitializeAsync(options);
 
@@ -46,7 +46,7 @@ public class RelayManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 
-        Allocation allocation = await Relay.Instance.CreateAllocationAsync(maxConnections);
+        Allocation allocation = await Relay.Instance.CreateAllocationAsync(_maxConnections);
 
         RelayHostData relayHostData = new RelayHostData
         {
@@ -71,7 +71,7 @@ public class RelayManager : MonoBehaviour
 
     public async Task<RelayJoinData> JoinRelay(string joinCode)
     {
-        InitializationOptions options = new InitializationOptions().SetEnvironmentName(enviroment);
+        InitializationOptions options = new InitializationOptions().SetEnvironmentName(_enviroment);
 
         await UnityServices.InitializeAsync(options);
 
