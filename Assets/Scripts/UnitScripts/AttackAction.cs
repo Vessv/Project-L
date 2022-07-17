@@ -6,12 +6,18 @@ public class AttackAction : BaseAction
 {
     public override ActionType GetActionType() => ActionType.Shoot;
 
-    public int Damage;
+    [SerializeField]
+    private int _damage;
 
     public void Attack(Unit enemy)
     {
-        enemy.GetHealthSystem().Damage(1);
+        _damage = unit.GetDamage();
+        enemy.GetHealthSystem().Damage(_damage);
         Debug.Log("Damaged:" + enemy.name);
+        if (enemy.GetHealthSystem().IsDead())
+        {
+            enemy.gameObject.SetActive(false);
+        }
         unit.ActionStatus.Value = Unit.ActionState.Normal;
         unit.IsMyTurn.Value = false;
 

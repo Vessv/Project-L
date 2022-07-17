@@ -524,8 +524,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joinCodeString: 
-  enviroment: production
-  maxConnections: 10
+  _enviroment: production
+  _maxConnections: 10
 --- !u!114 &216694149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,8 +650,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.5416031, y: 0.19859314}
-  m_SizeDelta: {x: -58.3103, y: -57.7434}
+  m_AnchoredPosition: {x: -2.1056976, y: -1.7612}
+  m_SizeDelta: {x: -56.9061, y: -49.2914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &274109319
 MonoBehaviour:
@@ -750,7 +750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -662490185, guid: 1cfd723c87acccb458700dbf08f950e1, type: 3}
+  m_Sprite: {fileID: -1606337359, guid: 1cfd723c87acccb458700dbf08f950e1, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

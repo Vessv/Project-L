@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7509900395220729939}
   - component: {fileID: 6003796720125061600}
   m_Layer: 0
-  m_Name: knight_f_idle_anim_f0
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   SelectedAction:
     m_InternalValue: 0
+  _baseUnit: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
 --- !u!114 &6003796720125061600
 MonoBehaviour:
   m_ObjectHideFlags: 0

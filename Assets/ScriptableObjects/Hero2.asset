@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1750a9870924945b9d8ddbaa26d736, type: 3}
   m_Name: Hero2
   m_EditorClassIdentifier: 
-  unitName: Hero2
-  unitSprite: {fileID: 0}
-  strenght: 0
-  vitality: 2
-  agility: 0
-  faction: 0
-  state: 0
+  UnitName: Demon
+  UnitSprite: {fileID: 0}
+  Strenght: 1
+  Vitality: 1
+  Agility: 1
+  UnitFaction: 1

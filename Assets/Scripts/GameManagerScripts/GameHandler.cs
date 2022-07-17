@@ -14,11 +14,17 @@ public class GameHandler : NetworkBehaviour
     [SerializeField]
     GameObject _playerPrefab;
 
+    [SerializeField]
+    GameObject _enemyPrefab;
+
     //Turn vars
     [SerializeField]
     bool[] _hasBeenRegistered = new bool[5];
     [SerializeField]
     int _currentTurnIndex;
+    [SerializeField]
+    bool hasPlayersCycleBeenDone;
+
 
     [SerializeField]
     MoveAction _moveAction;
@@ -47,8 +53,12 @@ public class GameHandler : NetworkBehaviour
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
         }
 
+        GameObject enemy = Instantiate(_enemyPrefab);
+        enemy.GetComponent<NetworkObject>().Spawn();
+
         currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<Unit>();
         currentUnit.IsMyTurn.Value = true;
+        hasPlayersCycleBeenDone = false;
     }
 
     //Initalize singleton, grids and _currentTurnIndex
@@ -162,11 +172,31 @@ public class GameHandler : NetworkBehaviour
 
     void NextTurn()
     {
-        ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
-        _currentTurnIndex++;
-        if (_currentTurnIndex >= turnIds.Length) _currentTurnIndex = 0;
-        currentUnit = NetworkManager.Singleton.ConnectedClientsList[_currentTurnIndex].PlayerObject.GetComponent<Unit>();
-        Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
+        if (hasPlayersCycleBeenDone)
+        {
+            //Enemy turn
+            //Gets the enemies from a enemy holder does one turn for each enemy ends enemycycle
+            //On cycle done, player cycle goes
+            //add speed stat? would need to put all units on an array and do turns order depending on the speed stat
+            //add actions points and actions consumes certain amounts of them, turns ends when u run out of it or can't do anything more.
+            hasPlayersCycleBeenDone = false;
+        }
+        else
+        {
+
+            ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
+            _currentTurnIndex++;
+
+            if (_currentTurnIndex >= turnIds.Length)
+            {
+                _currentTurnIndex = 0;
+                Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
+                hasPlayersCycleBeenDone = true;
+                return;
+            }
+            Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
+            currentUnit = NetworkManager.Singleton.ConnectedClientsList[_currentTurnIndex].PlayerObject.GetComponent<Unit>();
+        }
 
     }
 

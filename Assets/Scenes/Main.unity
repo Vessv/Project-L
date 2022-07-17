@@ -522,6 +522,10 @@ PrefabInstance:
       value: GameHandler
       objectReference: {fileID: 0}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: _enemyPrefab
+      value: 
+      objectReference: {fileID: 999689300300813914, guid: e03bc969525bc7e4da32549865f415d2, type: 3}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 999689300300813914, guid: 58580564db175284c9096eca078db3c3, type: 3}
