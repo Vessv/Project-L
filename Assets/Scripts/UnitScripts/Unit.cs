@@ -29,13 +29,13 @@ public class Unit : NetworkBehaviour
 
     public int GetDamage()
     {
-        return _baseUnit.Strenght;
+        return _baseUnit.Stats.Strength;
     }
 
     void Awake()
     {
         //Application.targetFrameRate = 60;
-        _healthSystem = new HealthSystem(_baseUnit.Vitality * 10);
+        _healthSystem = new HealthSystem(_baseUnit.Stats.Vitality * 10);
 
     }
 
@@ -56,11 +56,6 @@ public class Unit : NetworkBehaviour
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
         SubmitPositionServerRpc(new Vector3(0.5f, 0.5f));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
 

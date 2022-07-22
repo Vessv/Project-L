@@ -44,6 +44,9 @@ public class GameHandler : NetworkBehaviour
     public Transform[] EnviromentPrefabs;
     public GameObject EnviromentPrefabHolder;
 
+    public GameObject EnemyListHolder;
+
+
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
@@ -54,6 +57,7 @@ public class GameHandler : NetworkBehaviour
         }
 
         GameObject enemy = Instantiate(_enemyPrefab);
+
         enemy.GetComponent<NetworkObject>().Spawn();
 
         currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<Unit>();
