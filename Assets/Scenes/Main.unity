@@ -216,19 +216,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
       propertyPath: m_LocalScale.x
-      value: 17.041885
+      value: 19.1227
       objectReference: {fileID: 0}
     - target: {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
       propertyPath: m_LocalScale.y
-      value: 9.680044
+      value: 12.489193
       objectReference: {fileID: 0}
     - target: {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.12
+      value: 5.13
       objectReference: {fileID: 0}
     - target: {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.16
+      value: 3.24
       objectReference: {fileID: 0}
     - target: {fileID: 5175427678723387002, guid: d090d0a5cd9be8f4aa93b83099246d70, type: 3}
       propertyPath: m_LocalPosition.z
@@ -534,6 +534,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 999689300300813914, guid: 58580564db175284c9096eca078db3c3, type: 3}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: EnemyListHolder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: EnviromentPrefabHolder
       value: 
       objectReference: {fileID: 2112692263}
@@ -608,4 +612,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b383d071b9b467246b9480d7472ab935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies: []
+  EnemyList: []
+--- !u!114 &1108855681154972390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855681154972388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775df2a8ebb68314e9a14ebd1eb2456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasPlayersCycleBeenDone: 0
+  CurrentUnit: {fileID: 0}
+  CurrentTurnIndex: 0

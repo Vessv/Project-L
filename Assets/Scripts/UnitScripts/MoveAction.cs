@@ -72,7 +72,7 @@ public class MoveAction : BaseAction
         {
             //notReachableServerRpc();
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-            Debug.Log("path vector list is lower than 1");
+            Debug.Log("path vector list is lower than 1 or target is occupied");
         }
     }
 }

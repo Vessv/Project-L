@@ -20,10 +20,8 @@ public class GameHandler : NetworkBehaviour
     //Turn vars
     [SerializeField]
     bool[] _hasBeenRegistered = new bool[5];
-    [SerializeField]
-    int _currentTurnIndex;
-    [SerializeField]
-    bool hasPlayersCycleBeenDone;
+
+    bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
 
 
     [SerializeField]
@@ -44,28 +42,30 @@ public class GameHandler : NetworkBehaviour
     public Transform[] EnviromentPrefabs;
     public GameObject EnviromentPrefabHolder;
 
-    public GameObject EnemyListHolder;
+    public List<BaseUnit> EnemyList;
 
+    public TurnHandler TurnHandler;
 
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
-        foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        TurnHandler = GetComponent<TurnHandler>();
+        EnemyList = GetComponent<EnemyHolder>().EnemyList;
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
             GameObject player = Instantiate(_playerPrefab);
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
         }
 
+        //Enemy spawn placeholder change later
         GameObject enemy = Instantiate(_enemyPrefab);
-
         enemy.GetComponent<NetworkObject>().Spawn();
+        EnemyList.Add(enemy.GetComponent<NPCUnit>());
 
-        currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<PlayerUnit>();
-        currentUnit.IsMyTurn.Value = true;
-        hasPlayersCycleBeenDone = false;
+
     }
 
-    //Initalize singleton, grids and _currentTurnIndex
+    //Initalize singleton, grids and TurnHandler.CurrentTurnIndex
     private void Awake()
     {
         Instance = this;
@@ -79,8 +79,6 @@ public class GameHandler : NetworkBehaviour
         _tilemapGrid = new Tilemap(_width, _height, 1f, new Vector3(0, 0));
         _pathfindingGrid = new Pathfinding(_width, _height, 1f, new Vector3(0, 0));
 
-        _currentTurnIndex = 0;
-
     }
 
     void Start()
@@ -89,38 +87,27 @@ public class GameHandler : NetworkBehaviour
         CreateWorld();
         InstantiateWorld();
 
-        //Move to a method
-        NetworkManager.Singleton.OnClientDisconnectCallback += (id) =>
-        {
-            if (!IsServer) return;
-            _currentTurnIndex--;
-            if (_currentTurnIndex < 0) _currentTurnIndex = 0;
-        };
-
     }
 
-    bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
 
-    [SerializeField]
-    BaseUnit currentUnit;
+
 
     // Update is called once per frame
     void Update()
     {
         if (!IsServer || !hasPlayers) return;
 
-        if (!_hasBeenRegistered[_currentTurnIndex])
+        if (!_hasBeenRegistered[TurnHandler.CurrentTurnIndex] && TurnHandler.CurrentUnit.UnitScriptableObject.UnitFaction != UnitSO.Faction.Demon)
         {
-            _hasBeenRegistered[_currentTurnIndex] = true;
-            AddListeners(currentUnit);
+            _hasBeenRegistered[TurnHandler.CurrentTurnIndex] = true;
+            AddListeners(TurnHandler.CurrentUnit);
         }
-        currentUnit.IsMyTurn.Value = true;
 
     }
 
     void AddListeners(BaseUnit unit)
     {
-        unit.IsMyTurn.OnValueChanged += OnTurnEnd;
+        unit.IsMyTurn.OnValueChanged += TurnHandler.OnTurnEnd;
         unit.TargetPosition.OnValueChanged += DoAction;
     }
 
@@ -134,16 +121,9 @@ public class GameHandler : NetworkBehaviour
         return _gameGrid;
     }
 
-    void OnTurnEnd(bool previous, bool current)
-    {
-        if (!current)
-        {
-            currentUnit.SelectedAction.Value = UnitAction.Action.None;
-            NextTurn();
-        }
-    }
 
-    void DoAction(Vector3 previous, Vector3 current)
+
+    public void DoAction(Vector3 previous, Vector3 current)
     {
         bool isOutOfBounds = current.x < 0 || current.y < 0 || current.x >= _width || current.y >= _height;
 
@@ -152,60 +132,30 @@ public class GameHandler : NetworkBehaviour
             Debug.Log("GameHandler.cs error DoAction() out of bounds x,y = " + current.x + "," + current.y);
             return;
         }
-        currentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
-        if (currentUnit.CanMove)
+        TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+        if (TurnHandler.CurrentUnit.CanMove)
         {
-            _moveAction.Setup(currentUnit);
+            _moveAction.Setup(TurnHandler.CurrentUnit);
             _moveAction.Move();
-        } else 
-        if(currentUnit.CanShoot)
+        } 
+        else 
+        if (TurnHandler.CurrentUnit.CanShoot)
         {
             BaseUnit targetUnit = _gameGrid.GetGridObject(current).GetUnit();
-            bool isAValidTarget = targetUnit != null && targetUnit != currentUnit;
+            bool isAValidTarget = targetUnit != null && targetUnit != TurnHandler.CurrentUnit;
             if (!isAValidTarget)
             {
-                currentUnit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+                TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Normal;
                 Debug.Log("GameHandler.cs error DoAction() no valid target at x,y =" + current.x + "," + current.y);
                 return;
             }
-            _attackAction.Setup(currentUnit);
-            _attackAction.Attack(_gameGrid.GetGridObject(currentUnit.TargetPosition.Value).GetUnit());
+            _attackAction.Setup(TurnHandler.CurrentUnit);
+            _attackAction.Attack(_gameGrid.GetGridObject(TurnHandler.CurrentUnit.TargetPosition.Value).GetUnit());
         }
 
     }
 
-    void NextTurn()
-    {
-        if (hasPlayersCycleBeenDone)
-        {
-            //Enemy turn
-            //Gets the enemies from a enemy holder does one turn for each enemy ends enemycycle
-            //On cycle done, player cycle goes
-            //add speed stat? would need to put all units on an array and do turns order depending on the speed stat
-            //add actions points and actions consumes certain amounts of them, turns ends when u run out of it or can't do anything more.
-            hasPlayersCycleBeenDone = false;
 
-            //fix this make good turn cycle
-            currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<PlayerUnit>();
-        }
-        else
-        {
-            //fix this make good turn cycle
-            ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
-            _currentTurnIndex++;
-
-            if (_currentTurnIndex >= turnIds.Length)
-            {
-                _currentTurnIndex = 0;
-                Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
-                hasPlayersCycleBeenDone = true;
-                return;
-            }
-            Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
-            currentUnit = NetworkManager.Singleton.ConnectedClientsList[_currentTurnIndex].PlayerObject.GetComponent<PlayerUnit>();
-        }
-
-    }
 
     public void CreateWorld()
     {

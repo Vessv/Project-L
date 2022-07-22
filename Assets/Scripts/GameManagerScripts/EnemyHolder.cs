@@ -5,9 +5,9 @@ using Unity.Netcode;
 
 public class EnemyHolder : NetworkBehaviour
 {
-    public List<Unit> EnemyList = new();
+    public List<BaseUnit> EnemyList = new();
 
-    public void InstantiateEnemies(Unit enemy)
+    public void InstantiateEnemies(BaseUnit enemy)
     {
         EnemyList.Add(enemy);   
     }
