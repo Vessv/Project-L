@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Hero
   UnitSprite: {fileID: 0}
-  Strenght: 10
-  Vitality: 1
-  Agility: 1
+  Stats:
+    Strength: 1
+    Vitality: 1
+    Speed: 1
+    Endurance: 1
+    Dexterity: 1
+    Stamina: 1
+    Luck: 1
   UnitFaction: 0

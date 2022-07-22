@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Demon
   UnitSprite: {fileID: 0}
-  Strenght: 1
-  Vitality: 1
-  Agility: 1
+  Stats:
+    Strength: 2
+    Vitality: 2
+    Speed: 2
+    Endurance: 2
+    Dexterity: 2
+    Stamina: 2
+    Luck: 2
   UnitFaction: 1

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class Unit : NetworkBehaviour
 {
-
+    /*
     public NetworkVariable<bool> IsMyTurn = new NetworkVariable<bool>();
     public NetworkVariable<ActionState> ActionStatus = new NetworkVariable<ActionState>();
     public NetworkVariable<Vector3> PlayerPosition = new NetworkVariable<Vector3>();
@@ -101,5 +101,5 @@ public class Unit : NetworkBehaviour
     void SubmitPositionServerRpc(Vector3 position)
     {
         PlayerPosition.Value = position;
-    }
+    }*/
 }

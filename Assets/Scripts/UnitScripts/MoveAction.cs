@@ -16,7 +16,7 @@ public class MoveAction : BaseAction
     {
         if (!IsServer) return;
         if (unit == null) return;
-        if (unit.ActionStatus.Value != Unit.ActionState.Busy || unit.SelectedAction.Value != UnitAction.Action.Move) return;
+        if (unit.ActionStatus.Value != BaseUnit.ActionState.Busy || unit.SelectedAction.Value != UnitAction.Action.Move) return;
 
         if (_pathVectorList != null && _pathVectorList.Count > 0)
         {
@@ -39,7 +39,7 @@ public class MoveAction : BaseAction
                     _pathVectorList.Clear();
                     GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
-                    unit.ActionStatus.Value = Unit.ActionState.Normal;
+                    unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
                     //EndTurnServerRpc();
                     unit.IsMyTurn.Value = false;
                     //onPositionReached?.Invoke();
@@ -51,7 +51,7 @@ public class MoveAction : BaseAction
         {
             //notReachable?.Invoke();
             Debug.Log("Not rechable");
-            unit.ActionStatus.Value = Unit.ActionState.Normal;
+            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         }
     }
 
@@ -71,7 +71,7 @@ public class MoveAction : BaseAction
         else
         {
             //notReachableServerRpc();
-            unit.ActionStatus.Value = Unit.ActionState.Normal;
+            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
             Debug.Log("path vector list is lower than 1");
         }
     }

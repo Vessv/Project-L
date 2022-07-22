@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 999689300300813915}
   - component: {fileID: -5998079259980959930}
   - component: {fileID: -960642172482911718}
-  - component: {fileID: 7509900395220729939}
+  - component: {fileID: 2312683789717505627}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -129,7 +129,7 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
---- !u!114 &7509900395220729939
+--- !u!114 &2312683789717505627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,17 +138,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 999689300300813914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0839e047338d2a7459d50fefce03cc67, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bc3f0a505a9f534ea058f709a6df243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsMyTurn:
     m_InternalValue: 0
   ActionStatus:
     m_InternalValue: 0
-  PlayerPosition:
+  UnitPosition:
     m_InternalValue: {x: 0, y: 0, z: 0}
   TargetPosition:
     m_InternalValue: {x: 0, y: 0, z: 0}
   SelectedAction:
     m_InternalValue: 0
-  _baseUnit: {fileID: 11400000, guid: c85ec7f8f23dd05419f809bee66496c3, type: 2}
+  UnitScriptableObject: {fileID: 11400000, guid: c85ec7f8f23dd05419f809bee66496c3, type: 2}
+  Stats:
+    Strength: 0
+    Vitality: 0
+    Speed: 0
+    Endurance: 0
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0

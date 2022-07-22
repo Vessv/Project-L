@@ -60,7 +60,7 @@ public class GameHandler : NetworkBehaviour
 
         enemy.GetComponent<NetworkObject>().Spawn();
 
-        currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<Unit>();
+        currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<PlayerUnit>();
         currentUnit.IsMyTurn.Value = true;
         hasPlayersCycleBeenDone = false;
     }
@@ -102,7 +102,7 @@ public class GameHandler : NetworkBehaviour
     bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
 
     [SerializeField]
-    Unit currentUnit;
+    BaseUnit currentUnit;
 
     // Update is called once per frame
     void Update()
@@ -118,7 +118,7 @@ public class GameHandler : NetworkBehaviour
 
     }
 
-    void AddListeners(Unit unit)
+    void AddListeners(BaseUnit unit)
     {
         unit.IsMyTurn.OnValueChanged += OnTurnEnd;
         unit.TargetPosition.OnValueChanged += DoAction;
@@ -152,7 +152,7 @@ public class GameHandler : NetworkBehaviour
             Debug.Log("GameHandler.cs error DoAction() out of bounds x,y = " + current.x + "," + current.y);
             return;
         }
-        currentUnit.ActionStatus.Value = Unit.ActionState.Busy;
+        currentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
         if (currentUnit.CanMove)
         {
             _moveAction.Setup(currentUnit);
@@ -160,11 +160,11 @@ public class GameHandler : NetworkBehaviour
         } else 
         if(currentUnit.CanShoot)
         {
-            Unit targetUnit = _gameGrid.GetGridObject(current).GetUnit();
+            BaseUnit targetUnit = _gameGrid.GetGridObject(current).GetUnit();
             bool isAValidTarget = targetUnit != null && targetUnit != currentUnit;
             if (!isAValidTarget)
             {
-                currentUnit.ActionStatus.Value = Unit.ActionState.Normal;
+                currentUnit.ActionStatus.Value = BaseUnit.ActionState.Normal;
                 Debug.Log("GameHandler.cs error DoAction() no valid target at x,y =" + current.x + "," + current.y);
                 return;
             }
@@ -184,10 +184,13 @@ public class GameHandler : NetworkBehaviour
             //add speed stat? would need to put all units on an array and do turns order depending on the speed stat
             //add actions points and actions consumes certain amounts of them, turns ends when u run out of it or can't do anything more.
             hasPlayersCycleBeenDone = false;
+
+            //fix this make good turn cycle
+            currentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<PlayerUnit>();
         }
         else
         {
-
+            //fix this make good turn cycle
             ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
             _currentTurnIndex++;
 
@@ -199,7 +202,7 @@ public class GameHandler : NetworkBehaviour
                 return;
             }
             Debug.Log("current turn: " + _currentTurnIndex + " maxTurn: " + turnIds.Length);
-            currentUnit = NetworkManager.Singleton.ConnectedClientsList[_currentTurnIndex].PlayerObject.GetComponent<Unit>();
+            currentUnit = NetworkManager.Singleton.ConnectedClientsList[_currentTurnIndex].PlayerObject.GetComponent<PlayerUnit>();
         }
 
     }
@@ -237,7 +240,7 @@ public class GameHandler : NetworkBehaviour
         private Grid<GridObject> grid;
         private int x;
         private int y;
-        Unit unit;
+        BaseUnit unit;
 
         public GridObject(Grid<GridObject> grid, int x, int y)
         {
@@ -246,13 +249,13 @@ public class GameHandler : NetworkBehaviour
             this.y = y;
         }
 
-        public void SetUnit(Unit unit)
+        public void SetUnit(BaseUnit unit)
         {
             this.unit = unit;
             Instance.GetPathfindingGrid().GetGrid().GetGridObject(x, y).SetWalkable(false);
         }
 
-        public Unit GetUnit()
+        public BaseUnit GetUnit()
         {
             return this.unit;
         }

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -5998079259980959930}
   - component: {fileID: -960642172482911718}
   - component: {fileID: 7217806025028894398}
-  - component: {fileID: 7509900395220729939}
   - component: {fileID: 6003796720125061600}
+  - component: {fileID: -7891121424322934865}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -145,29 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionsUI: {fileID: 93502507361813246}
---- !u!114 &7509900395220729939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999689300300813914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0839e047338d2a7459d50fefce03cc67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsMyTurn:
-    m_InternalValue: 0
-  ActionStatus:
-    m_InternalValue: 0
-  PlayerPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  TargetPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  SelectedAction:
-    m_InternalValue: 0
-  _baseUnit: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
 --- !u!114 &6003796720125061600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +172,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7509900395220729939}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
+      - m_Target: {fileID: -7891121424322934865}
+        m_TargetAssemblyTypeName: PlayerUnit, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 0
         m_Arguments:
@@ -214,6 +191,37 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-7891121424322934865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999689300300813914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6d010324313964f8cdfbb0e34b62ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsMyTurn:
+    m_InternalValue: 0
+  ActionStatus:
+    m_InternalValue: 0
+  UnitPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  TargetPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  SelectedAction:
+    m_InternalValue: 0
+  UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
+  Stats:
+    Strength: 0
+    Vitality: 0
+    Speed: 0
+    Endurance: 0
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0
 --- !u!1001 &7077295077082052609
 PrefabInstance:
   m_ObjectHideFlags: 0

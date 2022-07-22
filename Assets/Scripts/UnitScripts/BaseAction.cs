@@ -15,28 +15,16 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
 
 
     [SerializeField]
-    protected Unit unit;
+    protected BaseUnit unit;
     protected bool isActive;
     protected Action onActionComplete;
 
-    public Unit GetUnit() => unit;
+    public BaseUnit GetUnit() => unit;
 
     public bool IsActive() => isActive;
 
-    public void Setup(Unit unit)
+    public void Setup(BaseUnit unit)
     {
         this.unit = unit;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

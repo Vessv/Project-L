@@ -9,16 +9,13 @@ public class AttackAction : BaseAction
     [SerializeField]
     private int _damage;
 
-    public void Attack(Unit enemy)
+    public void Attack(BaseUnit enemy)
     {
-        _damage = unit.GetDamage();
-        enemy.GetHealthSystem().Damage(_damage);
+        _damage = unit.Stats.Strength;
+        enemy.TakeDamage(_damage);
         Debug.Log("Damaged:" + enemy.name);
-        if (enemy.GetHealthSystem().IsDead())
-        {
-            enemy.gameObject.SetActive(false);
-        }
-        unit.ActionStatus.Value = Unit.ActionState.Normal;
+
+        unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.IsMyTurn.Value = false;
 
     }
