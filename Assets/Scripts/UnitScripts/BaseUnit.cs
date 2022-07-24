@@ -15,6 +15,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public UnitSO UnitScriptableObject;
     public HealthSystem HealthSystem;
     public UnitSO.UnitStats Stats;
+    public int Threat;
 
     public bool CanInteract => IsMyTurn.Value && IsLocalPlayer;
     public bool IsBusy => ActionStatus.Value == ActionState.Busy;

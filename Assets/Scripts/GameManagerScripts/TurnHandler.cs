@@ -17,7 +17,7 @@ public class TurnHandler : NetworkBehaviour
 
     private void Awake()
     {
-
+        if (!IsServer) return;
         hasPlayersCycleBeenDone = false;
         CurrentTurnIndex = 0;
         HandleDisconnected();
@@ -25,6 +25,7 @@ public class TurnHandler : NetworkBehaviour
 
     private void Start()
     {
+        if (!IsServer) return;
         CurrentUnit = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.GetComponent<PlayerUnit>();
         CurrentUnit.IsMyTurn.Value = true;
     }
