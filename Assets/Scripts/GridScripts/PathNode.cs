@@ -37,4 +37,9 @@ public class PathNode
     {
         return x+":"+y;
     }
+
+    public Vector3 GetPosition()
+    {
+        return new Vector3(x, y);
+    }
 }

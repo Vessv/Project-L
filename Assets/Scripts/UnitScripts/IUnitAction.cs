@@ -8,7 +8,6 @@ public interface IUnitAction
     ActionType GetActionType();
     void Setup(BaseUnit unit);
     BaseUnit GetUnit();
-    bool IsActive();
 
 }
 

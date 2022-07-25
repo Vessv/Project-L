@@ -16,12 +16,9 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
 
     [SerializeField]
     protected BaseUnit unit;
-    protected bool isActive;
     protected Action onActionComplete;
 
     public BaseUnit GetUnit() => unit;
-
-    public bool IsActive() => isActive;
 
     public void Setup(BaseUnit unit)
     {

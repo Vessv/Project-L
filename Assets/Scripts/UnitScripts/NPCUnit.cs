@@ -6,6 +6,15 @@ using System.Linq;
 
 public class NPCUnit : BaseUnit
 {
+    PlayerUnit _targetUnit;
+    List<Vector3> _pathVectorList;
+    Vector3 _targetUnitPosition;
+
+    bool IsTargetLeft => transform.position.x > _targetUnit.transform.position.x; 
+    bool IsTargetRight => _targetUnit.transform.position.x > transform.position.x;
+    bool IsTargetUp => _targetUnit.transform.position.y > transform.position.y;
+    bool IsTargetDown => transform.position.y > _targetUnit.transform.position.y;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +36,7 @@ public class NPCUnit : BaseUnit
 
     bool IsMeleeRange(int distance)
     {
-        if(distance >= 1 && 2 >= distance) return true;
+        if(distance >= 0 && 2 >= distance) return true;
         return false;
 
     }
@@ -39,61 +48,61 @@ public class NPCUnit : BaseUnit
 
     }
 
+
     private void Update()
     {
-        if (!IsMyTurn.Value || !IsServer) return;
+        if (!IsMyTurn.Value || !IsServer || IsBusy) return;
 
+        _targetUnit = GetPlayerWithHighestThreat();
 
-        if (Input.GetKeyDown(KeyCode.K))
+        _pathVectorList = new List<Vector3>();
+
+        _targetUnitPosition = _targetUnit.transform.position + GetOffSetVector();
+
+        PathNode targetNode = Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition);
+
+        if (!targetNode.isWalkable)
         {
+            SetWalkableTargetPosition();
+        }
 
-            PlayerUnit targetUnit = GetPlayerWithHighestThreat();
-
-            List<Vector3> pathVectorList = new List<Vector3>();
+        _pathVectorList = Pathfinding.Instance.FindPath(transform.position, _targetUnitPosition);
 
 
-            //Cambiar esto ponerle el node mas cercano al player, se podría hacer comparando la x e y de las dos unidades
-            pathVectorList = Pathfinding.Instance.FindPath(transform.position, targetUnit.transform.position + new Vector3(1f, 0f));
-
-            Debug.Log(pathVectorList);
-            if (pathVectorList != null)
+        if (_pathVectorList != null)
+        {
+            _pathVectorList.RemoveAt(0);
+            switch (_pathVectorList.Count)
             {
-                switch (pathVectorList.Count)
-                {
-                    case 0:
-                        Debug.Log("Error findingpath NPCUnit script, path count = 0");
-                        break;
+                case int d when (IsMeleeRange(d)):
+                    SelectedAction.Value = UnitAction.Action.Shoot;
+                    TargetPosition.Value = _targetUnit.transform.position;
+                    Debug.Log("Melee Attack");
+                    break;
 
-                    case int d when (IsMeleeRange(d)):
-                        SubmitUnitActionServerRpc(UnitAction.Action.Shoot);
-                        TargetPosition.Value = targetUnit.transform.position;
-                        Debug.Log("Melee Attack");
-                        break;
+                case int d when (isRangedRange(d)):
+                    SelectedAction.Value = UnitAction.Action.Shoot;
+                    TargetPosition.Value = _targetUnit.transform.position;
+                    Debug.Log("Ranged Attack");
+                    break;
 
-                    case int d when (isRangedRange(d)):
-                        SubmitUnitActionServerRpc(UnitAction.Action.Shoot);
-                        TargetPosition.Value = targetUnit.transform.position;
-                        Debug.Log("Ranged Attack");
-                        break;
-
-                    default:
-                        SubmitUnitActionServerRpc(UnitAction.Action.Move);
-                        TargetPosition.Value = NetworkManager.Singleton.ConnectedClientsList[0].PlayerObject.transform.position + new Vector3(1f, 0f);
-                        break;
-                }
-
+                default:
+                    SelectedAction.Value = UnitAction.Action.Move;
+                    TargetPosition.Value = _targetUnitPosition;
+                    break;
             }
-            else
-            {
-                Debug.Log("NPC distance between this and target is null");
-            }
+
+        }
+        else
+        {
+            Debug.Log("NPC distance between this and target is null, ending npc turn");
+            IsMyTurn.Value = false;
         }
     }
 
     PlayerUnit GetPlayerWithHighestThreat()
     {
         List<int> playersThreat = new List<int>();
-        playersThreat.Add(0);
         foreach (NetworkClient playerClient in NetworkManager.Singleton.ConnectedClientsList)
         {
             int Threat = playerClient.PlayerObject.GetComponent<PlayerUnit>().Threat;
@@ -103,6 +112,41 @@ public class NPCUnit : BaseUnit
         int maxIndex = playersThreat.IndexOf(maxThreat);
 
         return NetworkManager.Singleton.ConnectedClients[(ulong)maxIndex].PlayerObject.GetComponent<PlayerUnit>();
+    }
+
+    Vector3 GetOffSetVector()
+    {
+        Vector3 offSetVector = Vector3.zero;
+        if (IsTargetLeft) offSetVector = offSetVector + new Vector3(1f, 0f);
+        if (IsTargetRight) offSetVector = offSetVector + new Vector3(-1f, 0f);
+        if (IsTargetUp) offSetVector = offSetVector + new Vector3(0f, -1f);
+        if (IsTargetDown) offSetVector = offSetVector + new Vector3(0f, 1f);
+
+        return offSetVector;
+    }
+
+    void SetWalkableTargetPosition()
+    {
+        List<PathNode> neighbourPathsNodeList = Pathfinding.Instance.GetNeighbourList(Pathfinding.Instance.GetGrid().GetGridObject(_targetUnit.transform.position));
+        List<int> pathsVectorCount = new List<int>();
+
+        foreach (PathNode pathNodePosition in neighbourPathsNodeList)
+        {
+            if (Pathfinding.Instance.FindPath(transform.position, pathNodePosition.GetPosition()) != null)
+                pathsVectorCount.Add(Pathfinding.Instance.FindPath(transform.position, pathNodePosition.GetPosition()).Count);
+        }
+
+        Debug.Log(pathsVectorCount.Count);
+
+        while (!Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition).isWalkable)
+        {
+            int minCount = pathsVectorCount.Min();
+            int minIndex = pathsVectorCount.IndexOf(minCount);
+            pathsVectorCount.Remove(minIndex);
+            _targetUnitPosition = neighbourPathsNodeList[minIndex].GetPosition();
+            Debug.Log("MinCount: " + minCount + " MinIndex: " + minIndex + " TargetUnitPosition: " + neighbourPathsNodeList[minIndex].GetPosition());
+            if (pathsVectorCount.Count < 1) break;
+        }
     }
 
 }

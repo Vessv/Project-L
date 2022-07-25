@@ -55,6 +55,9 @@ public class GameHandler : NetworkBehaviour
         {
             GameObject player = Instantiate(_playerPrefab);
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
+            player.transform.position = player.transform.position + new Vector3(0f,(float)client.ClientId);
+            _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
+
         }
 
         //Enemy spawn placeholder change later
