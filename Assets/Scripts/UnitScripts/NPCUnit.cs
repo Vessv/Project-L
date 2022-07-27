@@ -36,14 +36,14 @@ public class NPCUnit : BaseUnit
 
     bool IsMeleeRange(int distance)
     {
-        if(distance >= 0 && 2 >= distance) return true;
+        if(distance >= 0 && 1 >= distance) return true;
         return false;
 
     }
 
     bool isRangedRange(int distance)
     {
-        if (distance >= 3 && 6 >= distance) return true;
+        if (distance >= 1 && 2 >= distance) return true;
         return false;
 
     }
@@ -77,13 +77,13 @@ public class NPCUnit : BaseUnit
                 case int d when (IsMeleeRange(d)):
                     SelectedAction.Value = UnitAction.Action.Shoot;
                     TargetPosition.Value = _targetUnit.transform.position;
-                    Debug.Log("Melee Attack");
+                    Debug.Log("Melee Attack dirty: " + TargetPosition.IsDirty());
                     break;
 
                 case int d when (isRangedRange(d)):
                     SelectedAction.Value = UnitAction.Action.Shoot;
                     TargetPosition.Value = _targetUnit.transform.position;
-                    Debug.Log("Ranged Attack");
+                    Debug.Log("Ranged Attack dirty: " + TargetPosition.IsDirty());
                     break;
 
                 default:
@@ -136,7 +136,6 @@ public class NPCUnit : BaseUnit
                 pathsVectorCount.Add(Pathfinding.Instance.FindPath(transform.position, pathNodePosition.GetPosition()).Count);
         }
 
-        Debug.Log(pathsVectorCount.Count);
 
         while (!Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition).isWalkable)
         {
@@ -144,7 +143,6 @@ public class NPCUnit : BaseUnit
             int minIndex = pathsVectorCount.IndexOf(minCount);
             pathsVectorCount.Remove(minIndex);
             _targetUnitPosition = neighbourPathsNodeList[minIndex].GetPosition();
-            Debug.Log("MinCount: " + minCount + " MinIndex: " + minIndex + " TargetUnitPosition: " + neighbourPathsNodeList[minIndex].GetPosition());
             if (pathsVectorCount.Count < 1) break;
         }
     }

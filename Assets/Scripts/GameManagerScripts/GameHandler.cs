@@ -66,6 +66,7 @@ public class GameHandler : NetworkBehaviour
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
 
 
+
     }
 
     //Initalize singleton, grids and TurnHandler.CurrentTurnIndex
