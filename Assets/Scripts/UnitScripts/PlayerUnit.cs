@@ -11,8 +11,6 @@ public class PlayerUnit : BaseUnit
     {
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
-        SubmitPositionServerRpc(new Vector3(0.5f, 0.5f) + new Vector3(0f, (float)NetworkManager.Singleton.LocalClientId));
-
     }
 
     public void Click(InputAction.CallbackContext context)
@@ -21,7 +19,46 @@ public class PlayerUnit : BaseUnit
 
         if (CanPlay)
         {
-            SubmitTargetPositionServerRpc(Utils.GetMouseWorldPosition());
+            Vector3 mousePosition = GetDifferentTargetPosition();
+
+            SubmitTargetPositionServerRpc(mousePosition);
+            if(SelectedAction.Value == UnitAction.Action.Shoot)
+            {
+                AudioManager.Instance.Play("Swing");
+            }
         }
     }
+
+    //This function was made in case of trying to submit the same targetposition, i.e if the target hasn't moved.
+    Vector3 GetDifferentTargetPosition()
+    {
+        DifferentPositionFlag = !DifferentPositionFlag;
+        float yOffset = DifferentPositionFlag ? 0.001f : 0.002f;
+
+        Vector3 mousePosition = Utils.GetMouseWorldPosition();
+        if (mousePosition == TargetPosition.Value)
+        {
+            mousePosition = TargetPosition.Value + new Vector3(0, yOffset, 0);
+        }
+        return mousePosition;
+    }
+
+    [ServerRpc]
+    public void SubmitUnitActionServerRpc(UnitAction.Action action)
+    {
+        SelectedAction.Value = action;
+    }
+
+    [ServerRpc]
+    public void SubmitTargetPositionServerRpc(Vector3 targetPosition)
+    {
+        TargetPosition.Value = targetPosition;
+    }
+
+    [ServerRpc]
+    public void SubmitActionStateServerRpc(ActionState state)
+    {
+        ActionStatus.Value = state;
+    }
+
 }

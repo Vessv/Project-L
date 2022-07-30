@@ -88,8 +88,8 @@ public class GameHandler : NetworkBehaviour
     void Start()
     {
 
-        CreateWorld();
-        InstantiateWorld();
+        //CreateWorld();
+        //InstantiateWorld();
 
     }
 
@@ -125,15 +125,13 @@ public class GameHandler : NetworkBehaviour
         return _gameGrid;
     }
 
-
-
-    public void DoAction(Vector3 previous, Vector3 current)
+    public void DoAction(Vector3 previous, Vector3 targetPoisition)
     {
-        bool isOutOfBounds = current.x < 0 || current.y < 0 || current.x >= _width || current.y >= _height;
+        bool isOutOfBounds = targetPoisition.x < 0 || targetPoisition.y < 0 || targetPoisition.x >= _width || targetPoisition.y >= _height;
 
         if (isOutOfBounds)
         {
-            Debug.Log("GameHandler.cs error DoAction() out of bounds x,y = " + current.x + "," + current.y);
+            Debug.Log("GameHandler.cs error DoAction() out of bounds x,y = " + targetPoisition.x + "," + targetPoisition.y);
             return;
         }
         TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
@@ -145,16 +143,8 @@ public class GameHandler : NetworkBehaviour
         else 
         if (TurnHandler.CurrentUnit.CanShoot)
         {
-            BaseUnit targetUnit = _gameGrid.GetGridObject(current).GetUnit();
-            bool isAValidTarget = targetUnit != null && targetUnit != TurnHandler.CurrentUnit;
-            if (!isAValidTarget)
-            {
-                TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-                Debug.Log("GameHandler.cs error DoAction() no valid target at x,y =" + current.x + "," + current.y);
-                return;
-            }
             _attackAction.Setup(TurnHandler.CurrentUnit);
-            _attackAction.Attack(_gameGrid.GetGridObject(TurnHandler.CurrentUnit.TargetPosition.Value).GetUnit());
+            _attackAction.Attack();
         }
 
     }

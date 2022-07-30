@@ -64,15 +64,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 0}
+  _enemyPrefab: {fileID: 0}
   _hasBeenRegistered: 0000000000
-  _currentTurnIndex: 0
   _moveAction: {fileID: 0}
   _attackAction: {fileID: 0}
-  _width: 18
-  _height: 10
+  _width: 12
+  _height: 9
   EnviromentPrefabs: []
   EnviromentPrefabHolder: {fileID: 0}
-  currentUnit: {fileID: 0}
+  EnemyList: []
+  TurnHandler: {fileID: 0}
 --- !u!114 &1108855679348828795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,4 +101,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
-  Damage: 1
+  _damage: 0

@@ -7,7 +7,6 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 {
     public NetworkVariable<bool> IsMyTurn = new NetworkVariable<bool>();
     public NetworkVariable<ActionState> ActionStatus = new NetworkVariable<ActionState>();
-    public NetworkVariable<Vector3> UnitPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<Vector3> TargetPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<UnitAction.Action> SelectedAction = new NetworkVariable<UnitAction.Action>();
 
@@ -22,6 +21,8 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public bool CanPlay => !IsBusy && SelectedAction.Value != UnitAction.Action.None;
     public bool CanMove => SelectedAction.Value == UnitAction.Action.Move;
     public bool CanShoot => SelectedAction.Value == UnitAction.Action.Shoot;
+
+    public bool DifferentPositionFlag;
 
     private void Awake()
     {
@@ -41,36 +42,14 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         HealthSystem.Damage(damage);
 
         if (HealthSystem.IsDead()) Die();
+
+        AudioManager.Instance.Play("HumanPain");
     }
 
     public void Die()
     {
         //Die
         Debug.Log(this + " Died");
-    }
-
-
-    [ServerRpc]
-    public void SubmitUnitActionServerRpc(UnitAction.Action action)
-    {
-        SelectedAction.Value = action;
-    }
-
-    [ServerRpc]
-    public void SubmitTargetPositionServerRpc(Vector3 targetPosition)
-    {
-        TargetPosition.Value = targetPosition;
-    }
-
-    [ServerRpc]
-    public void SubmitActionStateServerRpc(ActionState state)
-    {
-        ActionStatus.Value = state;
-    }
-    [ServerRpc]
-    public void SubmitPositionServerRpc(Vector3 position)
-    {
-        UnitPosition.Value = position;
     }
 
     public enum ActionState

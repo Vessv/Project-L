@@ -24,11 +24,9 @@ public class NPCUnit : BaseUnit
         if (UnitScriptableObject.UnitFaction == UnitSO.Faction.Demon)
         {
             Debug.Log("Spawneado enemigo");
-            SubmitPositionServerRpc(new Vector3(2.5f, 2.5f));
             transform.position = new Vector3(2.5f, 2.5f);
             GameHandler.Instance.GetGrid().GetGridObject(new Vector3(2.5f, 2.5f)).SetUnit(this);
             IsMyTurn.OnValueChanged += GameHandler.Instance.TurnHandler.OnTurnEnd;
-            TargetPosition.OnValueChanged += GameHandler.Instance.DoAction;
 
             return;
         }
@@ -77,13 +75,13 @@ public class NPCUnit : BaseUnit
                 case int d when (IsMeleeRange(d)):
                     SelectedAction.Value = UnitAction.Action.Shoot;
                     TargetPosition.Value = _targetUnit.transform.position;
-                    Debug.Log("Melee Attack dirty: " + TargetPosition.IsDirty());
+                    Debug.Log("Melee Attack");
                     break;
 
                 case int d when (isRangedRange(d)):
                     SelectedAction.Value = UnitAction.Action.Shoot;
                     TargetPosition.Value = _targetUnit.transform.position;
-                    Debug.Log("Ranged Attack dirty: " + TargetPosition.IsDirty());
+                    Debug.Log("Ranged Attack");
                     break;
 
                 default:
@@ -91,7 +89,7 @@ public class NPCUnit : BaseUnit
                     TargetPosition.Value = _targetUnitPosition;
                     break;
             }
-
+            GameHandler.Instance.DoAction(Vector3.zero,TargetPosition.Value);
         }
         else
         {
@@ -127,6 +125,8 @@ public class NPCUnit : BaseUnit
 
     void SetWalkableTargetPosition()
     {
+        int whileCount = 0;
+
         List<PathNode> neighbourPathsNodeList = Pathfinding.Instance.GetNeighbourList(Pathfinding.Instance.GetGrid().GetGridObject(_targetUnit.transform.position));
         List<int> pathsVectorCount = new List<int>();
 
@@ -139,11 +139,16 @@ public class NPCUnit : BaseUnit
 
         while (!Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition).isWalkable)
         {
+            whileCount++;
             int minCount = pathsVectorCount.Min();
             int minIndex = pathsVectorCount.IndexOf(minCount);
             pathsVectorCount.Remove(minIndex);
             _targetUnitPosition = neighbourPathsNodeList[minIndex].GetPosition();
-            if (pathsVectorCount.Count < 1) break;
+            if (pathsVectorCount.Count < 1 || whileCount > 10)
+            {
+                Debug.Log("Whilecount break");
+                break;
+            }
         }
     }
 
