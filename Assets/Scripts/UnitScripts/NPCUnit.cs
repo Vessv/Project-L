@@ -26,8 +26,8 @@ public class NPCUnit : BaseUnit
             Debug.Log("Spawneado enemigo");
             transform.position = new Vector3(2.5f, 2.5f);
             GameHandler.Instance.GetGrid().GetGridObject(new Vector3(2.5f, 2.5f)).SetUnit(this);
-            IsMyTurn.OnValueChanged += GameHandler.Instance.TurnHandler.OnTurnEnd;
-
+            IsMyTurn.OnValueChanged += GameHandler.Instance.TurnHandler.OnIsMyTurnValueChanged;
+            ActionPoints.OnValueChanged += GameHandler.Instance.TurnHandler.OnUnitActionPointsChanged;
             return;
         }
     }

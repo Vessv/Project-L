@@ -10,6 +10,9 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public NetworkVariable<Vector3> TargetPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<UnitAction.Action> SelectedAction = new NetworkVariable<UnitAction.Action>();
 
+    public NetworkVariable<int> ActionPoints;
+
+
     //Unit Stats
     public UnitSO UnitScriptableObject;
     public HealthSystem HealthSystem;
@@ -28,6 +31,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     {
         LoadUnitStats();
         HealthSystem = new HealthSystem(Stats.Vitality * 10);
+        ActionPoints.Value = 1;
     }
 
     public void LoadUnitStats()
@@ -43,7 +47,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
         if (HealthSystem.IsDead()) Die();
 
-        AudioManager.Instance.Play("HumanPain");
+        //AudioManager.Instance.Play("HumanPain");
     }
 
     public void Die()

@@ -30,12 +30,13 @@ public class AttackAction : BaseAction
         }
 
         _damage = unit.Stats.Strength;
-        AudioManager.Instance.Play("Hit");
+        //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamage(_damage);
         Debug.Log("Damaged:" + targetUnit.name + "for: " + _damage);
 
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-        unit.IsMyTurn.Value = false;
+        UseActionPoints();
+        //unit.IsMyTurn.Value = false;
 
     }
 }

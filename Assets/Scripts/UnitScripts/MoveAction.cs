@@ -40,8 +40,12 @@ public class MoveAction : BaseAction
                     GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
                     unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+
                     //EndTurnServerRpc();
-                    unit.IsMyTurn.Value = false;
+
+                    UseActionPoints();
+                    //unit.IsMyTurn.Value = false;
+                    
                     //onPositionReached?.Invoke();
                 }
             }

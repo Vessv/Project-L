@@ -20,6 +20,6 @@ MonoBehaviour:
     Speed: 1
     Endurance: 1
     Dexterity: 1
-    Stamina: 1
+    Stamina: 2
     Luck: 1
   UnitFaction: 0

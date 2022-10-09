@@ -18,10 +18,24 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
     protected BaseUnit unit;
     protected Action onActionComplete;
 
+    [SerializeField]
+    int actionPointsCost = 1;
+    bool CanDoAction => unit.ActionPoints.Value >= actionPointsCost;
+
     public BaseUnit GetUnit() => unit;
 
     public void Setup(BaseUnit unit)
     {
         this.unit = unit;
+    }
+
+    public bool UseActionPoints()
+    {
+        if(CanDoAction)
+        {
+            unit.ActionPoints.Value -= actionPointsCost;
+            return true;
+        }
+        return false;
     }
 }

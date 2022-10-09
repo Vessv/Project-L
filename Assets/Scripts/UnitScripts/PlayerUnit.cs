@@ -22,10 +22,6 @@ public class PlayerUnit : BaseUnit
             Vector3 mousePosition = GetDifferentTargetPosition();
 
             SubmitTargetPositionServerRpc(mousePosition);
-            if(SelectedAction.Value == UnitAction.Action.Shoot)
-            {
-                AudioManager.Instance.Play("Swing");
-            }
         }
     }
 

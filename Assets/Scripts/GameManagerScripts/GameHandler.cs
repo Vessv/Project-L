@@ -111,8 +111,9 @@ public class GameHandler : NetworkBehaviour
 
     void AddListeners(BaseUnit unit)
     {
-        unit.IsMyTurn.OnValueChanged += TurnHandler.OnTurnEnd;
+        unit.IsMyTurn.OnValueChanged += TurnHandler.OnIsMyTurnValueChanged;
         unit.TargetPosition.OnValueChanged += DoAction;
+        unit.ActionPoints.OnValueChanged += TurnHandler.OnUnitActionPointsChanged;
     }
 
     public Pathfinding GetPathfindingGrid()

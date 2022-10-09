@@ -68,6 +68,7 @@ public class TurnHandler : NetworkBehaviour
         }
         else
         {
+            //Player turn
             ulong[] turnIds = NetworkManager.Singleton.ConnectedClients.Keys.ToArray();
             CurrentTurnIndex++;
             if(CurrentTurnIndex >= turnIds.Length)
@@ -86,12 +87,29 @@ public class TurnHandler : NetworkBehaviour
 
     }
 
-    public void OnTurnEnd(bool previous, bool current)
+    public void OnUnitActionPointsChanged(int previous, int currentValue)
     {
-        if (!current)
+        if (currentValue == 0) CurrentUnit.IsMyTurn.Value = false;
+    }
+
+    public void OnIsMyTurnValueChanged(bool previous, bool currentValue)
+    {
+        if (currentValue)
         {
-            CurrentUnit.SelectedAction.Value = UnitAction.Action.None;
-            NextTurn();
+            OnTurnStart();
+            return;
         }
+        OnTurnEnd();
+    }
+
+    void OnTurnStart()
+    {
+        CurrentUnit.ActionPoints.Value += CurrentUnit.Stats.Stamina;
+    }
+
+    void OnTurnEnd()
+    {
+        CurrentUnit.SelectedAction.Value = UnitAction.Action.None;
+        NextTurn();
     }
 }
