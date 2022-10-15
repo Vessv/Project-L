@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using UnityEngine.EventSystems;
 
 
-public class PlayerUnit : BaseUnit
+public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField]
+    bool isPointerOverUI = false;
+
     private void Start()
     {
         if (!IsLocalPlayer) return;
@@ -17,7 +21,7 @@ public class PlayerUnit : BaseUnit
     {
         if (!CanInteract || !context.performed) return;
 
-        if (CanPlay)
+        if (CanPlay && !isPointerOverUI)
         {
             Vector3 mousePosition = GetDifferentTargetPosition();
 
@@ -39,6 +43,8 @@ public class PlayerUnit : BaseUnit
         return mousePosition;
     }
 
+    
+
     [ServerRpc]
     public void SubmitUnitActionServerRpc(UnitAction.Action action)
     {
@@ -57,4 +63,13 @@ public class PlayerUnit : BaseUnit
         ActionStatus.Value = state;
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerOverUI = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerOverUI = false;
+    }
 }

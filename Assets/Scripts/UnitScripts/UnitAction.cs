@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
+using System;
 
 public class UnitAction : NetworkBehaviour
 {
     public GameObject ActionsUI;
     PlayerUnit _unit;
     // Start is called before the first frame update
+    //TODO: hacerlo más readeable, probablemente cambiar todo este sistema
     void Start()
     {
         if (!IsLocalPlayer) return;
         _unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>();
         ActionsUI.SetActive(true);
-        ActionsUI.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction);
-        ActionsUI.transform.GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(SetSelectedAction2);
+        for(int i = 0; i < ActionsUI.transform.childCount; i++)
+        {
+            int capturedIndex = i;
+            ActionsUI.transform.GetChild(i).gameObject.GetComponent<Button>().onClick.AddListener(delegate { SetSelectedAction(capturedIndex + 1); });
+        }
     }
 
-    public void SetSelectedAction()
+    public void SetSelectedAction(int index)
     {
-        _unit.SubmitUnitActionServerRpc(Action.Move);
-    }
-    public void SetSelectedAction2()
-    {
-        _unit.SubmitUnitActionServerRpc(Action.Shoot);
+        if(!_unit.IsBusy) _unit.SubmitUnitActionServerRpc((Action)index);
     }
 
     public enum Action
