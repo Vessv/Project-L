@@ -2315,6 +2315,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 999689300300813914, guid: 58580564db175284c9096eca078db3c3, type: 3}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: ActionUIHolder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: EnemyListHolder
       value: 
       objectReference: {fileID: 0}
@@ -2332,15 +2336,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1108855679348828789, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5808525
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1108855679348828789, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8012377
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1108855679348828789, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.27774897
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1108855679348828789, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: m_LocalRotation.w

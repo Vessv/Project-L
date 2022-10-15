@@ -42,6 +42,8 @@ public class GameHandler : NetworkBehaviour
     public Transform[] EnviromentPrefabs;
     public GameObject EnviromentPrefabHolder;
 
+    public GameObject ActionUIHolder;
+
     public List<BaseUnit> EnemyList;
 
     public TurnHandler TurnHandler;
