@@ -20,6 +20,90 @@ public class Pathfinding
         grid = new Grid<PathNode>(width, height, cellSize, originPosition, (Grid<PathNode> g, int x, int y) => new PathNode(g,x,y));
     }
 
+    public List<Vector3> FindPathToNotWalkable(Vector3 startWorldPoint, Vector3 endWorldPosition)
+    {
+        grid.GetXY(startWorldPoint, out int startX, out int startY);
+        grid.GetXY(endWorldPosition, out int endX, out int endY);
+
+        List<PathNode> path = FindPathToNotWalkable(startX, startY, endX, endY);
+        if (path == null)
+        {
+            return null;
+        }
+        else
+        {
+            List<Vector3> vectorPath = new List<Vector3>();
+            foreach (PathNode pathNode in path)
+            {
+                vectorPath.Add(new Vector3((float)pathNode.x, (float)pathNode.y) + Vector3.one * grid.GetCellSize() * 0.5f);
+            }
+            return vectorPath;
+        }
+    }
+
+    public List<PathNode> FindPathToNotWalkable(int startX, int startY, int endX, int endY)
+    {
+        PathNode startNode = grid.GetGridObject(startX, startY);
+        PathNode endNode = grid.GetGridObject(endX, endY);
+
+        openList = new List<PathNode> { startNode };
+        closedList = new HashSet<PathNode>();
+
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                PathNode pathNode = grid.GetGridObject(x, y);
+                pathNode.gCost = int.MaxValue;
+                pathNode.CalculateFCost();
+                pathNode.cameFromNode = null;
+
+            }
+        }
+
+        startNode.gCost = 0;
+        startNode.hCost = CalculateDistance(startNode, endNode);
+        startNode.CalculateFCost();
+
+        while (openList.Count > 0)
+        {
+            PathNode currentNode = GetLowestFCostNode(openList);
+            if (currentNode == endNode)
+            {
+                //reached goal
+                return CalculatePath(endNode);
+            }
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
+
+            foreach (PathNode neighbourNode in GetNeighbourList(currentNode))
+            {
+                if (closedList.Contains(neighbourNode)) continue;
+                if (neighbourNode.isObstacle)
+                {
+                    closedList.Add(neighbourNode);
+                    continue;
+                }
+
+                int tentativeGCost = currentNode.gCost + CalculateDistance(currentNode, neighbourNode);
+                if (tentativeGCost < neighbourNode.gCost)
+                {
+                    neighbourNode.cameFromNode = currentNode;
+                    neighbourNode.gCost = tentativeGCost;
+                    neighbourNode.hCost = CalculateDistance(neighbourNode, endNode);
+                    neighbourNode.CalculateFCost();
+
+                    if (!openList.Contains(neighbourNode))
+                    {
+                        openList.Add(neighbourNode);
+                    }
+                }
+            }
+        }
+        //out of nodes
+        return null;
+    }
+
     public List<Vector3> FindPath(Vector3 startWorldPoint, Vector3 endWorldPosition)
     {
         grid.GetXY(startWorldPoint, out int startX, out int startY);

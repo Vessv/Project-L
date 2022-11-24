@@ -34,10 +34,10 @@ public class MoveAction : BaseAction
             else
             {
                 currentPathIndex++;
-                if (currentPathIndex >= _pathVectorList.Count)
+                if (currentPathIndex >= _pathVectorList.Count || currentPathIndex >= unit.Stats.Speed + 1)
                 {
                     _pathVectorList.Clear();
-                    GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).SetUnit(unit);
+                    GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
                     unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
 
@@ -61,6 +61,7 @@ public class MoveAction : BaseAction
 
     public void Move()
     {
+        Debug.Log("Used move action: " + unit.name);
         currentPathIndex = 0;
 
         _pathVectorList.Clear();
@@ -76,7 +77,7 @@ public class MoveAction : BaseAction
         {
             //notReachableServerRpc();
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-            Debug.Log("path vector list is lower than 1 or target is occupied: " + _pathVectorList.Count);
+            Debug.Log("path vector list is lower than 1 or target is occupied or path is longer than var: " + _pathVectorList.Count);
         }
     }
 }

@@ -13,6 +13,7 @@ public class PathNode
     public int fCost;
 
     public bool isWalkable;
+    public bool isObstacle;
     public PathNode cameFromNode;
 
     public PathNode(Grid<PathNode> grid, int x, int y)
@@ -21,6 +22,7 @@ public class PathNode
         this.x = x;
         this.y = y;
         isWalkable = true;
+        isObstacle = false;
     }
 
     public void CalculateFCost()
@@ -31,6 +33,11 @@ public class PathNode
     public void SetWalkable(bool isWalkable)
     {
         this.isWalkable = isWalkable;
+    }
+
+    public void SetObstacle(bool isObstacle)
+    {
+        this.isObstacle = isObstacle;
     }
 
     public override string ToString()

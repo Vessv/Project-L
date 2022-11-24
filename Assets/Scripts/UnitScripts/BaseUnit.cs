@@ -32,7 +32,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     {
         LoadUnitStats();
         HealthSystem = new HealthSystem(Stats.Vitality * 10);
-        ActionPoints.Value = 1;
+        ActionPoints.Value = 2;
     }
 
     public void LoadUnitStats()
