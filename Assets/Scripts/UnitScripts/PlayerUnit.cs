@@ -11,10 +11,12 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     bool isPointerOverUI = false;
 
+    public GameObject ActionCanvas;
     private void Start()
     {
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
+        ActionCanvas.SetActive(true);
     }
 
     public void Click(InputAction.CallbackContext context)

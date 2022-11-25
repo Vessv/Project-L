@@ -50,7 +50,7 @@ public class NPCUnit : BaseUnit
     private void Update()
     {
         if (!IsMyTurn.Value || !IsServer || IsBusy) return;
-
+        Debug.Log("doing ai cosas");
         _targetUnit = GetPlayerWithHighestThreat();
 
         _pathVectorList = new List<Vector3>();

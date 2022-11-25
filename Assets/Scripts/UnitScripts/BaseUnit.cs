@@ -53,7 +53,8 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
     public void Die()
     {
-        //Die
+        //Die remove unit form turn handler, remove unit from grid
+        this.gameObject.SetActive(false);
         Debug.Log(this + " Died");
     }
 

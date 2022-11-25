@@ -226,6 +226,7 @@ MonoBehaviour:
   Threat: 0
   DifferentPositionFlag: 0
   isPointerOverUI: 0
+  ActionCanvas: {fileID: 93502505993219593}
 --- !u!1001 &7077295077082052609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -323,6 +324,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
+--- !u!1 &93502505993219593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7168510597813573128, guid: 887a6bad576c0744f94c919c2096c915, type: 3}
+  m_PrefabInstance: {fileID: 7077295077082052609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &93502505993219597 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7168510597813573132, guid: 887a6bad576c0744f94c919c2096c915, type: 3}

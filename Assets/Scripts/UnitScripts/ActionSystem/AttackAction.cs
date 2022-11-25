@@ -38,7 +38,7 @@ public class AttackAction : BaseAction
         if (!isAValidTarget)
         {
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-            Debug.Log("AttackAction.cs error at Attack() no valid target at x,y =" + targetUnit.transform.position.x + "," + targetUnit.transform.position.y);
+            Debug.Log("AttackAction.cs error at Attack() no valid target at x,y =" + unit.TargetPosition.Value.x + "," + unit.TargetPosition.Value.y);
             return;
         }
 

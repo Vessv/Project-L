@@ -15,7 +15,7 @@ MonoBehaviour:
   UnitName: Hero
   UnitSprite: {fileID: 0}
   Stats:
-    Strength: 1
+    Strength: 10
     Vitality: 1
     Speed: 5
     Endurance: 1
