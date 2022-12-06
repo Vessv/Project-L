@@ -80,4 +80,31 @@ public class MoveAction : BaseAction
             Debug.Log("path vector list is lower than 1 or target is occupied or path is longer than var: " + _pathVectorList.Count);
         }
     }
+
+    public void ShowMoveTiles()
+    {
+        int maxMoveDistance = unit.Stats.Speed + 1;
+        for(int x = (int)(unit.transform.position.x-0.5f - maxMoveDistance); x <= (int)(unit.transform.position.x - 0.5f + maxMoveDistance); x++)
+        {
+            for (int y = (int)(unit.transform.position.y - 0.5f - maxMoveDistance); y <= (int)(unit.transform.position.y - 0.5f + maxMoveDistance); y++)
+            {
+                if(x >= 0 && y >= 0)
+                {
+                    if (Pathfinding.Instance.GetGrid().GetGridObject(x, y).isWalkable && !Pathfinding.Instance.GetGrid().GetGridObject(x, y).isObstacle)
+                    {
+                        GameHandler.Instance.GetMapVisualArray()[x, y].gameObject.SetActive(true);
+
+                        SpriteRenderer renderer = GameHandler.Instance.GetMapVisualArray()[x, y].gameObject.GetComponent<SpriteRenderer>();
+
+                        // Set the sprite color
+                        renderer.color = Color.red;
+
+
+
+                    }
+                }
+                
+            }
+        }
+    }
 }

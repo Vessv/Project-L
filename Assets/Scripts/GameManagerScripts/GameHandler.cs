@@ -33,11 +33,12 @@ public class GameHandler : NetworkBehaviour
     private Grid<GridObject> _gameGrid;
     private Pathfinding _pathfindingGrid;
     private Tilemap _tilemapGrid;
+    private Transform[,] _mapVisualArray;
     [SerializeField]
     private int _width;
     [SerializeField]
     private int _height;
-
+    
     //Map holders to instantiate when needed
     public Transform[] EnviromentPrefabs;
     public GameObject EnviromentPrefabHolder;
@@ -47,6 +48,11 @@ public class GameHandler : NetworkBehaviour
     public List<BaseUnit> EnemyList;
 
     public TurnHandler TurnHandler;
+
+    public Vector2 GetWidthAndHeight()
+    {
+        return new Vector2(_width, _height);
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -66,6 +72,13 @@ public class GameHandler : NetworkBehaviour
         GameObject enemy = Instantiate(_enemyPrefab);
         enemy.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = new Vector3(10.5f, 10.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 10.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        GameObject enemy2 = Instantiate(_enemyPrefab);
+        enemy2.GetComponent<NetworkObject>().Spawn();
+        EnemyList.Add(enemy2.GetComponent<NPCUnit>());
+        enemy2.transform.position = new Vector3(12.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(12.5f, 12.5f)).SetUnit(enemy2.GetComponent<NPCUnit>());
 
 
 
@@ -84,7 +97,6 @@ public class GameHandler : NetworkBehaviour
         _gameGrid = new Grid<GridObject>(_width, _height, 1f, new Vector3(0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(_gameGrid, x, y));
         _tilemapGrid = new Tilemap(_width, _height, 1f, new Vector3(0, 0));
         _pathfindingGrid = new Pathfinding(_width, _height, 1f, new Vector3(0, 0));
-
     }
 
     void Start()
@@ -92,10 +104,8 @@ public class GameHandler : NetworkBehaviour
 
         //CreateWorld();
         //InstantiateWorld();
-
+      
     }
-
-
 
 
     // Update is called once per frame
@@ -111,12 +121,20 @@ public class GameHandler : NetworkBehaviour
 
     }
 
+    public void InitializeMapVisualArray()
+    {
+        _mapVisualArray = GetComponent<MapVisual>().GridVisualArray;
+    }
+
     void AddListeners(BaseUnit unit)
     {
         unit.IsMyTurn.OnValueChanged += TurnHandler.OnIsMyTurnValueChanged;
         unit.TargetPosition.OnValueChanged += DoAction;
         unit.ActionPoints.OnValueChanged += TurnHandler.OnUnitActionPointsChanged;
+        unit.SelectedAction.OnValueChanged += ShowVisualMap;
     }
+
+    
 
     public Pathfinding GetPathfindingGrid()
     {
@@ -126,6 +144,23 @@ public class GameHandler : NetworkBehaviour
     public Grid<GridObject> GetGrid()
     {
         return _gameGrid;
+    }
+
+    public Transform[,] GetMapVisualArray()
+    {
+        return _mapVisualArray;
+    }
+
+    private void ShowVisualMap(UnitAction.Action previousValue, UnitAction.Action newValue)
+    {
+        this.GetComponent<MapVisual>().HideAll();    
+        switch (newValue)
+        {
+            case UnitAction.Action.Move:
+                _moveAction.Setup(TurnHandler.CurrentUnit);
+                _moveAction.ShowMoveTiles();
+                break;
+        }
     }
 
     public void DoAction(Vector3 previous, Vector3 targetPoisition)
