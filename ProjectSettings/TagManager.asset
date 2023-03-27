@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - ActionsUI
+  - Test
+  - MapVisualHolder
   layers:
   - Default
   - TransparentFX

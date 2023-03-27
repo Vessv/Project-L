@@ -45,8 +45,9 @@ public class MoveAction : BaseAction
 
                     UseActionPoints();
                     //unit.IsMyTurn.Value = false;
-                    
+
                     //onPositionReached?.Invoke();
+                    unit.SelectedAction.Value = UnitAction.Action.None;
                 }
             }
 
@@ -84,7 +85,7 @@ public class MoveAction : BaseAction
     public void ShowMoveTiles()
     {
         int maxMoveDistance = unit.Stats.Speed + 1;
-        for(int x = (int)(unit.transform.position.x-0.5f - maxMoveDistance); x <= (int)(unit.transform.position.x - 0.5f + maxMoveDistance); x++)
+        for (int x = (int)(unit.transform.position.x-0.5f - maxMoveDistance); x <= (int)(unit.transform.position.x - 0.5f + maxMoveDistance); x++)
         {
             for (int y = (int)(unit.transform.position.y - 0.5f - maxMoveDistance); y <= (int)(unit.transform.position.y - 0.5f + maxMoveDistance); y++)
             {
@@ -92,15 +93,8 @@ public class MoveAction : BaseAction
                 {
                     if (Pathfinding.Instance.GetGrid().GetGridObject(x, y).isWalkable && !Pathfinding.Instance.GetGrid().GetGridObject(x, y).isObstacle)
                     {
-                        GameHandler.Instance.GetMapVisualArray()[x, y].gameObject.SetActive(true);
-
-                        SpriteRenderer renderer = GameHandler.Instance.GetMapVisualArray()[x, y].gameObject.GetComponent<SpriteRenderer>();
-
-                        // Set the sprite color
-                        renderer.color = Color.red;
-
-
-
+                        PlayerUnit currentPlayer = (PlayerUnit)unit;
+                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y);
                     }
                 }
                 

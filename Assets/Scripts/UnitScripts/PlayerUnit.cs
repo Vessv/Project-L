@@ -12,6 +12,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     bool isPointerOverUI = false;
 
     public GameObject ActionCanvas;
+    public GameObject MapHolder;
     private void Start()
     {
         if (!IsLocalPlayer) return;
@@ -31,6 +32,12 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    [ClientRpc]
+    public void InitializeMapHolderClientRpc()
+    {
+        MapHolder = GameObject.FindGameObjectWithTag("MapVisualHolder");
+    }
+
     //This function was made in case of trying to submit the same targetposition, i.e if the target hasn't moved.
     Vector3 GetDifferentTargetPosition()
     {
@@ -45,7 +52,20 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         return mousePosition;
     }
 
-    
+    [ClientRpc]
+    public void SetMapVisualTileActiveClientRpc(int x, int y)
+    {
+        Transform[,] MapVisualArray = MapHolder.GetComponent<MapVisual>().GridVisualArray;
+        MapVisualArray[x, y].gameObject.SetActive(true);
+        SpriteRenderer renderer = MapVisualArray[x, y].gameObject.GetComponent<SpriteRenderer>();
+        renderer.color = Color.red;
+    }
+
+    [ClientRpc]
+    public void HideAllMapVisualTileClientRpc()
+    {
+        MapHolder.GetComponent<MapVisual>().HideAll();
+    }
 
     [ServerRpc]
     public void SubmitUnitActionServerRpc(UnitAction.Action action)

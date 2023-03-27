@@ -33,7 +33,6 @@ public class GameHandler : NetworkBehaviour
     private Grid<GridObject> _gameGrid;
     private Pathfinding _pathfindingGrid;
     private Tilemap _tilemapGrid;
-    private Transform[,] _mapVisualArray;
     [SerializeField]
     private int _width;
     [SerializeField]
@@ -121,11 +120,6 @@ public class GameHandler : NetworkBehaviour
 
     }
 
-    public void InitializeMapVisualArray()
-    {
-        _mapVisualArray = GetComponent<MapVisual>().GridVisualArray;
-    }
-
     void AddListeners(BaseUnit unit)
     {
         unit.IsMyTurn.OnValueChanged += TurnHandler.OnIsMyTurnValueChanged;
@@ -146,14 +140,15 @@ public class GameHandler : NetworkBehaviour
         return _gameGrid;
     }
 
-    public Transform[,] GetMapVisualArray()
-    {
-        return _mapVisualArray;
-    }
-
     private void ShowVisualMap(UnitAction.Action previousValue, UnitAction.Action newValue)
     {
-        this.GetComponent<MapVisual>().HideAll();    
+        if (TurnHandler.hasPlayersCycleBeenDone)
+        {
+            return;
+        }
+        PlayerUnit currentPlayer = (PlayerUnit)TurnHandler.CurrentUnit;
+        currentPlayer.InitializeMapHolderClientRpc();
+        currentPlayer.HideAllMapVisualTileClientRpc();
         switch (newValue)
         {
             case UnitAction.Action.Move:

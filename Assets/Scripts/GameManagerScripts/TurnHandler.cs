@@ -7,7 +7,7 @@ using System.Linq;
 public class TurnHandler : NetworkBehaviour
 {
     [SerializeField]
-    bool hasPlayersCycleBeenDone;
+    public bool hasPlayersCycleBeenDone;
 
     [SerializeField]
     public BaseUnit CurrentUnit;

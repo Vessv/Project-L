@@ -120,13 +120,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SyncPositionX: 1
   SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.0001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -226,6 +226,7 @@ MonoBehaviour:
   Threat: 0
   DifferentPositionFlag: 0
   isPointerOverUI: 0
+  MapVisualHolder: {fileID: 0}
   ActionCanvas: {fileID: 93502505993219593}
 --- !u!1001 &7077295077082052609
 PrefabInstance:

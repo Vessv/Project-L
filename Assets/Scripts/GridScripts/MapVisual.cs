@@ -30,7 +30,6 @@ public class MapVisual : MonoBehaviour
                 GridVisualArray[i,j] = gridVisual;
             }
         }
-        GameHandler.Instance.InitializeMapVisualArray();
     }
 
     public void HideAll()
