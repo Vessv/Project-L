@@ -68,10 +68,14 @@ MonoBehaviour:
   _hasBeenRegistered: 0000000000
   _moveAction: {fileID: 0}
   _attackAction: {fileID: 0}
+  _actionsSOArray:
+  - {fileID: 11400000, guid: 8d96e3c1684efca40b8cca3f8ded3d5c, type: 2}
+  - {fileID: 11400000, guid: 352285b2f3723564582386889657c465, type: 2}
   _width: 12
   _height: 9
   EnviromentPrefabs: []
   EnviromentPrefabHolder: {fileID: 0}
+  ActionUIHolder: {fileID: 0}
   EnemyList: []
   TurnHandler: {fileID: 0}
 --- !u!114 &1108855679348828795
@@ -87,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
+  actionPointsCost: 1
   Speed: 4
 --- !u!114 &1108855679348828794
 MonoBehaviour:
@@ -101,4 +106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
+  actionPointsCost: 1
   _damage: 0

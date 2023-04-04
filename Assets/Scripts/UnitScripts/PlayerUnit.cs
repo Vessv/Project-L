@@ -18,7 +18,6 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     {
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
-        ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(NetworkManager.LocalClientId);
         ActionCanvas.SetActive(true);
     }
 
@@ -55,7 +54,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     }
 
     [ClientRpc]
-    public void SetMapVisualTileActiveClientRpc(int x, int y)
+    public void SetMapVisualTileActiveClientRpc(int x, int y) //cambiar esto a una networklist
     {
         if(!IsLocalPlayer) return;
         Transform[,] MapVisualArray = MapHolder.GetComponent<MapVisual>().GridVisualArray;

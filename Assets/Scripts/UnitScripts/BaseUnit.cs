@@ -9,11 +9,12 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public NetworkVariable<ActionState> ActionStatus = new NetworkVariable<ActionState>();
     public NetworkVariable<Vector3> TargetPosition = new NetworkVariable<Vector3>();
     public NetworkVariable<UnitAction.Action> SelectedAction = new NetworkVariable<UnitAction.Action>();
+    public NetworkList<int> ownedActionList;
 
     public NetworkVariable<int> ActionPoints;
 
     public int[] ownedActionArray = new int[4];
-    public List<int> ownedActionList = new List<int>();
+    //public List<int> ownedActionList = new List<int>();
 
     //Unit Stats
     public UnitSO UnitScriptableObject;
@@ -34,6 +35,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         LoadUnitStats();
         HealthSystem = new HealthSystem(Stats.Vitality * 10);
         ActionPoints.Value = 2;
+        ownedActionList = new NetworkList<int>();
     }
 
     public void LoadUnitStats()

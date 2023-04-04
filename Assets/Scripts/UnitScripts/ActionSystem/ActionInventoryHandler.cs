@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionInventoryHandler : NetworkBehaviour
 {
     public GameObject ActionPrefab;
-    public ActionSO[] ActionsSOArray;
+    //public ActionSO[] ActionsSOArray;
     PlayerUnit _unit;
     private void OnEnable()
     {
@@ -15,7 +15,8 @@ public class ActionInventoryHandler : NetworkBehaviour
         for(int i = 0; i < _unit.ownedActionList.Count; i++)
         {
             Transform actionHolder = gameObject.transform.GetChild(i);
-            actionHolder.GetComponent<ActionHolderUI>().ActionSO = ActionsSOArray[_unit.ownedActionList[i]-1];
+            actionHolder.GetComponent<ActionHolderUI>().ActionSO = GameHandler.Instance.GetActionsSOArray()[_unit.ownedActionList[i]-1];
+            actionHolder.GetComponent<ActionHolderUI>().DraggableActionObject.GetComponent<DraggableImage>().ActionSO = GameHandler.Instance.GetActionsSOArray()[_unit.ownedActionList[i]-1];
             actionHolder.gameObject.SetActive(true);
         }
     }
