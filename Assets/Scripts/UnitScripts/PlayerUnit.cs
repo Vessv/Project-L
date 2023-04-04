@@ -13,10 +13,12 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
     public GameObject ActionCanvas;
     public GameObject MapHolder;
+    public GameObject ActionInventory;
     private void Start()
     {
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
+        ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(NetworkManager.LocalClientId);
         ActionCanvas.SetActive(true);
     }
 
@@ -27,7 +29,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (CanPlay && !isPointerOverUI)
         {
             Vector3 mousePosition = GetDifferentTargetPosition();
-
+            HideAllMapVisualTileClientRpc();
             SubmitTargetPositionServerRpc(mousePosition);
         }
     }
@@ -55,6 +57,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     [ClientRpc]
     public void SetMapVisualTileActiveClientRpc(int x, int y)
     {
+        if(!IsLocalPlayer) return;
         Transform[,] MapVisualArray = MapHolder.GetComponent<MapVisual>().GridVisualArray;
         MapVisualArray[x, y].gameObject.SetActive(true);
         SpriteRenderer renderer = MapVisualArray[x, y].gameObject.GetComponent<SpriteRenderer>();

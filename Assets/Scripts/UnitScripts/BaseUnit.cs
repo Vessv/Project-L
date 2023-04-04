@@ -13,6 +13,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public NetworkVariable<int> ActionPoints;
 
     public int[] ownedActionArray = new int[4];
+    public List<int> ownedActionList = new List<int>();
 
     //Unit Stats
     public UnitSO UnitScriptableObject;

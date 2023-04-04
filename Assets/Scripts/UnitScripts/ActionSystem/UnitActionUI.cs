@@ -11,7 +11,7 @@ public class UnitActionUI : MonoBehaviour
     public void UseAction(PlayerUnit unit)
     {
         _unit = unit;
-        if (!_unit.IsBusy) _unit.SubmitUnitActionServerRpc((UnitAction.Action)actionIndex);
+        if (!_unit.IsBusy && _unit.IsMyTurn.Value) _unit.SubmitUnitActionServerRpc((UnitAction.Action)actionIndex);
 
     }
     public void SetActionIndex(int index)

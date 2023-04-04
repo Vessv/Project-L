@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.Events;
 
 public class UnitAction : NetworkBehaviour
 {
@@ -17,13 +18,24 @@ public class UnitAction : NetworkBehaviour
         if (!IsLocalPlayer) return;
         _unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>();
         ActionsUI.SetActive(true);
-        for(int i = 0; i < ActionsUI.transform.childCount; i++)
+        UpdateActionUI();
+
+
+    }
+
+    void UpdateActionUI()
+    {
+        for (int i = 0; i < ActionsUI.transform.childCount; i++)
         {
             int capturedIndex = i;
+            UnityAction CallActionDelegate = () => { CallAction(capturedIndex); };
             GameObject ActionButtonGameObject = ActionsUI.transform.GetChild(i).gameObject;
-            ActionButtonGameObject.GetComponent<Button>().onClick.AddListener(delegate { CallAction(capturedIndex); });
+            ActionButtonGameObject.GetComponent<Button>().onClick.RemoveListener(CallActionDelegate);
+            ActionButtonGameObject.GetComponent<Button>().onClick.AddListener(CallActionDelegate);
 
-            if(_unit.ownedActionArray[i] != 0) 
+
+
+            if (_unit.ownedActionArray[i] != 0)
             {
                 ActionButtonGameObject.GetComponent<UnitActionUI>().SetActionIndex(_unit.ownedActionArray[i]);
                 ActionButtonGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Action";
@@ -35,6 +47,7 @@ public class UnitAction : NetworkBehaviour
     void CallAction(int capturedIndex)
     {
         ActionsUI.transform.GetChild(capturedIndex).gameObject.GetComponent<UnitActionUI>().UseAction(_unit);
+        Debug.Log("callaction"); // quitar
     }
 
     public enum Action
