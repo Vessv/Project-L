@@ -35,7 +35,7 @@ public class UnitAction : NetworkBehaviour
 
 
 
-            if (_unit.ownedActionArray[i] != 0)
+            /* if (_unit.ownedActionArray[i] != 0)
             {
                 UnitActionUI unitActionUI = ActionButtonGameObject.GetComponent<UnitActionUI>();
                 ActionSO actionSO = GameHandler.Instance.GetActionsSOArray()[_unit.ownedActionArray[i] - 1];
@@ -44,7 +44,7 @@ public class UnitAction : NetworkBehaviour
                 //ActionButtonGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionSO.actionName;
                 //ActionButtonGameObject.transform.GetChild(1).GetComponent<Image>().sprite = actionSO.actionSprite;
 
-            }
+            }*/
         }
     }
 

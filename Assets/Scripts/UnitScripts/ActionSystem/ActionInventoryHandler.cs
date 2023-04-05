@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ActionInventoryHandler : NetworkBehaviour
+public class ActionInventoryHandler : MonoBehaviour
 {
     public GameObject ActionPrefab;
     //public ActionSO[] ActionsSOArray;
     PlayerUnit _unit;
     private void OnEnable()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
         _unit = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>();
         for(int i = 0; i < _unit.ownedActionList.Count; i++)
         {
