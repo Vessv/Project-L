@@ -6,29 +6,21 @@ using UnityEngine.Events;
 
 public class ItemInventory : NetworkBehaviour
 {
-
     // Callback which is triggered when
     // an item gets added/removed.
     public UnityEvent onItemChangedCallback;
     public NetworkList<int> itemsID;
 
 
+
     public int space = 20;  // Amount of slots in inventory
 
     // Current list of items in inventory
 
-    public static ItemInventory instance;
-
     void Awake()
     {
         itemsID = new NetworkList<int>();
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of Inventory found!");
-            return;
-        }
-
-        instance = this;
+        
     }
 
     // Add a new item. If there is enough room we
@@ -48,8 +40,8 @@ public class ItemInventory : NetworkBehaviour
             SubmitItemToInvetoryServerRpc(item);    // Add item to list
 
             // Trigger callback
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
+            //if (onItemChangedCallback != null)
+            //    onItemChangedCallback.Invoke();
         }
 
         return true;
@@ -58,17 +50,23 @@ public class ItemInventory : NetworkBehaviour
     // Remove an item
     public void Remove(int itemID)
     {
-        itemsID.Remove(itemID);     // Remove item from list
+        SubmitRemoveItemFromInvetoryServerRpc(itemID);
+            // Remove item from list
 
         // Trigger callback
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        //if (onItemChangedCallback != null)
+        //    onItemChangedCallback.Invoke();
     }
-
 
     [ServerRpc]
     public void SubmitItemToInvetoryServerRpc(int itemID)
     {
         itemsID.Add(itemID);
+    }
+
+    [ServerRpc]
+    public void SubmitRemoveItemFromInvetoryServerRpc(int itemID)
+    {
+        itemsID.Remove(itemID);
     }
 }

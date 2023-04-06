@@ -9,6 +9,13 @@ public class ItemInventorySlot : MonoBehaviour
     public Button removeButton; // Reference to the remove button
 
     public Item item;  // Current item in the slot
+    public ItemInventory inventory;
+
+
+    private void Start()
+    {
+        inventory = transform.root.GetComponent<ItemInventory>();
+    }
 
     // Add item to the slot
     public void AddItem(Item newItem)
@@ -31,9 +38,14 @@ public class ItemInventorySlot : MonoBehaviour
     }
 
     // Called when the remove button is pressed
+    public int GetItemID()
+    {
+        return item.itemID;
+    }
+
     public void OnRemoveButton()
     {
-        ItemInventory.instance.Remove(item.itemID);
+        inventory.Remove(item.itemID);
     }
 
     // Called when the item is pressed

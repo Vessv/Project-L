@@ -40,9 +40,4 @@ public class Item : ScriptableObject
     {
 
     }
-    public void RemoveFromInventory()
-    {
-        ItemInventory.instance.Remove(this.itemID);
-        Debug.Log("remover inventario:" + this);
-    }
 }

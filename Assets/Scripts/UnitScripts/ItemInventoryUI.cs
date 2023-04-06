@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ItemInventoryUI : MonoBehaviour
@@ -7,15 +8,17 @@ public class ItemInventoryUI : MonoBehaviour
 	public Transform itemsParent;   // The parent object of all the items
 	//public GameObject inventoryUI;  // The entire UI
 
+	public GameObject PlayerObject;
+
 	ItemInventory inventory;    // Our current inventory
 
 	ItemInventorySlot[] slots;  // List of all the slots
 
 	void Start()
 	{
-		inventory = ItemInventory.instance;
-		inventory.onItemChangedCallback.AddListener(UpdateUI);    // Subscribe to the onItemChanged callback
-
+		inventory = PlayerObject.GetComponent<ItemInventory>();
+		inventory.itemsID.OnListChanged += UpdateUI;
+		//inventory.onItemChangedCallback.AddListener(UpdateUI);    // Subscribe to the onItemChanged callback
 		// Populate our slots array
 		slots = itemsParent.GetComponentsInChildren<ItemInventorySlot>();
 	}
@@ -24,7 +27,7 @@ public class ItemInventoryUI : MonoBehaviour
 	//		- Adding items
 	//		- Clearing empty slots
 	// This is called using a delegate on the Inventory.
-	void UpdateUI()
+	public void UpdateUI(NetworkListEvent<int> changeevent)
 	{
 		Debug.Log("Estoy funciando correctamente updateui");
 		// Loop through all the slots
