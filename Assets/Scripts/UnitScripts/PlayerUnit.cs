@@ -8,17 +8,22 @@ using UnityEngine.EventSystems;
 
 public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 {
+    public ItemInventory inventory;
+
     [SerializeField]
     bool isPointerOverUI = false;
 
     public GameObject ActionCanvas;
     public GameObject MapHolder;
     public GameObject ActionInventory;
+    public GameObject ItemInventoryUI;
+
     private void Start()
     {
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
         ActionCanvas.SetActive(true);
+        inventory = GetComponent<ItemInventory>();
     }
 
     public void Click(InputAction.CallbackContext context)
@@ -31,6 +36,21 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
             HideAllMapVisualTileClientRpc();
             SubmitTargetPositionServerRpc(mousePosition);
         }
+    }
+
+    public void Inventory(InputAction.CallbackContext context)
+    {
+        if (!IsLocalPlayer || !context.performed) return;
+
+        ItemInventoryUI.SetActive(!ItemInventoryUI.activeSelf);
+
+    }
+
+    public void Testing(InputAction.CallbackContext context)
+    {
+        if (!IsLocalPlayer || !context.performed) return;
+
+        inventory.Add(0);
     }
 
     [ClientRpc]

@@ -58,6 +58,7 @@ public class UnitAction : NetworkBehaviour
     {
         None,
         Move,
-        Shoot
+        Shoot,
+        Magic
     }
 }

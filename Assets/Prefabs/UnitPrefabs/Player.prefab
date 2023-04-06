@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7217806025028894398}
   - component: {fileID: 6003796720125061600}
   - component: {fileID: -7891121424322934865}
+  - component: {fileID: 316698187365087432}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,6 +187,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 95f9706a-6ff1-4fe2-b65f-6e679eadd799
     m_ActionName: Player/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7891121424322934865}
+        m_TargetAssemblyTypeName: PlayerUnit, Assembly-CSharp
+        m_MethodName: Inventory
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 952366f2-d7af-4e45-8e67-a57797a3828c
+    m_ActionName: Player/Inventory[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7891121424322934865}
+        m_TargetAssemblyTypeName: PlayerUnit, Assembly-CSharp
+        m_MethodName: Testing
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0f56737c-3078-499b-a2b4-479c05391f96
+    m_ActionName: Player/Testing[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -213,7 +246,6 @@ MonoBehaviour:
     m_InternalValue: 0
   ActionPoints:
     m_InternalValue: 0
-  ownedActionArray: 00000000010000000000000002000000
   UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
   Stats:
     Strength: 0
@@ -225,10 +257,28 @@ MonoBehaviour:
     Luck: 0
   Threat: 0
   DifferentPositionFlag: 0
+  inventory: {fileID: 0}
   isPointerOverUI: 0
   ActionCanvas: {fileID: 510471905758919742}
   MapHolder: {fileID: 0}
   ActionInventory: {fileID: 510471904280366999}
+  ItemInventoryUI: {fileID: 8756441583315644767}
+--- !u!114 &316698187365087432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999689300300813914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb69ba653974604fb9510db4cdb6c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onItemChangedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  space: 20
 --- !u!1001 &2404918777989735754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,6 +426,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4355178468285936907, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4568907802957017935, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -424,5 +478,10 @@ GameObject:
 --- !u!1 &1343655260679318752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745415665710696874, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+  m_PrefabInstance: {fileID: 2404918777989735754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8756441583315644767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6402673752764732437, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
   m_PrefabInstance: {fileID: 2404918777989735754}
   m_PrefabAsset: {fileID: 0}

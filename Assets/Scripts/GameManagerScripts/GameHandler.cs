@@ -32,6 +32,9 @@ public class GameHandler : NetworkBehaviour
     [SerializeField]
     ActionSO[] _actionsSOArray;
 
+    [SerializeField]
+    Item[] _itemsSOArray;
+
     //All the grids needed for the game to work
     private Grid<GridObject> _gameGrid;
     private Pathfinding _pathfindingGrid;
@@ -61,6 +64,11 @@ public class GameHandler : NetworkBehaviour
         return _actionsSOArray;
     }
 
+    public Item[] GetItemsSOArray()
+    {
+        return _itemsSOArray;
+    }
+
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
@@ -77,6 +85,10 @@ public class GameHandler : NetworkBehaviour
             //Dandole skills base o algo
             player.GetComponent<PlayerUnit>().ownedActionList.Add(1);
             player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+            if(client.ClientId != 0)
+            {
+                player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+            }
 
         }
 
