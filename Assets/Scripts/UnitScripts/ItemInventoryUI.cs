@@ -26,10 +26,9 @@ public class ItemInventoryUI : MonoBehaviour
 	// Update the inventory UI by:
 	//		- Adding items
 	//		- Clearing empty slots
-	// This is called using a delegate on the Inventory.
 	public void UpdateUI(NetworkListEvent<int> changeevent)
 	{
-		Debug.Log("Estoy funciando correctamente updateui");
+		//Debug.Log("Estoy funciando correctamente updateui");
 		// Loop through all the slots
 		for (int i = 0; i < slots.Length; i++)
 		{

@@ -52,6 +52,8 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
         inventory.Add(0);
         inventory.Add(1);
+        inventory.Add(2);
+        inventory.Add(3);
     }
 
     [ClientRpc]

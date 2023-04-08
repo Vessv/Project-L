@@ -31,7 +31,6 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("hola acabo de entrar");
         tooltipPopUp.DisplayInfo(slot.item);
     }
 

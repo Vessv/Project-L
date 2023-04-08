@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Unity.Netcode;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Item/Item")]
 public class Item : ScriptableObject
@@ -38,6 +39,7 @@ public class Item : ScriptableObject
 
     public virtual void Use()
     {
-
+        Debug.Log("Usado el item: " + name);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ItemInventory>().Remove(itemID);
     }
 }

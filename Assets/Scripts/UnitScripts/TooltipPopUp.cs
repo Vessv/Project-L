@@ -61,6 +61,6 @@ public class TooltipPopUp : MonoBehaviour
     {
         popupCanvasObject.SetActive(false);
         popupCanvasObject.GetComponentInParent<Canvas>().sortingOrder = 0;
-        Debug.Log("desactivar" + popupCanvasObject.activeInHierarchy);
+        //Debug.Log("desactivar" + popupCanvasObject.activeInHierarchy);
     }
 }

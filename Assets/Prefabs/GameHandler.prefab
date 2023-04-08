@@ -73,6 +73,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 352285b2f3723564582386889657c465, type: 2}
   _itemsSOArray:
   - {fileID: 11400000, guid: 6d8fb4baf4d23d44992e73efdcb0de9c, type: 2}
+  - {fileID: 11400000, guid: c72b1f41f6265e54d89de0792000a617, type: 2}
+  - {fileID: 11400000, guid: fe0e5f0d997c0be4cbf159f1bca7e3ae, type: 2}
+  - {fileID: 11400000, guid: 9f7ae9b380805f14ab652f63b3a151d6, type: 2}
   _width: 12
   _height: 9
   EnviromentPrefabs: []
