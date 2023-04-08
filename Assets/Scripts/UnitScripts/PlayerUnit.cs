@@ -51,6 +51,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer || !context.performed) return;
 
         inventory.Add(0);
+        inventory.Add(1);
     }
 
     [ClientRpc]
