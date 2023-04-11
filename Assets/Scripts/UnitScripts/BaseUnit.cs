@@ -20,7 +20,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     //Unit Stats
     public UnitSO UnitScriptableObject;
     public HealthSystem HealthSystem;
-    public UnitSO.UnitStats Stats;
+    public NetworkVariable<UnitSO.UnitStats> Stats;
     public int Threat;
 
     public bool CanInteract => IsMyTurn.Value && IsLocalPlayer;
@@ -34,7 +34,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     private void Awake()
     {
         LoadUnitStats();
-        HealthSystem = new HealthSystem(Stats.Vitality * 10);
+        HealthSystem = new HealthSystem(Stats.Value.Vitality * 10);
         ActionPoints.Value = 2;
         ownedActionList = new NetworkList<int>();
 
@@ -42,7 +42,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
     public void LoadUnitStats()
     {
-        Stats = UnitScriptableObject.Stats;
+        Stats.Value = UnitScriptableObject.Stats;
     }
 
     public void TakeDamage(int damage)

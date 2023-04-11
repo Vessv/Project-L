@@ -261,13 +261,14 @@ MonoBehaviour:
     m_InternalValue: 0
   UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
   Stats:
-    Strength: 0
-    Vitality: 0
-    Speed: 0
-    Endurance: 0
-    Dexterity: 0
-    Stamina: 0
-    Luck: 0
+    m_InternalValue:
+      Strength: 0
+      Vitality: 0
+      Speed: 0
+      Endurance: 0
+      Dexterity: 0
+      Stamina: 0
+      Luck: 0
   Threat: 0
   DifferentPositionFlag: 0
   inventory: {fileID: 0}
@@ -309,8 +310,7 @@ MonoBehaviour:
   - m_InternalValue: 0
   - m_InternalValue: 0
   - m_InternalValue: 0
-  - m_InternalValue: 0
-  - m_InternalValue: 0
+  inventory: {fileID: 316698187365087432}
 --- !u!1001 &2404918777989735754
 PrefabInstance:
   m_ObjectHideFlags: 0

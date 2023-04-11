@@ -24,7 +24,7 @@ public class AttackAction : BaseAction
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
         if(_pathVectorList == null) return;
 
-        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (unit.Stats.Dexterity + 2);
+        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (unit.Stats.Value.Dexterity + 2);
 
         BaseUnit targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
 
@@ -42,7 +42,7 @@ public class AttackAction : BaseAction
             return;
         }
 
-        _damage = unit.Stats.Strength;
+        _damage = unit.Stats.Value.Strength;
         //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamage(_damage);
         Debug.Log("Damaged: " + targetUnit.name);

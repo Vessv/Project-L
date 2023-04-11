@@ -27,6 +27,9 @@ public class ItemInventory : NetworkBehaviour
     // return true. Else we return false.
     public bool Add(int item)
     {
+        if (!IsLocalPlayer) return false;
+        Debug.Log("Porfavor sirv");
+
         // Don't do anything if it's a default item
         if (true)
         {
@@ -50,6 +53,8 @@ public class ItemInventory : NetworkBehaviour
     // Remove an item
     public void Remove(int itemID)
     {
+        if (!IsLocalPlayer) return;
+
         SubmitRemoveItemFromInvetoryServerRpc(itemID);
             // Remove item from list
 
@@ -69,4 +74,5 @@ public class ItemInventory : NetworkBehaviour
     {
         itemsID.Remove(itemID);
     }
+
 }

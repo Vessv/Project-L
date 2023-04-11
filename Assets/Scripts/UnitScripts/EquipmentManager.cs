@@ -13,7 +13,7 @@ public class EquipmentManager : NetworkBehaviour
     //public OnEquipmentChange onEquipmentChange;
 
 
-
+    [SerializeField]
     ItemInventory inventory;
     private void Start()
     {
@@ -23,30 +23,42 @@ public class EquipmentManager : NetworkBehaviour
         //currentEquipment = new Equipment[numSlot];
     }
 
+
+    public void Equip(int itemID)
+    {
+        if (!IsLocalPlayer) return;
+        EquipServerRPC((int)NetworkManager.Singleton.LocalClient.ClientId, itemID);
+    }
+
     [ServerRpc]
-    public void EquipServerRPC(int itemID)
+    public void EquipServerRPC(int ClientID, int itemID)
     {
         int slotIndex = (int)GetEquipmentFromItemID(itemID).equipSlot;
-        UnEquipServerRPC(slotIndex);
+        UnEquipServerRPC(ClientID, slotIndex);
 
         //inventory.Remove(itemID);
         currentEquipment[slotIndex].Value = itemID;
+        NetworkObject unit = NetworkManager.Singleton.ConnectedClients[(ulong)ClientID].PlayerObject;
+        unit.GetComponent<PlayerUnit>().Stats.Value += GetEquipmentFromItemID(itemID).extraStats;
+
     }
     [ServerRpc]
-    public void UnEquipServerRPC(int slotIndex)
+    public void UnEquipServerRPC(int ClientID, int slotIndex)
     {
         if (currentEquipment[slotIndex].Value > 0) //0 tambien es un item pero no es un equipment asi que lol tenerlo en cuenta
         {
             Equipment oldItem = GetEquipmentFromItemID(currentEquipment[slotIndex].Value);
 
-            NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().Stats -= oldItem.extraStats; //cambiarlo cuando se cambie las Stats a variable de la network
+            NetworkObject unit = NetworkManager.Singleton.ConnectedClients[(ulong)ClientID].PlayerObject;
+            unit.GetComponent<PlayerUnit>().Stats.Value -= oldItem.extraStats; //cambiarlo cuando se cambie las Stats a variable de la network
 
-            inventory.Add(oldItem.itemID);
+            unit.GetComponent<ItemInventory>().Add(oldItem.itemID);
             currentEquipment[slotIndex].Value = -1;
+
 
         }
     }
-    public Sprite GetSprite() //get sprite?
+    public Sprite GetSprite() //get sprite? //probalbmente ya no sirva
     {
         //if (currentEquipment[3].Value > 0) //0 tambien es un item pero no es un equipment asi que lol tenerlo en cuenta
         //{

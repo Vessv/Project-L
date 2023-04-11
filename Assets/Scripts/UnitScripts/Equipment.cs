@@ -12,9 +12,8 @@ public class Equipment : Item
     public override void Use()
     {
         base.Use();
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<EquipmentManager>().EquipServerRPC(itemID);
-
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().Stats += extraStats; //cambiarlo cuando se cambie las Stats a variable de la network
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<EquipmentManager>().Equip(itemID);
+        //cambiarlo cuando se cambie las Stats a variable de la network
         //EquipmentManager.instance.Equip(this);
         //RemoveFromInventory();
     }

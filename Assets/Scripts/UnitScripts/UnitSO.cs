@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 [CreateAssetMenu(fileName = "New unit", menuName = "BaseUnit")]
 public class UnitSO : ScriptableObject
@@ -55,6 +56,17 @@ public class UnitSO : ScriptableObject
                 Stamina = a.Stamina - b.Stamina,
                 Luck = a.Luck - b.Luck
             };
+        }
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref Strength);
+            serializer.SerializeValue(ref Vitality);
+            serializer.SerializeValue(ref Speed);
+            serializer.SerializeValue(ref Endurance);
+            serializer.SerializeValue(ref Dexterity);
+            serializer.SerializeValue(ref Stamina);
+            serializer.SerializeValue(ref Luck);
         }
     }
 

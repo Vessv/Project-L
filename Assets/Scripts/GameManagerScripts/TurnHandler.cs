@@ -104,7 +104,7 @@ public class TurnHandler : NetworkBehaviour
 
     void OnTurnStart()
     {
-        CurrentUnit.ActionPoints.Value += CurrentUnit.Stats.Stamina;
+        CurrentUnit.ActionPoints.Value += CurrentUnit.Stats.Value.Stamina;
     }
 
     void OnTurnEnd()

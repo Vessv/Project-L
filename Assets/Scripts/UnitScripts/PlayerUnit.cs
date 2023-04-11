@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
@@ -120,3 +123,19 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         isPointerOverUI = false;
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(PlayerUnit))]
+public class UnitEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        PlayerUnit unit = (PlayerUnit)target;
+        //EditorGUILayout.LabelField("Strength", unit.Stats.Value.Strength.ToString());
+        //EditorGUILayout.LabelField("Vitality", unit.Stats.Value.Vitality.ToString());
+        // ...
+    }
+}
+#endif
