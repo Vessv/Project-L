@@ -27,8 +27,6 @@ public class ItemInventory : NetworkBehaviour
     // return true. Else we return false.
     public bool Add(int item)
     {
-        if (!IsLocalPlayer) return false;
-        Debug.Log("Porfavor sirv");
 
         // Don't do anything if it's a default item
         if (true)

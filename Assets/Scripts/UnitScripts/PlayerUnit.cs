@@ -113,6 +113,18 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         ActionStatus.Value = state;
     }
 
+    [ServerRpc]
+    public void SubmitExtraStatsServerRpc(UnitSO.UnitStats extraStats)
+    {
+        Stats.Value += extraStats;
+    }
+
+    [ServerRpc]
+    public void RemoveExtraStatsServerRpc(UnitSO.UnitStats extraStats)
+    {
+        Stats.Value -= extraStats;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOverUI = true;

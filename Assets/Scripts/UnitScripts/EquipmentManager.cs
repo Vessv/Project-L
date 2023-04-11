@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class EquipmentManager : NetworkBehaviour
 {
-    public NetworkVariable<int>[] currentEquipment = new NetworkVariable<int>[4];
+    public NetworkList<int> currentEquipment;
 
     //Equipment[] currentEquipment;
 
@@ -15,9 +15,14 @@ public class EquipmentManager : NetworkBehaviour
 
     [SerializeField]
     ItemInventory inventory;
+    private void Awake()
+    {
+        currentEquipment = new NetworkList<int>();
+    }
     private void Start()
     {
-        inventory = GetComponent<ItemInventory>();
+        if(IsLocalPlayer)
+            InitializeCurrentEquipmentListServerRpc();
 
         //int numSlot = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         //currentEquipment = new Equipment[numSlot];
@@ -27,46 +32,47 @@ public class EquipmentManager : NetworkBehaviour
     public void Equip(int itemID)
     {
         if (!IsLocalPlayer) return;
-        EquipServerRPC((int)NetworkManager.Singleton.LocalClient.ClientId, itemID);
-    }
-
-    [ServerRpc]
-    public void EquipServerRPC(int ClientID, int itemID)
-    {
         int slotIndex = (int)GetEquipmentFromItemID(itemID).equipSlot;
-        UnEquipServerRPC(ClientID, slotIndex);
 
-        //inventory.Remove(itemID);
-        currentEquipment[slotIndex].Value = itemID;
-        NetworkObject unit = NetworkManager.Singleton.ConnectedClients[(ulong)ClientID].PlayerObject;
-        unit.GetComponent<PlayerUnit>().Stats.Value += GetEquipmentFromItemID(itemID).extraStats;
 
-    }
-    [ServerRpc]
-    public void UnEquipServerRPC(int ClientID, int slotIndex)
-    {
-        if (currentEquipment[slotIndex].Value > 0) //0 tambien es un item pero no es un equipment asi que lol tenerlo en cuenta
+        Debug.Log("Current slot value: " + slotIndex);
+        Debug.Log("Current itemIndex value: " + itemID);
+        if (currentEquipment[slotIndex] > 0) //0 tambien es un item pero no es un equipment asi que lol tenerlo en cuenta 
         {
-            Equipment oldItem = GetEquipmentFromItemID(currentEquipment[slotIndex].Value);
+            Equipment oldItem = GetEquipmentFromItemID(currentEquipment[slotIndex]);
 
-            NetworkObject unit = NetworkManager.Singleton.ConnectedClients[(ulong)ClientID].PlayerObject;
-            unit.GetComponent<PlayerUnit>().Stats.Value -= oldItem.extraStats; //cambiarlo cuando se cambie las Stats a variable de la network
+            GetComponent<PlayerUnit>().RemoveExtraStatsServerRpc(oldItem.extraStats); //quitar stats del item
 
-            unit.GetComponent<ItemInventory>().Add(oldItem.itemID);
-            currentEquipment[slotIndex].Value = -1;
+            GetComponent<ItemInventory>().Add(oldItem.itemID);
 
+            UnEquipServerRPC(slotIndex);
 
         }
-    }
-    public Sprite GetSprite() //get sprite? //probalbmente ya no sirva
-    {
-        //if (currentEquipment[3].Value > 0) //0 tambien es un item pero no es un equipment asi que lol tenerlo en cuenta
-        //{
-        ///    Sprite sprite = (Sprite)GetEquipmentFromItemID(currentEquipment[3].Value).sprite;
-        //    return sprite;
-        //}
-        return null;
 
+
+        EquipServerRPC(slotIndex, itemID);
+        GetComponent<PlayerUnit>().SubmitExtraStatsServerRpc(GetEquipmentFromItemID(itemID).extraStats);
+    }
+
+    [ServerRpc]
+    public void EquipServerRPC(int slotIndex, int itemID)
+    {
+        currentEquipment[slotIndex] = itemID;
+    }
+
+    [ServerRpc]
+    public void UnEquipServerRPC(int slotIndex)
+    {
+        currentEquipment[slotIndex] = -1;
+    }
+
+    [ServerRpc]
+    public void InitializeCurrentEquipmentListServerRpc()
+    {
+        currentEquipment.Add(-1);
+        currentEquipment.Add(-1);
+        currentEquipment.Add(-1);
+        currentEquipment.Add(-1);
     }
 
     public Equipment GetEquipmentFromItemID(int itemID)
