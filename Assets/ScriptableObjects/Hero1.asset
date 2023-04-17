@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero1
   m_EditorClassIdentifier: 
   UnitName: Hero
-  UnitSprite: {fileID: 0}
+  UnitSprite: {fileID: -465658728, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
     Strength: 10
     Vitality: 1

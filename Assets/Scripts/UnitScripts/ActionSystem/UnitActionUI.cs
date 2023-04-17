@@ -31,7 +31,15 @@ public class UnitActionUI : MonoBehaviour, IDropHandler
 
     public void UpdateActionUI()
     {
+        GetComponent<Image>().enabled = false;
         transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionSO.actionName;
+        transform.GetChild(1).GetComponent<Image>().enabled = true;
         transform.GetChild(1).GetComponent<Image>().sprite = actionSO.actionSprite;
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<Image>().enabled=true;
+        transform.GetChild(1).GetComponent<Image>().enabled = false;
     }
 }

@@ -19,6 +19,9 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject ActionCanvas;
     public GameObject MapHolder;
     public GameObject ActionInventory;
+
+    public GameObject ActionInventoryUI;
+    public GameObject PlayerInfoUI;
     public GameObject ItemInventoryUI;
 
     private void Start()
@@ -46,6 +49,22 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer || !context.performed) return;
 
         ItemInventoryUI.SetActive(!ItemInventoryUI.activeSelf);
+
+    }
+
+    public void InventoryActionUI(InputAction.CallbackContext context)
+    {
+        if (!IsLocalPlayer || !context.performed) return;
+
+        ActionInventoryUI.SetActive(!ActionInventoryUI.activeSelf);
+
+    }
+
+    public void PlayerInformationUI(InputAction.CallbackContext context)
+    {
+        if (!IsLocalPlayer || !context.performed) return;
+
+        PlayerInfoUI.SetActive(!PlayerInfoUI.activeSelf);
 
     }
 
