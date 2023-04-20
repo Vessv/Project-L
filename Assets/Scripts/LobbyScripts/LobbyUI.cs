@@ -10,7 +10,8 @@ public class LobbyUI : NetworkBehaviour
     [SerializeField] private LobbyPlayerCard[] lobbyPlayerCards;
     [SerializeField] private Button startGameButton;
     [SerializeField] private TextMeshProUGUI joinCodeString;
-
+    private int selectedHeroIndex = 0;
+    private int maxHeroes = 2;
 
     private NetworkList<LobbyPlayerState> lobbyPlayers;
 
@@ -82,7 +83,8 @@ public class LobbyUI : NetworkBehaviour
         lobbyPlayers.Add(new LobbyPlayerState(
             clientId,
             playerData.Value.PlayerName,
-            false
+            false,
+            0
         ));
     }
 
@@ -108,7 +110,8 @@ public class LobbyUI : NetworkBehaviour
                 lobbyPlayers[i] = new LobbyPlayerState(
                     lobbyPlayers[i].ClientId,
                     lobbyPlayers[i].PlayerName,
-                    !lobbyPlayers[i].IsReady
+                    !lobbyPlayers[i].IsReady,
+                    lobbyPlayers[i].SelectedHero
                 );
             }
         }
@@ -139,6 +142,41 @@ public class LobbyUI : NetworkBehaviour
         StartGameServerRpc();
     }
 
+    public void OnLeftClicked()
+    {
+        selectedHeroIndex -= 1;
+        if(selectedHeroIndex < 0)
+        {
+            selectedHeroIndex = maxHeroes;
+        }
+        UpdateHeroImageServerRpc((int)NetworkManager.Singleton.LocalClientId, selectedHeroIndex);
+    }
+
+    public void OnRightClicked()
+    {
+        selectedHeroIndex += 1;
+        if(selectedHeroIndex > maxHeroes)
+        {
+            selectedHeroIndex = 0;
+        }
+        UpdateHeroImageServerRpc((int)NetworkManager.Singleton.LocalClientId, selectedHeroIndex);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateHeroImageServerRpc(int clientId,int index)
+    {
+        lobbyPlayers[clientId] = new LobbyPlayerState(
+                    lobbyPlayers[clientId].ClientId,
+                    lobbyPlayers[clientId].PlayerName,
+                    lobbyPlayers[clientId].IsReady,
+                    index
+                );
+        ServerGameNetPortal.Instance.choosenHero[clientId] = lobbyPlayers[clientId].SelectedHero;
+
+    }
+
+
     private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
     {
         for (int i = 0; i < lobbyPlayerCards.Length; i++)
@@ -146,6 +184,10 @@ public class LobbyUI : NetworkBehaviour
             if (lobbyPlayers.Count > i)
             {
                 lobbyPlayerCards[i].UpdateDisplay(lobbyPlayers[i]);
+                if(i == (int)NetworkManager.Singleton.LocalClientId)
+                {
+                    lobbyPlayerCards[i].ActiveButtons();
+                }
             }
             else
             {
@@ -156,6 +198,25 @@ public class LobbyUI : NetworkBehaviour
         if (IsHost)
         {
             startGameButton.interactable = IsEveryoneReady();
+        }
+    }
+
+    private void UpdatePlayerCards()
+    {
+        for (int i = 0; i < lobbyPlayerCards.Length; i++)
+        {
+            if (lobbyPlayers.Count > i)
+            {
+                lobbyPlayerCards[i].UpdateDisplay(lobbyPlayers[i]);
+                if (i == (int)NetworkManager.Singleton.LocalClientId)
+                {
+                    lobbyPlayerCards[i].ActiveButtons();
+                }
+            }
+            else
+            {
+                lobbyPlayerCards[i].DisableDisplay();
+            }
         }
     }
 }

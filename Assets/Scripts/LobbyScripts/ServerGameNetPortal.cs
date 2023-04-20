@@ -24,6 +24,8 @@ public class ServerGameNetPortal : MonoBehaviour
 
     private GameNetPortal gameNetPortal;
 
+    public int[] choosenHero = new int[4];
+
     private void Awake()
     {
         if (instance != null && instance != this)

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1750a9870924945b9d8ddbaa26d736, type: 3}
-  m_Name: Hero3
+  m_Name: Hero 4
   m_EditorClassIdentifier: 
-  UnitName: Archer
-  UnitSprite: {fileID: -2064329923, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
+  UnitName: Mage
+  UnitSprite: {fileID: 385926347, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
     Strength: 1
     Vitality: 2
-    Speed: 2
-    Endurance: 4
-    Dexterity: 3
-    Stamina: 4
-    Luck: 0
+    Speed: 3
+    Endurance: 1
+    Dexterity: 1
+    Stamina: 1
+    Luck: 5
   UnitFaction: 0

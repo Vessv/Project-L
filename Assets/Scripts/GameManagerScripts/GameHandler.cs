@@ -76,7 +76,8 @@ public class GameHandler : NetworkBehaviour
         EnemyList = GetComponent<EnemyHolder>().EnemyList;
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            GameObject player = Instantiate(_playerPrefab);
+            Debug.Log(ServerGameNetPortal.Instance.choosenHero);
+            GameObject player = Instantiate(_playerPrefab); //aca cambiar el prefab o algo pero eso como al final cuando este todo
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
             //player.GetComponent<PlayerUnit>().ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(client.ClientId);
             player.transform.position = player.transform.position + new Vector3(0f,(float)client.ClientId);

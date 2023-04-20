@@ -7,12 +7,14 @@ public struct LobbyPlayerState : INetworkSerializable, IEquatable<LobbyPlayerSta
     public ulong ClientId;
     public FixedString32Bytes PlayerName;
     public bool IsReady;
+    public int SelectedHero;
 
-    public LobbyPlayerState(ulong clientId, FixedString32Bytes playerName, bool isReady)
+    public LobbyPlayerState(ulong clientId, FixedString32Bytes playerName, bool isReady, int selectedHero)
     {
         ClientId = clientId;
         PlayerName = playerName;
         IsReady = isReady;
+        SelectedHero = selectedHero;
     }
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
@@ -20,6 +22,7 @@ public struct LobbyPlayerState : INetworkSerializable, IEquatable<LobbyPlayerSta
         serializer.SerializeValue(ref ClientId);
         serializer.SerializeValue(ref PlayerName);
         serializer.SerializeValue(ref IsReady);
+        serializer.SerializeValue(ref SelectedHero);
     }
 
     public bool Equals(LobbyPlayerState other)
