@@ -19,6 +19,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
     //Unit Stats
     public UnitSO UnitScriptableObject;
+    public NetworkVariable<int> CurrentHealth;
     public HealthSystem HealthSystem;
     public NetworkVariable<UnitSO.UnitStats> Stats;
     public int Threat;
@@ -35,6 +36,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     {
         LoadUnitStats();
         HealthSystem = new HealthSystem(Stats.Value.Vitality * 10);
+        CurrentHealth.Value = Stats.Value.Vitality * 5; //cambiar de health a esto
         ActionPoints.Value = 2;
         ownedActionList = new NetworkList<int>();
 

@@ -2327,6 +2327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayers: 4
+  choosenHero: 00000000000000000000000000000000
 --- !u!114 &1091358022
 MonoBehaviour:
   m_ObjectHideFlags: 0

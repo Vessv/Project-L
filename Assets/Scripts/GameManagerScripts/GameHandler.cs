@@ -35,6 +35,9 @@ public class GameHandler : NetworkBehaviour
     [SerializeField]
     Item[] _itemsSOArray;
 
+
+    public UnitSO[] UnitSOArray;
+
     //All the grids needed for the game to work
     private Grid<GridObject> _gameGrid;
     private Pathfinding _pathfindingGrid;
@@ -78,17 +81,31 @@ public class GameHandler : NetworkBehaviour
         {
             Debug.Log(ServerGameNetPortal.Instance.choosenHero);
             GameObject player = Instantiate(_playerPrefab); //aca cambiar el prefab o algo pero eso como al final cuando este todo
+            
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.ClientId);
+            player.GetComponent<PlayerUnit>().UnitScriptableObject = UnitSOArray[ServerGameNetPortal.Instance.choosenHero[(int)client.ClientId]];
+            player.GetComponent<SpriteRenderer>().sprite = UnitSOArray[ServerGameNetPortal.Instance.choosenHero[(int)client.ClientId]].UnitSprite;
+            player.GetComponent<PlayerUnit>().LoadUnitStats();
+            player.GetComponent<PlayerUnit>().UpdateUnitSOClientRpc(ServerGameNetPortal.Instance.choosenHero[(int)client.ClientId]);
             //player.GetComponent<PlayerUnit>().ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(client.ClientId);
-            player.transform.position = player.transform.position + new Vector3(0f,(float)client.ClientId);
+            player.transform.position = player.transform.position + new Vector3((float)(client.ClientId + 8f),1f);
             _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
 
             //Dandole skills base o algo
             player.GetComponent<PlayerUnit>().ownedActionList.Add(1);
-            player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
-            if(client.ClientId != 0)
+
+            //habilidades inciailes de cada heore e items si es necesario
+            switch (ServerGameNetPortal.Instance.choosenHero[client.ClientId])
             {
-                player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                case 0:
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    break;
+                case 1:
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    break;
+                case 2:
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    break;
             }
 
         }
@@ -122,6 +139,14 @@ public class GameHandler : NetworkBehaviour
         _gameGrid = new Grid<GridObject>(_width, _height, 1f, new Vector3(0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(_gameGrid, x, y));
         _tilemapGrid = new Tilemap(_width, _height, 1f, new Vector3(0, 0));
         _pathfindingGrid = new Pathfinding(_width, _height, 1f, new Vector3(0, 0));
+
+        //not walkable by default
+        _pathfindingGrid.GetGrid().GetGridObject(7, 0).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(8, 0).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(9, 0).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetWalkable(false);
     }
 
     void Start()

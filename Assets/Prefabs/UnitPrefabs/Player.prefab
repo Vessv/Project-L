@@ -292,6 +292,8 @@ MonoBehaviour:
   ActionPoints:
     m_InternalValue: 0
   UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
+  CurrentHealth:
+    m_InternalValue: 0
   Stats:
     m_InternalValue:
       Strength: 0
@@ -311,6 +313,10 @@ MonoBehaviour:
   ActionInventoryUI: {fileID: 510471905572029374}
   PlayerInfoUI: {fileID: 5492427046072160567}
   ItemInventoryUI: {fileID: 8756441583315644767}
+  UnitSOArray:
+  - {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
+  - {fileID: 11400000, guid: 1c1bac28a04f880458eb748dd38cb19f, type: 2}
+  - {fileID: 11400000, guid: 709505668dcfc2048bef3d8851d1ef2a, type: 2}
 --- !u!114 &316698187365087432
 MonoBehaviour:
   m_ObjectHideFlags: 0

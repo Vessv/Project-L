@@ -76,6 +76,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c72b1f41f6265e54d89de0792000a617, type: 2}
   - {fileID: 11400000, guid: fe0e5f0d997c0be4cbf159f1bca7e3ae, type: 2}
   - {fileID: 11400000, guid: 9f7ae9b380805f14ab652f63b3a151d6, type: 2}
+  UnitSOArray:
+  - {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
+  - {fileID: 11400000, guid: 1c1bac28a04f880458eb748dd38cb19f, type: 2}
+  - {fileID: 11400000, guid: 709505668dcfc2048bef3d8851d1ef2a, type: 2}
   _width: 12
   _height: 9
   EnviromentPrefabs: []

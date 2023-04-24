@@ -24,6 +24,8 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject PlayerInfoUI;
     public GameObject ItemInventoryUI;
 
+    public UnitSO[] UnitSOArray;
+
     private void Start()
     {
         if (!IsLocalPlayer) return;
@@ -112,6 +114,19 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public void HideAllMapVisualTileClientRpc()
     {
         MapHolder.GetComponent<MapVisual>().HideAll();
+    }
+
+    [ClientRpc]
+    public void UpdateUnitSOClientRpc(int index)
+    {
+        UpdateUnitSO(index);
+    }
+
+    public void UpdateUnitSO(int index)
+    {
+        UnitScriptableObject = UnitSOArray[index];
+        GetComponent<SpriteRenderer>().sprite = UnitSOArray[index].UnitSprite;
+
     }
 
     [ServerRpc]

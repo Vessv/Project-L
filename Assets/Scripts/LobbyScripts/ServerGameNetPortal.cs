@@ -41,6 +41,7 @@ public class ServerGameNetPortal : MonoBehaviour
     private void Start()
     {
         gameNetPortal = GetComponent<GameNetPortal>();
+
         gameNetPortal.OnNetworkReadied += HandleNetworkReadied;
 
         NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
