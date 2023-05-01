@@ -46,6 +46,14 @@ public class NPCUnit : BaseUnit
 
     }
 
+    public override void Die()
+    {
+        base.Die();
+        GameHandler.Instance.GetGrid().GetGridObject(transform.position).RemoveUnit();
+        GameHandler.Instance.RemoveEnemyFromList(this);
+        //playsound?
+        Destroy(this.gameObject);
+    }
 
     private void Update()
     {

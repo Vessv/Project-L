@@ -24,6 +24,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject ActionInventoryUI;
     public GameObject PlayerInfoUI;
     public GameObject ItemInventoryUI;
+    public GameObject GameStateInfoUI;
 
     public UnitSO[] UnitSOArray;
 
@@ -32,7 +33,12 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer) return;
         SubmitActionStateServerRpc(ActionState.Normal);
         ActionCanvas.SetActive(true);
+        GameStateInfoUI.SetActive(true);
         inventory = GetComponent<ItemInventory>();
+        Stats.OnValueChanged += OnStatsChange;
+        IsMyTurn.OnValueChanged += OnMyTurnChange;
+        CurrentHealth.OnValueChanged += OnHealthChangePlayer;
+        ActionPoints.OnValueChanged += OnHealthChangePlayer;
     }
 
     public void Click(InputAction.CallbackContext context)
@@ -74,11 +80,30 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public void Testing(InputAction.CallbackContext context)
     {
         if (!IsLocalPlayer || !context.performed) return;
-
-        inventory.Add(0);
-        inventory.Add(1);
-        inventory.Add(2);
         inventory.Add(3);
+        GameHandler.Instance.FloorEnd();
+    }
+
+    public override void Die()
+    {
+        base.Die();
+    }
+
+    public void OnStatsChange(UnitSO.UnitStats previous, UnitSO.UnitStats current)
+    {
+        PlayerInfoUI.GetComponentInChildren<PlayerInfoUI>().UpdateInfoUI();
+        GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
+
+    }
+
+    public void OnMyTurnChange(bool previous, bool current)
+    {
+        GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
+    }
+
+    public void OnHealthChangePlayer(int previous, int current)
+    {
+        GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
     }
 
     [ClientRpc]

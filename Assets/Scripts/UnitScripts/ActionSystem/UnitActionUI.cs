@@ -24,7 +24,7 @@ public class UnitActionUI : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropObject = eventData.pointerDrag;
-        ActionSO dragActionSO = dropObject.GetComponent<DraggableImage>().ActionSO;
+        ActionSO dragActionSO = dropObject.GetComponent<DraggableImage>().ActionSO; //aca hay un error que puede dar con la ia de drag a dragear a un slot
         actionSO = dragActionSO;
         UpdateActionUI();
     }

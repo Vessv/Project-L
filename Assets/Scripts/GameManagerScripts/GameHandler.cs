@@ -23,6 +23,7 @@ public class GameHandler : NetworkBehaviour
 
     bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
 
+    public int floorNumber = 0;
 
     [SerializeField]
     MoveAction _moveAction;
@@ -114,8 +115,8 @@ public class GameHandler : NetworkBehaviour
         GameObject enemy = Instantiate(_enemyPrefab);
         enemy.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
-        enemy.transform.position = new Vector3(10.5f, 10.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 10.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = new Vector3(10.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
         GameObject enemy2 = Instantiate(_enemyPrefab);
         enemy2.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy2.GetComponent<NPCUnit>());
@@ -123,17 +124,26 @@ public class GameHandler : NetworkBehaviour
         Instance.GetGrid().GetGridObject(new Vector3(12.5f, 12.5f)).SetUnit(enemy2.GetComponent<NPCUnit>());
 
 
-        FloorEnd(); //quitar de aca 
     }
 
+
+    public void RemoveEnemyFromList(NPCUnit unit)
+    {
+        EnemyList.Remove(unit);
+        if(EnemyList.Count == 0)
+        {
+            FloorEnd();
+        }
+    }
 
     private void FloorStart()
     {
         //remove black screen?
     }
 
-    private void FloorEnd()
+    public void FloorEnd()
     {
+        floorNumber += 1;
         //enable ui wtih blessing so they choose
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
@@ -144,13 +154,24 @@ public class GameHandler : NetworkBehaviour
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList) //mirar si esto si funciona
         {
             GameObject player = client.PlayerObject.gameObject;
-            player.transform.position = player.transform.position + new Vector3((float)(client.ClientId + 8f), 1f);
+            _gameGrid.GetGridObject(player.transform.position).RemoveUnit();
+            player.transform.position = new Vector3((float)(client.ClientId + 8.5f), 1.5f);
             _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
         }
-            
+
         //change map spawnear cosas, tenerlos en una lista, updatear el pathfinding si ese necesario, remover los anteriores, updatear el pathfinding
-        //spawn new enemies, de una lista que tenga waves de enemigos o algo 
+        //spawn new enemies, de una lista que tenga waves de enemigos o algo, o que lo haga el turn handler mejor
+        TurnHandler.NextTurn();
         //floorstart es necesario floor start?
+    }
+
+    public void SpawnNewWave()
+    {
+        GameObject enemy = Instantiate(_enemyPrefab);
+        enemy.GetComponent<NetworkObject>().Spawn();
+        EnemyList.Add(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = new Vector3(8.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(8.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
     }
 
     //Initalize singleton, grids and TurnHandler.CurrentTurnIndex

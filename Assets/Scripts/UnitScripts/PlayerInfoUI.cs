@@ -13,12 +13,18 @@ public class PlayerInfoUI : MonoBehaviour
     public Image weaponImage;
     public TextMeshProUGUI Strength;
     public TextMeshProUGUI Vitality;
+    public TextMeshProUGUI Intelligence;
     public TextMeshProUGUI Speed;
     public TextMeshProUGUI Endurance;
     public TextMeshProUGUI Dexterity;
     public TextMeshProUGUI Stamina;
     public TextMeshProUGUI Luck;
     private void OnEnable()
+    {
+        UpdateInfoUI();
+    }
+
+    public void UpdateInfoUI()
     {
         GameObject playerObject = transform.root.gameObject;
         PlayerUnit unit = playerObject.GetComponent<PlayerUnit>();
@@ -28,6 +34,7 @@ public class PlayerInfoUI : MonoBehaviour
 
         Vitality.text = "Vitality: " + unit.Stats.Value.Vitality;
         Strength.text = "Strength: " + unit.Stats.Value.Strength;
+        Intelligence.text = "Intelligence:  " + unit.Stats.Value.Intelligence;
         Speed.text = "Speed: " + unit.Stats.Value.Speed;
         Endurance.text = "Endurance: " + unit.Stats.Value.Endurance;
         Dexterity.text = "Dexterity: " + unit.Stats.Value.Dexterity;
@@ -80,6 +87,5 @@ public class PlayerInfoUI : MonoBehaviour
             weaponImage.enabled = false;
 
         }
-
     }
 }

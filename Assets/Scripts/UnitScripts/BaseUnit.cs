@@ -20,6 +20,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     //Unit Stats
     public UnitSO UnitScriptableObject;
     public NetworkVariable<int> CurrentHealth;
+    public NetworkVariable<bool> isDead;
     public HealthSystem HealthSystem;
     public NetworkVariable<UnitSO.UnitStats> Stats;
     public int Threat;
@@ -35,8 +36,9 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     private void Awake()
     {
         LoadUnitStats();
-        HealthSystem = new HealthSystem(Stats.Value.Vitality * 10);
+        HealthSystem = new HealthSystem(Stats.Value.Vitality);
         CurrentHealth.Value = Stats.Value.Vitality * 5; //cambiar de health a esto
+        CurrentHealth.OnValueChanged += OnHealthChanged;
         ActionPoints.Value = 2;
         ownedActionList = new NetworkList<int>();
 
@@ -49,22 +51,53 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        if (HealthSystem.IsDead()) return;
+        if (isDead.Value) return;
 
-        HealthSystem.Damage(damage);
+        TakeDamageServerRpc(damage);
 
-        if (HealthSystem.IsDead()) Die();
-
-        //AudioManager.Instance.Play("HumanPain");
+        //AudioManager.Instance.Play("HumanPain"); Clientrpc
     }
 
-    public void Die()
+    public virtual void Die()
     {
         //Die remove unit form turn handler, remove unit from grid
-        this.gameObject.SetActive(false);
         Debug.Log(this + " Died");
     }
 
+    public void OnHealthChanged(int previous, int current)
+    {
+        if (!IsOwner)
+        {
+            return;
+        }
+        if (current <= 0)
+        {
+            Die();
+        }
+        if (current > Stats.Value.Vitality)
+        {
+            SetCurrentHealthServerRpc(Stats.Value.Vitality);
+        }
+    }
+
+    [ServerRpc]
+    public void SetCurrentHealthServerRpc(int health)
+    {
+        CurrentHealth.Value = health;
+
+    }
+
+    [ServerRpc]
+    public void TakeDamageServerRpc(int damage)
+    {
+        CurrentHealth.Value -= damage;
+    }
+
+    [ServerRpc]
+    public void SetIsDeadServerRpc(bool trueorfalse)
+    {
+        isDead.Value = trueorfalse;
+    }
 
     [ServerRpc]
     public void AddActionToListServerRpc(int actionID)

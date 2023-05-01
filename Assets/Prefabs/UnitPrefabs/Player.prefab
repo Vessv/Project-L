@@ -295,10 +295,13 @@ MonoBehaviour:
   UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
   CurrentHealth:
     m_InternalValue: 0
+  isDead:
+    m_InternalValue: 0
   Stats:
     m_InternalValue:
       Strength: 0
       Vitality: 0
+      Intelligence: 0
       Speed: 0
       Endurance: 0
       Dexterity: 0
@@ -315,6 +318,7 @@ MonoBehaviour:
   ActionInventoryUI: {fileID: 510471905572029374}
   PlayerInfoUI: {fileID: 5492427046072160567}
   ItemInventoryUI: {fileID: 8756441583315644767}
+  GameStateInfoUI: {fileID: 3097183729812640873}
   UnitSOArray:
   - {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
   - {fileID: 11400000, guid: 1c1bac28a04f880458eb748dd38cb19f, type: 2}
@@ -406,6 +410,10 @@ PrefabInstance:
     - target: {fileID: 2759144841287739124, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759144841287739127, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2759144841495255400, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
       propertyPath: m_Pivot.x
@@ -521,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4355178468285936907, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4568907802957017935, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
       propertyPath: m_RootOrder
@@ -580,6 +588,11 @@ GameObject:
 --- !u!1 &1343655260679318752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745415665710696874, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+  m_PrefabInstance: {fileID: 2404918777989735754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3097183729812640873 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 838959061606379811, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
   m_PrefabInstance: {fileID: 2404918777989735754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5128483919328644011 stripped

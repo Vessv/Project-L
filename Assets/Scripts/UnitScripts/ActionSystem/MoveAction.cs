@@ -90,7 +90,7 @@ public class MoveAction : BaseAction
         {
             for (int y = (int)(unit.transform.position.y - 0.5f - maxMoveDistance); y <= (int)(unit.transform.position.y - 0.5f + maxMoveDistance); y++)
             {
-                if(x >= 0 && y >= 0)
+                if(x >= 0 && y >= 0 && x< 18 && y<16)
                 {
                     if (Pathfinding.Instance.GetGrid().GetGridObject(x, y).isWalkable && !Pathfinding.Instance.GetGrid().GetGridObject(x, y).isObstacle)
                     {

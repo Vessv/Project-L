@@ -24,6 +24,7 @@ public class UnitSO : ScriptableObject
     {
         public int Strength;
         public int Vitality;
+        public int Intelligence;
         public int Speed;
         public int Endurance;
         public int Dexterity;
@@ -36,6 +37,7 @@ public class UnitSO : ScriptableObject
             {
                 Strength = a.Strength + b.Strength,
                 Vitality = a.Vitality + b.Vitality,
+                Intelligence = a.Intelligence + b.Intelligence,
                 Speed = a.Speed + b.Speed,
                 Endurance = a.Endurance + b.Endurance,
                 Dexterity = a.Dexterity + b.Dexterity,
@@ -50,6 +52,7 @@ public class UnitSO : ScriptableObject
             {
                 Strength = a.Strength - b.Strength,
                 Vitality = a.Vitality - b.Vitality,
+                Intelligence=a.Intelligence - b.Intelligence,
                 Speed = a.Speed - b.Speed,
                 Endurance = a.Endurance - b.Endurance,
                 Dexterity = a.Dexterity - b.Dexterity,
@@ -62,6 +65,7 @@ public class UnitSO : ScriptableObject
         {
             serializer.SerializeValue(ref Strength);
             serializer.SerializeValue(ref Vitality);
+            serializer.SerializeValue(ref Intelligence);
             serializer.SerializeValue(ref Speed);
             serializer.SerializeValue(ref Endurance);
             serializer.SerializeValue(ref Dexterity);
