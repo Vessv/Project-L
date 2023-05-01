@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -925,22 +925,22 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       buttons_4x_sliced_25: 243994081
-      buttons_4x_sliced_26: -750878384
       buttons_4x_sliced_30: -615433524
       buttons_4x_sliced_7: 801995501
       buttons_4x_sliced_28: 1160526427
       buttons_4x_sliced_6: 1797532518
       buttons_4x_sliced_35: -2076241455
+      buttons_4x_sliced_17: -819405421
       buttons_4x_sliced_1: -156959151
       buttons_4x_sliced_36: -137487425
       buttons_4x_sliced_34: 1851275777
       buttons_4x_sliced_27: -627819968
       buttons_4x_sliced_14: -258797218
       buttons_4x_sliced_18: -1183133079
-      buttons_4x_sliced_37: 2121155514
       buttons_4x_sliced_9: 439593919
       buttons_4x_sliced_20: 621395181
       buttons_4x_sliced_0: 1402260382
+      buttons_4x_sliced_21: -1619202880
       buttons_4x_sliced_2: -1309338441
       buttons_4x_sliced_8: -243529350
       buttons_4x_sliced_23: -1524321025
@@ -960,8 +960,8 @@ TextureImporter:
       buttons_4x_sliced_29: 1205116012
       buttons_4x_sliced_3: 590524621
       buttons_4x_sliced_11: 1921754310
-      buttons_4x_sliced_17: -819405421
-      buttons_4x_sliced_21: -1619202880
+      buttons_4x_sliced_26: -750878384
+      buttons_4x_sliced_37: 2121155514
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
