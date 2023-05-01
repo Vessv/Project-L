@@ -19,6 +19,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject ActionCanvas;
     public GameObject MapHolder;
     public GameObject ActionInventory;
+    public GameObject BlessingDisplay;
 
     public GameObject ActionInventoryUI;
     public GameObject PlayerInfoUI;
@@ -107,7 +108,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         Transform[,] MapVisualArray = MapHolder.GetComponent<MapVisual>().GridVisualArray;
         MapVisualArray[x, y].gameObject.SetActive(true);
         SpriteRenderer renderer = MapVisualArray[x, y].gameObject.GetComponent<SpriteRenderer>();
-        renderer.color = Color.red;
+        renderer.color = new Color(0, 1, 1, 0.5f);
     }
 
     [ClientRpc]
@@ -117,11 +118,23 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     }
 
     [ClientRpc]
+    public void DisplayBlessingSelectionClientRpc()
+    {
+        if (!IsLocalPlayer)
+        {
+            return;
+        }
+        BlessingDisplay.gameObject.SetActive(true);
+
+    }
+
+    [ClientRpc]
     public void UpdateUnitSOClientRpc(int index)
     {
         UpdateUnitSO(index);
+        GetComponent<Animator>().SetInteger("chara_type", index);
     }
-
+    
     public void UpdateUnitSO(int index)
     {
         UnitScriptableObject = UnitSOArray[index];

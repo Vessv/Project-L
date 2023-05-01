@@ -65,6 +65,19 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         Debug.Log(this + " Died");
     }
 
+
+    [ServerRpc]
+    public void AddActionToListServerRpc(int actionID)
+    {
+        ownedActionList.Add(actionID);
+    }
+
+    [ClientRpc]
+    public void UpdateWalkVariableClientRpc()
+    {
+        GetComponent<Animator>().SetBool("walking", !GetComponent<Animator>().GetBool("walking"));
+    }
+
     public enum ActionState
     {
         Normal,

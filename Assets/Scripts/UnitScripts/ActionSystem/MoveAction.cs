@@ -48,6 +48,7 @@ public class MoveAction : BaseAction
 
                     //onPositionReached?.Invoke();
                     unit.SelectedAction.Value = UnitAction.Action.None;
+                    unit.UpdateWalkVariableClientRpc();
                 }
             }
 

@@ -123,7 +123,34 @@ public class GameHandler : NetworkBehaviour
         Instance.GetGrid().GetGridObject(new Vector3(12.5f, 12.5f)).SetUnit(enemy2.GetComponent<NPCUnit>());
 
 
+        FloorEnd(); //quitar de aca 
+    }
 
+
+    private void FloorStart()
+    {
+        //remove black screen?
+    }
+
+    private void FloorEnd()
+    {
+        //enable ui wtih blessing so they choose
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().DisplayBlessingSelectionClientRpc();
+        }
+        //after everyone has choosen black screen algo como player.changeblackscreenclientrpc
+        //move to initial position
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList) //mirar si esto si funciona
+        {
+            GameObject player = client.PlayerObject.gameObject;
+            player.transform.position = player.transform.position + new Vector3((float)(client.ClientId + 8f), 1f);
+            _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
+        }
+            
+        //change map spawnear cosas, tenerlos en una lista, updatear el pathfinding si ese necesario, remover los anteriores, updatear el pathfinding
+        //spawn new enemies, de una lista que tenga waves de enemigos o algo 
+        //floorstart es necesario floor start?
     }
 
     //Initalize singleton, grids and TurnHandler.CurrentTurnIndex
@@ -222,6 +249,7 @@ public class GameHandler : NetworkBehaviour
         if (TurnHandler.CurrentUnit.CanMove)
         {
             _moveAction.Setup(TurnHandler.CurrentUnit);
+            TurnHandler.CurrentUnit.UpdateWalkVariableClientRpc();
             _moveAction.Move();
         } 
         else 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5998079259980959930}
   - component: {fileID: -960642172482911718}
   - component: {fileID: 2312683789717505627}
+  - component: {fileID: 6757460269464322106}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -151,15 +152,37 @@ MonoBehaviour:
     m_InternalValue: 0
   ActionPoints:
     m_InternalValue: 0
-  ownedActionArray: 000000000000000000000000000000000000000000000000000000000000000000000000
   UnitScriptableObject: {fileID: 11400000, guid: c85ec7f8f23dd05419f809bee66496c3, type: 2}
+  CurrentHealth:
+    m_InternalValue: 0
   Stats:
-    Strength: 0
-    Vitality: 0
-    Speed: 0
-    Endurance: 0
-    Dexterity: 0
-    Stamina: 0
-    Luck: 0
+    m_InternalValue:
+      Strength: 0
+      Vitality: 0
+      Speed: 0
+      Endurance: 0
+      Dexterity: 0
+      Stamina: 0
+      Luck: 0
   Threat: 0
   DifferentPositionFlag: 0
+--- !u!95 &6757460269464322106
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999689300300813914}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 417036c8f64f1f24dbd3fda4fe379fdc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

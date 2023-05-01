@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -7891121424322934865}
   - component: {fileID: 316698187365087432}
   - component: {fileID: 8108580627133136588}
+  - component: {fileID: 7534357883199281573}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -310,6 +311,7 @@ MonoBehaviour:
   ActionCanvas: {fileID: 510471905758919742}
   MapHolder: {fileID: 0}
   ActionInventory: {fileID: 510471904280366999}
+  BlessingDisplay: {fileID: 5128483919328644011}
   ActionInventoryUI: {fileID: 510471905572029374}
   PlayerInfoUI: {fileID: 5492427046072160567}
   ItemInventoryUI: {fileID: 8756441583315644767}
@@ -346,6 +348,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
+--- !u!95 &7534357883199281573
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999689300300813914}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a874249b043df9c45b8eb44affad74fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2404918777989735754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,6 +580,11 @@ GameObject:
 --- !u!1 &1343655260679318752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745415665710696874, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+  m_PrefabInstance: {fileID: 2404918777989735754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5128483919328644011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7382512567578373857, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
   m_PrefabInstance: {fileID: 2404918777989735754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5492427046072160567 stripped
