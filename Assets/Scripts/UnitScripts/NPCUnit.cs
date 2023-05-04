@@ -41,7 +41,7 @@ public class NPCUnit : BaseUnit
 
     bool isRangedRange(int distance)
     {
-        if (distance >= 1 && 2 >= distance) return true;
+        if (distance >= 999 && 999 >= distance) return true;
         return false;
 
     }

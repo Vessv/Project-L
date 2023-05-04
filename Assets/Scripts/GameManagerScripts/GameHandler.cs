@@ -58,6 +58,7 @@ public class GameHandler : NetworkBehaviour
 
     public TurnHandler TurnHandler;
 
+
     public Vector2 GetWidthAndHeight()
     {
         return new Vector2(_width, _height);
@@ -129,6 +130,7 @@ public class GameHandler : NetworkBehaviour
 
     public void RemoveEnemyFromList(NPCUnit unit)
     {
+        if (!IsServer) { return; }
         EnemyList.Remove(unit);
         if(EnemyList.Count == 0)
         {
@@ -161,7 +163,9 @@ public class GameHandler : NetworkBehaviour
 
         //change map spawnear cosas, tenerlos en una lista, updatear el pathfinding si ese necesario, remover los anteriores, updatear el pathfinding
         //spawn new enemies, de una lista que tenga waves de enemigos o algo, o que lo haga el turn handler mejor
-        TurnHandler.NextTurn();
+        //TurnHandler.NextTurn();
+        TurnHandler.CurrentTurnIndex = 0;
+        GameHandler.Instance.SpawnNewWave();
         //floorstart es necesario floor start?
     }
 

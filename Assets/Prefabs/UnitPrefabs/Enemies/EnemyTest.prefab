@@ -152,13 +152,16 @@ MonoBehaviour:
     m_InternalValue: 0
   ActionPoints:
     m_InternalValue: 0
-  UnitScriptableObject: {fileID: 11400000, guid: c85ec7f8f23dd05419f809bee66496c3, type: 2}
+  UnitScriptableObject: {fileID: 11400000, guid: 0db15ef33400e5743a5915ac60321a20, type: 2}
   CurrentHealth:
+    m_InternalValue: 0
+  isDead:
     m_InternalValue: 0
   Stats:
     m_InternalValue:
       Strength: 0
       Vitality: 0
+      Intelligence: 0
       Speed: 0
       Endurance: 0
       Dexterity: 0

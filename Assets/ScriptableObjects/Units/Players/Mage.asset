@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1750a9870924945b9d8ddbaa26d736, type: 3}
-  m_Name: Demon_Mini
+  m_Name: Mage
   m_EditorClassIdentifier: 
-  UnitName: Demon minion
-  UnitSprite: {fileID: 1965810237, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
+  UnitName: Mage
+  UnitSprite: {fileID: 385926347, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
-    Strength: 20
-    Vitality: 35
-    Intelligence: 1
+    Strength: 0
+    Vitality: 60
+    Intelligence: 40
     Speed: 2
     Endurance: 1
-    Dexterity: 1
-    Stamina: 1
+    Dexterity: 5
+    Stamina: 3
     Luck: 0
-  UnitFaction: 1
+  UnitFaction: 0

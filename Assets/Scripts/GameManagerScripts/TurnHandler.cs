@@ -81,12 +81,6 @@ public class TurnHandler : NetworkBehaviour
                 return;
             }
 
-            if(GameHandler.Instance.EnemyList.Count == 0)
-            {
-                CurrentTurnIndex = 0;
-                GameHandler.Instance.SpawnNewWave();
-            }
-
             Debug.Log("current turn: " + CurrentTurnIndex + " maxTurn: " + turnIds.Length);
             CurrentUnit = NetworkManager.Singleton.ConnectedClientsList[CurrentTurnIndex].PlayerObject.GetComponent<PlayerUnit>();
             CurrentUnit.IsMyTurn.Value = true;

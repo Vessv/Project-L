@@ -34,7 +34,7 @@ public class MoveAction : BaseAction
             else
             {
                 currentPathIndex++;
-                if (currentPathIndex >= _pathVectorList.Count || currentPathIndex >= unit.Stats.Value.Speed + 1)
+                if (currentPathIndex >= _pathVectorList.Count || currentPathIndex >= unit.Stats.Value.Speed)
                 {
                     _pathVectorList.Clear();
                     GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).SetUnit(unit);
@@ -85,7 +85,7 @@ public class MoveAction : BaseAction
 
     public void ShowMoveTiles()
     {
-        int maxMoveDistance = unit.Stats.Value.Speed + 1;
+        int maxMoveDistance = unit.Stats.Value.Speed;
         for (int x = (int)(unit.transform.position.x-0.5f - maxMoveDistance); x <= (int)(unit.transform.position.x - 0.5f + maxMoveDistance); x++)
         {
             for (int y = (int)(unit.transform.position.y - 0.5f - maxMoveDistance); y <= (int)(unit.transform.position.y - 0.5f + maxMoveDistance); y++)

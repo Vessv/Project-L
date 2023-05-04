@@ -21,7 +21,6 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public UnitSO UnitScriptableObject;
     public NetworkVariable<int> CurrentHealth;
     public NetworkVariable<bool> isDead;
-    public HealthSystem HealthSystem;
     public NetworkVariable<UnitSO.UnitStats> Stats;
     public int Threat;
 
@@ -36,8 +35,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     private void Awake()
     {
         LoadUnitStats();
-        HealthSystem = new HealthSystem(Stats.Value.Vitality);
-        CurrentHealth.Value = Stats.Value.Vitality * 5; //cambiar de health a esto
+        CurrentHealth.Value = Stats.Value.Vitality; //cambiar de health a esto
         CurrentHealth.OnValueChanged += OnHealthChanged;
         ActionPoints.Value = 2;
         ownedActionList = new NetworkList<int>();
@@ -49,13 +47,42 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         Stats.Value = UnitScriptableObject.Stats;
     }
 
+    [ClientRpc]
+    public void TakeDamageClientRpc(int damage)
+    {
+        TakeDamage(damage);
+    }
     public void TakeDamage(int damage)
     {
         if (isDead.Value) return;
 
-        TakeDamageServerRpc(damage);
+        if (IsOwner)
+        {
+            TakeDamageServerRpc(damage);
+        }
+        StartCoroutine(TakeDamageFlashWhite());
+        Debug.Log("da;o tomado: " + damage);
+        //AudioManager.Instance.Play("HumanPain"); Clientrpc o no
+    }
 
-        //AudioManager.Instance.Play("HumanPain"); Clientrpc
+    IEnumerator TakeDamageFlashWhite()
+    {
+        GetComponent<SpriteRenderer>().color = Color.gray;
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(TakeDamageFlashRed());
+    }
+
+    IEnumerator TakeDamageFlashRed()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(TakeDamageFlashRevert());
+    }
+
+    IEnumerator TakeDamageFlashRevert()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
+        yield return null;
     }
 
     public virtual void Die()

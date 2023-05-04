@@ -5070,9 +5070,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2112692263}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: UnitSOArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: enviromentPrefabHolder
       value: 
       objectReference: {fileID: 2112692263}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: UnitSOArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: UnitSOArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
+    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
+      propertyPath: UnitSOArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: de4ddc8fb68d2f94d9f9c4c9ca2ff178, type: 2}
     - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: _actionsSOArray.Array.size
       value: 3

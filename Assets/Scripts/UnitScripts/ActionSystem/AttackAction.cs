@@ -44,7 +44,7 @@ public class AttackAction : BaseAction
 
         _damage = unit.Stats.Value.Strength;
         //AudioManager.Instance.Play("Hit");
-        targetUnit.TakeDamage(_damage);
+        targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;

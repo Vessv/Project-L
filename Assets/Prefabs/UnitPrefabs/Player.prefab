@@ -292,7 +292,7 @@ MonoBehaviour:
     m_InternalValue: 0
   ActionPoints:
     m_InternalValue: 0
-  UnitScriptableObject: {fileID: 11400000, guid: b12d74d1a38c6fa429f95cd5206849a0, type: 2}
+  UnitScriptableObject: {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   CurrentHealth:
     m_InternalValue: 0
   isDead:
