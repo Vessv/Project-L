@@ -40,6 +40,12 @@ public class PathNode
         this.isObstacle = isObstacle;
     }
 
+    public void SetMap(bool isMap)
+    {
+        this.isWalkable = !isMap;
+        this.isObstacle = isMap;
+    }
+
     public override string ToString()
     {
         return x+":"+y;

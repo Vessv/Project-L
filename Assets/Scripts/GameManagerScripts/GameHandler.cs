@@ -36,6 +36,8 @@ public class GameHandler : NetworkBehaviour
     [SerializeField]
     Item[] _itemsSOArray;
 
+    public GameObject[] ProjectileSOArray;
+
 
     public UnitSO[] UnitSOArray;
 
@@ -103,10 +105,10 @@ public class GameHandler : NetworkBehaviour
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
                     break;
                 case 1:
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
                     break;
                 case 2:
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
                     break;
             }
 
@@ -193,12 +195,12 @@ public class GameHandler : NetworkBehaviour
         _pathfindingGrid = new Pathfinding(_width, _height, 1f, new Vector3(0, 0));
 
         //not walkable by default
-        _pathfindingGrid.GetGrid().GetGridObject(7, 0).SetWalkable(false);
-        _pathfindingGrid.GetGrid().GetGridObject(8, 0).SetWalkable(false);
-        _pathfindingGrid.GetGrid().GetGridObject(9, 0).SetWalkable(false);
-        _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetWalkable(false);
-        _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetWalkable(false);
-        _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetWalkable(false);
+        _pathfindingGrid.GetGrid().GetGridObject(7, 0).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(8, 0).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(9, 0).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(true);
     }
 
     void Start()
@@ -258,6 +260,14 @@ public class GameHandler : NetworkBehaviour
                 _moveAction.Setup(TurnHandler.CurrentUnit);
                 _moveAction.ShowMoveTiles();
                 break;
+            case UnitAction.Action.Meele:
+                _attackAction.Setup(TurnHandler.CurrentUnit);
+                _attackAction.ShowMoveTiles();
+                break;
+            case UnitAction.Action.Ranged:
+                GetComponent<RangedAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<RangedAction>().ShowMoveTiles();
+                break;
         }
     }
 
@@ -268,6 +278,7 @@ public class GameHandler : NetworkBehaviour
         if (isOutOfBounds)
         {
             Debug.Log("GameHandler.cs error DoAction() out of bounds x,y = " + targetPoisition.x + "," + targetPoisition.y);
+            TurnHandler.CurrentUnit.SelectedAction.Value = UnitAction.Action.None;
             return;
         }
         TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
@@ -278,10 +289,16 @@ public class GameHandler : NetworkBehaviour
             _moveAction.Move();
         } 
         else 
-        if (TurnHandler.CurrentUnit.CanShoot)
+        if (TurnHandler.CurrentUnit.CanMeele)
         {
             _attackAction.Setup(TurnHandler.CurrentUnit);
             _attackAction.Attack();
+        }
+        else
+        if (TurnHandler.CurrentUnit.CanRanged)
+        {
+            GetComponent<RangedAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<RangedAction>().Attack();
         }
 
     }

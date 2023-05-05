@@ -34,7 +34,7 @@ public class NPCUnit : BaseUnit
 
     bool IsMeleeRange(int distance)
     {
-        if(distance >= 0 && 1 >= distance) return true;
+        if(distance >= 0 && 0 >= distance) return true;
         return false;
 
     }
@@ -81,16 +81,16 @@ public class NPCUnit : BaseUnit
             switch (_pathVectorList.Count)
             {
                 case int d when (IsMeleeRange(d)):
-                    SelectedAction.Value = UnitAction.Action.Shoot;
+                    SelectedAction.Value = UnitAction.Action.Meele;
                     TargetPosition.Value = _targetUnit.transform.position;
                     Debug.Log("Melee Attack");
                     break;
 
-                case int d when (isRangedRange(d)):
-                    SelectedAction.Value = UnitAction.Action.Shoot;
+                /*case int d when (isRangedRange(d)):
+                    SelectedAction.Value = UnitAction.Action.Ranged;
                     TargetPosition.Value = _targetUnit.transform.position;
                     Debug.Log("Ranged Attack");
-                    break;
+                    break;*/
 
                 default:
                     SelectedAction.Value = UnitAction.Action.Move;

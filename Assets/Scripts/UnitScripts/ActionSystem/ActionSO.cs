@@ -10,4 +10,5 @@ public class ActionSO : ScriptableObject
     public string actionName;
     public Sprite actionSprite;
     public string actionDescription;
+    public int pointCost;
 }

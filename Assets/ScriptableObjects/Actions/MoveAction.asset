@@ -15,4 +15,5 @@ MonoBehaviour:
   actionIndex: 1
   actionName: Walk
   actionSprite: {fileID: 21300000, guid: b2c09909fa027cd4fa17c11e0b75dedb, type: 3}
-  actionDescription: Una ultra super habilidad para moverse
+  actionDescription: Use this action to move
+  pointCost: 1

@@ -28,7 +28,15 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public bool IsBusy => ActionStatus.Value == ActionState.Busy;
     public bool CanPlay => !IsBusy && SelectedAction.Value != UnitAction.Action.None;
     public bool CanMove => SelectedAction.Value == UnitAction.Action.Move;
-    public bool CanShoot => SelectedAction.Value == UnitAction.Action.Shoot;
+    public bool CanMeele => SelectedAction.Value == UnitAction.Action.Meele;
+    public bool CanRanged => SelectedAction.Value == UnitAction.Action.Ranged;
+    public bool CanShieldBash => SelectedAction.Value == UnitAction.Action.ShieldBash;
+    public bool CanFireball => SelectedAction.Value == UnitAction.Action.Fireball;
+    public bool CanHeadbutt => SelectedAction.Value == UnitAction.Action.Headbutt;
+    public bool CanMeteor => SelectedAction.Value == UnitAction.Action.Meteor;
+    public bool CanPoison => SelectedAction.Value == UnitAction.Action.Poison;
+    public bool CanStun => SelectedAction.Value == UnitAction.Action.Stun;
+    public bool CanHoly => SelectedAction.Value == UnitAction.Action.Holy;
 
     public bool DifferentPositionFlag;
 
@@ -48,6 +56,13 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     }
 
     [ClientRpc]
+    public void SpawnProjectileClientRpc(int objectIndex)
+    {
+        GameObject projectile = Instantiate(GameHandler.Instance.ProjectileSOArray[objectIndex], transform.position, Quaternion.identity);
+        projectile.GetComponent<Projectile>().targetPosition = TargetPosition.Value;
+    }
+
+    [ClientRpc]
     public void TakeDamageClientRpc(int damage)
     {
         TakeDamage(damage);
@@ -58,10 +73,18 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
         if (IsOwner)
         {
-            TakeDamageServerRpc(damage);
+            if(damage > Stats.Value.Endurance)
+            {
+                TakeDamageServerRpc(damage);
+            } else
+            {
+                damage = (int)Mathf.Floor(damage/2);
+                TakeDamageServerRpc(damage);
+
+            }
         }
         StartCoroutine(TakeDamageFlashWhite());
-        Debug.Log("da;o tomado: " + damage);
+        Debug.Log("dano tomado: " + damage);
         //AudioManager.Instance.Play("HumanPain"); Clientrpc o no
     }
 

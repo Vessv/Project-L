@@ -20,7 +20,7 @@ MonoBehaviour:
     Intelligence: 40
     Speed: 2
     Endurance: 1
-    Dexterity: 5
+    Dexterity: 6
     Stamina: 3
     Luck: 0
   UnitFaction: 0

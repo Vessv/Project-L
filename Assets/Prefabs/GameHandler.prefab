@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1108855679348828788}
   - component: {fileID: 1108855679348828795}
   - component: {fileID: 1108855679348828794}
+  - component: {fileID: 8299582459427570035}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -72,11 +73,28 @@ MonoBehaviour:
   _actionsSOArray:
   - {fileID: 11400000, guid: 8d96e3c1684efca40b8cca3f8ded3d5c, type: 2}
   - {fileID: 11400000, guid: 352285b2f3723564582386889657c465, type: 2}
+  - {fileID: 11400000, guid: 4d57d92bfb9421d439754a302583e34a, type: 2}
+  - {fileID: 11400000, guid: 60295f621584afc4db4ea1077fd1a989, type: 2}
+  - {fileID: 11400000, guid: dccadb0f9cfa36741ae3af67e1b40f16, type: 2}
+  - {fileID: 11400000, guid: 731338bcf6314c649b42c0ff91e7509c, type: 2}
+  - {fileID: 11400000, guid: 95d2503db0e3a6449a2a48e0f4e61d3e, type: 2}
+  - {fileID: 11400000, guid: 455f853995f766c41b21a0da3322d9e3, type: 2}
+  - {fileID: 11400000, guid: 6a0820c5062874f4d926983e1d09086d, type: 2}
+  - {fileID: 11400000, guid: 3f7ede087593c3b40a1998b3fd5b6b99, type: 2}
+  - {fileID: 11400000, guid: 1eba98ac176074841ab71965df810449, type: 2}
+  - {fileID: 11400000, guid: 8aaebe033caec1941a8e3319185988e3, type: 2}
+  - {fileID: 11400000, guid: 18ef7a4d22da25a4a86678f853a7b0dd, type: 2}
+  - {fileID: 11400000, guid: b2168a721b3230f4197c9447ff4988bd, type: 2}
+  - {fileID: 11400000, guid: a7cb6b33365adec4da608adb1c8195a0, type: 2}
+  - {fileID: 11400000, guid: f86f4e18e1de24e46addf4a426d7ec96, type: 2}
+  - {fileID: 11400000, guid: 319ec81452f089540916840a24ebe920, type: 2}
   _itemsSOArray:
   - {fileID: 11400000, guid: 6d8fb4baf4d23d44992e73efdcb0de9c, type: 2}
   - {fileID: 11400000, guid: c72b1f41f6265e54d89de0792000a617, type: 2}
   - {fileID: 11400000, guid: fe0e5f0d997c0be4cbf159f1bca7e3ae, type: 2}
   - {fileID: 11400000, guid: 9f7ae9b380805f14ab652f63b3a151d6, type: 2}
+  ProjectileSOArray:
+  - {fileID: 315063671359020105, guid: 1cf70acbf58e5e7428bbaec17a2269c4, type: 3}
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
@@ -113,6 +131,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a61a2a33a43f6446bd41320f6e0fb1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 1
+  _damage: 0
+--- !u!114 &8299582459427570035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865dd53484bc20a4298e28c62a131392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}

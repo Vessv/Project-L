@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveAction : BaseAction
 {
-    public override ActionType GetActionType() => ActionType.Move;
 
     //Pathfinding vars
     List<Vector3> _pathVectorList = new List<Vector3>();
@@ -58,16 +57,20 @@ public class MoveAction : BaseAction
             //notReachable?.Invoke();
             Debug.Log("Not rechable");
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+            unit.SelectedAction.Value = UnitAction.Action.None;
+
         }
     }
 
     public void Move()
     {
         Debug.Log("Used move action: " + unit.name);
+        _pathVectorList = new List<Vector3>();
         currentPathIndex = 0;
 
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, unit.TargetPosition.Value);
+
 
         if (_pathVectorList != null && _pathVectorList.Count > 1)
         {
@@ -79,26 +82,42 @@ public class MoveAction : BaseAction
         {
             //notReachableServerRpc();
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-            Debug.Log("path vector list is lower than 1 or target is occupied or path is longer than var: " + _pathVectorList.Count);
+            unit.SelectedAction.Value = UnitAction.Action.None;
+
+            Debug.Log("path vector list is lower than 1 or target is occupied or path is longer than distance");
         }
     }
 
     public void ShowMoveTiles()
     {
-        int maxMoveDistance = unit.Stats.Value.Speed;
-        for (int x = (int)(unit.transform.position.x-0.5f - maxMoveDistance); x <= (int)(unit.transform.position.x - 0.5f + maxMoveDistance); x++)
+        int distance = unit.Stats.Value.Speed;
+        Vector3 position = unit.transform.position - new Vector3(0.5f, 0.5f);
+
+        for (int i = -distance; i <= distance; i++)
         {
-            for (int y = (int)(unit.transform.position.y - 0.5f - maxMoveDistance); y <= (int)(unit.transform.position.y - 0.5f + maxMoveDistance); y++)
+            for (int j = -distance; j <= distance; j++)
             {
-                if(x >= 0 && y >= 0 && x< 18 && y<16)
+                // Determinar si la posición es parte del diamante
+                if (Mathf.Abs(i) + Mathf.Abs(j) <= distance)
                 {
-                    if (Pathfinding.Instance.GetGrid().GetGridObject(x, y).isWalkable && !Pathfinding.Instance.GetGrid().GetGridObject(x, y).isObstacle)
+                    int x = (int)position.x + i;
+                    int y = (int)position.y + j;
+                    if (x < 0 || y < 0 || x >= 18 || y >= 16)
                     {
-                        PlayerUnit currentPlayer = (PlayerUnit)unit;
-                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y);
+                        continue;
                     }
+                    List<Vector3> vectorList = Pathfinding.Instance.FindPath(position, new Vector3(x,y));
+                    if(vectorList != null && vectorList.Count > 1 && vectorList.Count-1 <= distance)
+                    {
+                        if (Pathfinding.Instance.GetGrid().GetGridObject(x, y).isWalkable && !Pathfinding.Instance.GetGrid().GetGridObject(x, y).isObstacle)
+                        {
+                            PlayerUnit currentPlayer = (PlayerUnit)unit;
+
+                            currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0, 1, 0, 0.5f));
+                        }
+                    }
+                    
                 }
-                
             }
         }
     }

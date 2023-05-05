@@ -5089,14 +5089,6 @@ PrefabInstance:
       propertyPath: UnitSOArray.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: de4ddc8fb68d2f94d9f9c4c9ca2ff178, type: 2}
-    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
-      propertyPath: _actionsSOArray.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1108855679348828788, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
-      propertyPath: _actionsSOArray.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2c76bad7b4bbcd34da6f84cb56d633ba, type: 2}
     - target: {fileID: 1108855679348828789, guid: 9d18389a6abcc754cbd2f6daf908dbe3, type: 3}
       propertyPath: m_RootOrder
       value: 1

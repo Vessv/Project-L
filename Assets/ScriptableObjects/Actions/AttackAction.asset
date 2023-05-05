@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AttackAction
   m_EditorClassIdentifier: 
   actionIndex: 2
-  actionName: Attack
-  actionSprite: {fileID: 21300000, guid: dddf59890bdc3c842b41ac82afa69c54, type: 3}
-  actionDescription: Una ultra  habilidad para hacer dano
+  actionName: Meele Attack
+  actionSprite: {fileID: 21300000, guid: fa596953036fb274f8b3055e179e45e6, type: 3}
+  actionDescription: A meele weapon attack, it does 100% of STR as damage
+  pointCost: 1

@@ -126,14 +126,17 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         return mousePosition;
     }
 
+    
+
+
     [ClientRpc]
-    public void SetMapVisualTileActiveClientRpc(int x, int y) //cambiar esto a una networklist
+    public void SetMapVisualTileActiveClientRpc(int x, int y, Color color) //cambiar esto a una networklist
     {
         if(!IsLocalPlayer) return;
         Transform[,] MapVisualArray = MapHolder.GetComponent<MapVisual>().GridVisualArray;
         MapVisualArray[x, y].gameObject.SetActive(true);
         SpriteRenderer renderer = MapVisualArray[x, y].gameObject.GetComponent<SpriteRenderer>();
-        renderer.color = new Color(0, 1, 1, 0.5f);
+        renderer.color = color;
     }
 
     [ClientRpc]

@@ -58,7 +58,21 @@ public class UnitAction : NetworkBehaviour
     {
         None,
         Move,
-        Shoot,
-        Magic
+        Meele,
+        Ranged,
+        Magic,
+        ShieldBash,
+        Fireball,
+        Headbutt,
+        Meteor,
+        Poison,
+        Stun,
+        Holy,
+        Heal,
+        Tree,
+        Taunt,
+        Ignite,
+        Cleave,
+        Mist
     }
 }
