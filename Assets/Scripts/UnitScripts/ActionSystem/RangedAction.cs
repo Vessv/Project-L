@@ -11,7 +11,7 @@ public class RangedAction : BaseAction
     {
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
-        if (_pathVectorList == null) return;
+        if (_pathVectorList == null) return; //arreglar esto, pone BaseUnit.ActionState.Normal y UnitAction.Action.None
 
         bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
 

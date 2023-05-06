@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1a1700a0b1cedf24e9036c016a6d72d2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 731481897, guid: 7a242c230fd9c044aa7bbd4b4c7742d4, type: 3}
+  m_Color: {r: 0.0990566, g: 0.50656927, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 315063671359020106}
   - component: {fileID: 315063671359020104}
   m_Layer: 0
-  m_Name: ProjectileObject
+  m_Name: ProjectileObject 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

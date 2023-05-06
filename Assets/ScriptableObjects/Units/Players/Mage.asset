@@ -19,8 +19,8 @@ MonoBehaviour:
     Vitality: 60
     Intelligence: 40
     Speed: 2
-    Endurance: 1
+    Endurance: 10
     Dexterity: 6
-    Stamina: 3
+    Stamina: 2
     Luck: 0
   UnitFaction: 0

@@ -103,6 +103,17 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(5);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(6);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(7);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(9);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(10);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -268,6 +279,30 @@ public class GameHandler : NetworkBehaviour
                 GetComponent<RangedAction>().Setup(TurnHandler.CurrentUnit);
                 GetComponent<RangedAction>().ShowMoveTiles();
                 break;
+            case UnitAction.Action.Magic:
+                GetComponent<MagicAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<MagicAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.ShieldBash:
+                GetComponent<ShieldBashAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<ShieldBashAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Fireball:
+                GetComponent<FireballAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<FireballAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Headbutt:
+                GetComponent<HeadbuttAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<HeadbuttAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Meteor:
+                GetComponent<MeteorRainAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<MeteorRainAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Poison:
+                GetComponent<PoisonAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<PoisonAction>().ShowMoveTiles();
+                break;
         }
     }
 
@@ -299,6 +334,36 @@ public class GameHandler : NetworkBehaviour
         {
             GetComponent<RangedAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<RangedAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanMagic)
+        {
+            GetComponent<MagicAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<MagicAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanShieldBash)
+        {
+            GetComponent<ShieldBashAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<ShieldBashAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanFireball)
+        {
+            GetComponent<FireballAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<FireballAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanHeadbutt)
+        {
+            GetComponent<HeadbuttAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<HeadbuttAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanMeteor)
+        {
+            GetComponent<MeteorRainAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<MeteorRainAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanPoison)
+        {
+            GetComponent<PoisonAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<PoisonAction>().Attack();
         }
 
     }

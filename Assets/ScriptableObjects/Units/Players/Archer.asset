@@ -19,7 +19,7 @@ MonoBehaviour:
     Vitality: 80
     Intelligence: 20
     Speed: 4
-    Endurance: 2
+    Endurance: 20
     Dexterity: 4
     Stamina: 3
     Luck: 0

@@ -2,27 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAction : BaseAction
+public class MagicAction : BaseAction
 {
-
     [SerializeField]
     private int _damage;
     List<Vector3> _pathVectorList = new List<Vector3>();
-
     public void Attack()
     {
-        _pathVectorList = new List<Vector3>();
-        _pathVectorList.Clear();
-        _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
-        if (_pathVectorList == null)
+        if (!CanDoAction)
         {
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
             unit.SelectedAction.Value = UnitAction.Action.None;
-            Debug.Log("obstacles in the way an path is not reachable");
+            Debug.Log("Not Enough actions points");
             return;
         }
+        _pathVectorList.Clear();
+        _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
+        if (_pathVectorList == null) return;
 
-        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
+        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
 
         BaseUnit targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
 
@@ -41,8 +39,9 @@ public class AttackAction : BaseAction
             Debug.Log("AttackAction.cs error at Attack() no valid target at x,y =" + unit.TargetPosition.Value.x + "," + unit.TargetPosition.Value.y);
             return;
         }
+        unit.SpawnProjectileClientRpc(1);
 
-        _damage = unit.Stats.Value.Strength;
+        _damage = (int)Mathf.Floor(unit.Stats.Value.Intelligence * 1.5f);
         //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
@@ -55,7 +54,7 @@ public class AttackAction : BaseAction
 
     public void ShowMoveTiles()
     {
-        int distance = 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity/2);
+        int distance = 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2);
         Vector3 position = unit.transform.position - new Vector3(0.5f, 0.5f);
 
         for (int i = -distance; i <= distance; i++)
@@ -76,7 +75,7 @@ public class AttackAction : BaseAction
 
                     if (vectorList != null && vectorList.Count > 1 && vectorList.Count - 1 <= distance)
                     {
-                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(1, 0, 0, 0.5f));
+                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0, 1, 0.5f, 0.5f));
                     }
                 }
             }

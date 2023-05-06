@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.062, y: 0.3914}
+  m_AnchoredPosition: {x: 0.06201172, y: 0.3914032}
   m_SizeDelta: {x: 261.8921, y: 66.2515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6445346165715247644
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1053563899506052191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00002682209, y: 0.00000166893}
-  m_SizeDelta: {x: 847.1, y: 133.6}
+  m_AnchoredPosition: {x: -12.22, y: 0.00000166893}
+  m_SizeDelta: {x: 765.52, y: 133.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &784265889487937530
 MonoBehaviour:

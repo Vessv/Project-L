@@ -17,8 +17,8 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
     protected Action onActionComplete;
 
     [SerializeField]
-    int actionPointsCost = 1;
-    bool CanDoAction => unit.ActionPoints.Value >= actionPointsCost;
+    int actionPointsCost;
+    public bool CanDoAction => unit.ActionPoints.Value >= actionPointsCost;
 
     public BaseUnit GetUnit() => unit;
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d902b6527c68f41a92b96e3fd1996a, type: 3}
   m_Name: MagicAttack
   m_EditorClassIdentifier: 
-  actionIndex: 0
+  actionIndex: 4
   actionName: Magic Attack
   actionSprite: {fileID: 21300000, guid: 98d90a8a579b5934196178b331876b58, type: 3}
   actionDescription: A magic attack, it does 150% of INT as damage

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d902b6527c68f41a92b96e3fd1996a, type: 3}
   m_Name: Shield Bash
   m_EditorClassIdentifier: 
-  actionIndex: 4
+  actionIndex: 5
   actionName: Shield Bash
   actionSprite: {fileID: 21300000, guid: 4d2108cf18e10584e91a92d08c073e67, type: 3}
   actionDescription: Bash a near opponent, it does 150% of STR as damage

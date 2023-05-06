@@ -30,6 +30,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public bool CanMove => SelectedAction.Value == UnitAction.Action.Move;
     public bool CanMeele => SelectedAction.Value == UnitAction.Action.Meele;
     public bool CanRanged => SelectedAction.Value == UnitAction.Action.Ranged;
+    public bool CanMagic => SelectedAction.Value == UnitAction.Action.Magic;
     public bool CanShieldBash => SelectedAction.Value == UnitAction.Action.ShieldBash;
     public bool CanFireball => SelectedAction.Value == UnitAction.Action.Fireball;
     public bool CanHeadbutt => SelectedAction.Value == UnitAction.Action.Headbutt;
@@ -37,6 +38,12 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public bool CanPoison => SelectedAction.Value == UnitAction.Action.Poison;
     public bool CanStun => SelectedAction.Value == UnitAction.Action.Stun;
     public bool CanHoly => SelectedAction.Value == UnitAction.Action.Holy;
+    public bool CanHeal => SelectedAction.Value == UnitAction.Action.Heal;
+    public bool CanTree => SelectedAction.Value == UnitAction.Action.Tree;
+    public bool CanTaunt => SelectedAction.Value == UnitAction.Action.Taunt;
+    public bool CanIgnite => SelectedAction.Value == UnitAction.Action.Ignite;
+    public bool CanCleave => SelectedAction.Value == UnitAction.Action.Cleave;
+    public bool CanMist => SelectedAction.Value == UnitAction.Action.Mist;
 
     public bool DifferentPositionFlag;
 
@@ -60,6 +67,27 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     {
         GameObject projectile = Instantiate(GameHandler.Instance.ProjectileSOArray[objectIndex], transform.position, Quaternion.identity);
         projectile.GetComponent<Projectile>().targetPosition = TargetPosition.Value;
+    }
+    int meteorCount;
+    [ClientRpc]
+    public void SpawnMeteorRainClientRpc(Vector3 targetPosition)
+    {
+        meteorCount = 10;
+        StartCoroutine(SpawnMeteor(targetPosition, GameHandler.Instance.ProjectileSOArray[3]));
+    }
+
+    IEnumerator SpawnMeteor(Vector3 targetPosition, GameObject meteorPrefab)
+    {
+        if(meteorCount > 0)
+        {
+            Vector3 offset = new Vector3(0f,0f);
+            offset.x += Random.Range(-2f, 2f);
+            offset.y += Random.Range(-2f, 2f);
+            Instantiate(meteorPrefab, targetPosition+ offset-new Vector3(-0.5f, 0.5f), Quaternion.identity);
+            meteorCount--;
+            yield return new WaitForSeconds(0.15f);
+            StartCoroutine(SpawnMeteor(targetPosition, meteorPrefab));
+        }
     }
 
     [ClientRpc]

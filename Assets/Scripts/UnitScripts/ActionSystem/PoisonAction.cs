@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAction : BaseAction
+public class PoisonAction : BaseAction
 {
-
     [SerializeField]
     private int _damage;
     List<Vector3> _pathVectorList = new List<Vector3>();
 
+    [SerializeField]
+    UnitSO.UnitStats _enduranceReduction;
+
     public void Attack()
     {
+        if (!CanDoAction)
+        {
+            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+            unit.SelectedAction.Value = UnitAction.Action.None;
+            Debug.Log("Not Enough actions points");
+            return;
+        }
+
         _pathVectorList = new List<Vector3>();
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
@@ -22,7 +32,7 @@ public class AttackAction : BaseAction
             return;
         }
 
-        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
+        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 1);
 
         BaseUnit targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
 
@@ -42,9 +52,11 @@ public class AttackAction : BaseAction
             return;
         }
 
-        _damage = unit.Stats.Value.Strength;
+        _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 0.5f);
         //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamageClientRpc(_damage);
+        targetUnit.Stats.Value -= _enduranceReduction;
+
         Debug.Log("Damaged: " + targetUnit.name);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
@@ -55,7 +67,7 @@ public class AttackAction : BaseAction
 
     public void ShowMoveTiles()
     {
-        int distance = 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity/2);
+        int distance = 1;
         Vector3 position = unit.transform.position - new Vector3(0.5f, 0.5f);
 
         for (int i = -distance; i <= distance; i++)
@@ -76,7 +88,7 @@ public class AttackAction : BaseAction
 
                     if (vectorList != null && vectorList.Count > 1 && vectorList.Count - 1 <= distance)
                     {
-                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(1, 0, 0, 0.5f));
+                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0f, 0.6f, 0, 0.5f));
                     }
                 }
             }
