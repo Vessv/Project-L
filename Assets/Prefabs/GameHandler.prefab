@@ -20,6 +20,10 @@ GameObject:
   - component: {fileID: 8962908729481305466}
   - component: {fileID: 1213366041619725368}
   - component: {fileID: 3488500649543299744}
+  - component: {fileID: 4169147295466265414}
+  - component: {fileID: 2509741298433999427}
+  - component: {fileID: 4977588856250972707}
+  - component: {fileID: 2896997607408733974}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -104,6 +108,8 @@ MonoBehaviour:
   - {fileID: 315063671359020105, guid: 04d21f4a12a57e64caf4a03b6d97c8ff, type: 3}
   - {fileID: 315063671359020105, guid: 9f68309a1cf496446884ba5f27c4db63, type: 3}
   - {fileID: 6504802723562780035, guid: 3ec8ca3c58c1f974dba53c83ac66b556, type: 3}
+  - {fileID: 1104174249943873422, guid: 219bf98e5950cac47a7ba21b5b53d210, type: 3}
+  - {fileID: 5824265746856988915, guid: 3d72933db03e4274cbc3494ea2101765, type: 3}
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
@@ -256,6 +262,73 @@ MonoBehaviour:
     Intelligence: 0
     Speed: 0
     Endurance: 10
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0
+--- !u!114 &4169147295466265414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8090d980881fc498561ee39ede18e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 3
+  _damage: 0
+--- !u!114 &2509741298433999427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29131b3afb4f4af4e81ae2d07bfab17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 5
+  _damage: 0
+--- !u!114 &4977588856250972707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c864831987f7c40917b0185f49070c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 1
+--- !u!114 &2896997607408733974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d729f5aedd230e6468405fe8edef1d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 5
+  _buffedStats:
+    Strength: 10
+    Vitality: 0
+    Intelligence: 10
+    Speed: 0
+    Endurance: 0
     Dexterity: 0
     Stamina: 0
     Luck: 0

@@ -303,6 +303,22 @@ public class GameHandler : NetworkBehaviour
                 GetComponent<PoisonAction>().Setup(TurnHandler.CurrentUnit);
                 GetComponent<PoisonAction>().ShowMoveTiles();
                 break;
+            case UnitAction.Action.Stun:
+                GetComponent<StunAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<StunAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Holy:
+                GetComponent<HolyStrikeAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<HolyStrikeAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Heal:
+                GetComponent<HealAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<HealAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Tree:
+                GetComponent<HolyTreeAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<HolyTreeAction>().ShowMoveTiles();
+                break;
         }
     }
 
@@ -364,6 +380,26 @@ public class GameHandler : NetworkBehaviour
         {
             GetComponent<PoisonAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<PoisonAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanStun)
+        {
+            GetComponent<StunAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<StunAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanHoly)
+        {
+            GetComponent<HolyStrikeAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<HolyStrikeAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanHeal)
+        {
+            GetComponent<HealAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<HealAction>().Heal();
+        }
+        else if (TurnHandler.CurrentUnit.CanTree)
+        {
+            GetComponent<HolyTreeAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<HolyTreeAction>().Heal();
         }
 
     }

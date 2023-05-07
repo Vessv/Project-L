@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22975a3027614354b9937e7b65125638
+guid: f0895219535130a4f80e7ec4025adcfd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,55 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buttons_1x_0
+      name: 32BitSwords_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 2, y: 2, z: 2, w: 2}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e9ff54fe2ae61745960e5cec2fcd680
-      internalID: -1018635476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_1x_1
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 1
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 2, y: 2, z: 2, w: 2}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c39dc9afb477a004e90129256ea3be36
-      internalID: -1289958489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_1x_2
-      rect:
-        serializedVersion: 2
-        x: 91
-        y: 0
-        width: 5
-        height: 6
+        x: 10
+        y: 32
+        width: 12
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ba8bd4000dd87d4fa8774f0723fc447
-      internalID: -1811428684
+      spriteID: 2ff6686f6304bb94b9f357f6c907d614
+      internalID: 927377143
       vertices: []
       indices: 
       edges: []
@@ -189,9 +147,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      buttons_1x_0: -1018635476
-      buttons_1x_2: -1811428684
-      buttons_1x_1: -1289958489
+      32BitSwords_0: 927377143
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

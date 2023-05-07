@@ -17,9 +17,9 @@ MonoBehaviour:
   Stats:
     Strength: 20
     Vitality: 35
-    Intelligence: 1
+    Intelligence: 10
     Speed: 2
-    Endurance: 1
+    Endurance: 20
     Dexterity: 1
     Stamina: 1
     Luck: 0

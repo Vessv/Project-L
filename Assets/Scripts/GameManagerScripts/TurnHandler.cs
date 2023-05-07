@@ -105,6 +105,16 @@ public class TurnHandler : NetworkBehaviour
 
     void OnTurnStart()
     {
+        if(CurrentUnit.ActionPoints.Value < 0)
+        {
+            CurrentUnit.ActionPoints.Value = 0;
+            return;
+        }
+        if(CurrentUnit.ActionPoints.Value + CurrentUnit.Stats.Value.Stamina > 8)
+        {
+            CurrentUnit.ActionPoints.Value = 8;
+            return;
+        }
         CurrentUnit.ActionPoints.Value += CurrentUnit.Stats.Value.Stamina;
     }
 

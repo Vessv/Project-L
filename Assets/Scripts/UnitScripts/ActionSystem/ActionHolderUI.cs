@@ -17,7 +17,7 @@ public class ActionHolderUI : MonoBehaviour
     {
         ActionSprite.sprite = ActionSO.actionSprite;
         ActionDescription.text = ActionSO.actionDescription;
-        Cost.text = "Cost: "+ActionSO.pointCost;
+        Cost.text = "AP: "+ActionSO.pointCost;
         ActionDragSprite.sprite = ActionSO.actionSprite;
     }
 }

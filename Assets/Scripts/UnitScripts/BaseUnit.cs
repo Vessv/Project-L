@@ -91,6 +91,12 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     }
 
     [ClientRpc]
+    public void SpawnObjectClientRpc(Vector3 targetPosition, int projectileIndex)
+    {
+        Instantiate(GameHandler.Instance.ProjectileSOArray[projectileIndex], targetPosition - new Vector3(-0.5f, 0.5f), Quaternion.identity);
+    }
+
+    [ClientRpc]
     public void TakeDamageClientRpc(int damage)
     {
         TakeDamage(damage);
@@ -111,16 +117,9 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
 
             }
         }
-        StartCoroutine(TakeDamageFlashWhite());
+        StartCoroutine(TakeDamageFlashRed());
         Debug.Log("dano tomado: " + damage);
         //AudioManager.Instance.Play("HumanPain"); Clientrpc o no
-    }
-
-    IEnumerator TakeDamageFlashWhite()
-    {
-        GetComponent<SpriteRenderer>().color = Color.gray;
-        yield return new WaitForSeconds(0.1f);
-        StartCoroutine(TakeDamageFlashRed());
     }
 
     IEnumerator TakeDamageFlashRed()
