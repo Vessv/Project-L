@@ -105,7 +105,8 @@ public class TurnHandler : NetworkBehaviour
 
     void OnTurnStart()
     {
-        if(CurrentUnit.ActionPoints.Value < 0)
+        CurrentUnit.Threat.Value = 0;
+        if (CurrentUnit.ActionPoints.Value < 0)
         {
             CurrentUnit.ActionPoints.Value = 0;
             return;

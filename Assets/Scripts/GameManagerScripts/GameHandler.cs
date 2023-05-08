@@ -114,6 +114,10 @@ public class GameHandler : NetworkBehaviour
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(14);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(15);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(16);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(17);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -319,6 +323,22 @@ public class GameHandler : NetworkBehaviour
                 GetComponent<HolyTreeAction>().Setup(TurnHandler.CurrentUnit);
                 GetComponent<HolyTreeAction>().ShowMoveTiles();
                 break;
+            case UnitAction.Action.Taunt:
+                GetComponent<TauntAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<TauntAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Ignite:
+                GetComponent<IgniteAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<IgniteAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Cleave:
+                GetComponent<CleaveAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<CleaveAction>().ShowMoveTiles();
+                break;
+            case UnitAction.Action.Mist:
+                GetComponent<PoisonMistAction>().Setup(TurnHandler.CurrentUnit);
+                GetComponent<PoisonMistAction>().ShowMoveTiles();
+                break;
         }
     }
 
@@ -333,6 +353,7 @@ public class GameHandler : NetworkBehaviour
             return;
         }
         TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+        TurnHandler.CurrentUnit.Threat.Value += 50; //esto se puede cambiar
         if (TurnHandler.CurrentUnit.CanMove)
         {
             _moveAction.Setup(TurnHandler.CurrentUnit);
@@ -400,6 +421,26 @@ public class GameHandler : NetworkBehaviour
         {
             GetComponent<HolyTreeAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<HolyTreeAction>().Heal();
+        }
+        else if (TurnHandler.CurrentUnit.CanTaunt)
+        {
+            GetComponent<TauntAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<TauntAction>().Taunt();
+        }
+        else if (TurnHandler.CurrentUnit.CanIgnite)
+        {
+            GetComponent<IgniteAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<IgniteAction>().Ignite();
+        }
+        else if (TurnHandler.CurrentUnit.CanCleave)
+        {
+            GetComponent<CleaveAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<CleaveAction>().Attack();
+        }
+        else if (TurnHandler.CurrentUnit.CanMist)
+        {
+            GetComponent<PoisonMistAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<PoisonMistAction>().Posion();
         }
 
     }

@@ -24,6 +24,10 @@ GameObject:
   - component: {fileID: 2509741298433999427}
   - component: {fileID: 4977588856250972707}
   - component: {fileID: 2896997607408733974}
+  - component: {fileID: 4970154780566113340}
+  - component: {fileID: 6791562686178240039}
+  - component: {fileID: 2569751616500283245}
+  - component: {fileID: 5481794675377019005}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -110,6 +114,9 @@ MonoBehaviour:
   - {fileID: 6504802723562780035, guid: 3ec8ca3c58c1f974dba53c83ac66b556, type: 3}
   - {fileID: 1104174249943873422, guid: 219bf98e5950cac47a7ba21b5b53d210, type: 3}
   - {fileID: 5824265746856988915, guid: 3d72933db03e4274cbc3494ea2101765, type: 3}
+  - {fileID: 1624209077952064415, guid: 2a61073fee2afcf4a82e322f6e0e2ef3, type: 3}
+  - {fileID: 2823301434793975357, guid: dc66632435065f74eb0ca7f9261f8787, type: 3}
+  - {fileID: 9163778896841213378, guid: 00147f91ac79ec3428b7e4a7d8847fee, type: 3}
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
@@ -332,3 +339,70 @@ MonoBehaviour:
     Dexterity: 0
     Stamina: 0
     Luck: 0
+--- !u!114 &4970154780566113340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4ee14a70982c548a8d6355fec40981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 2
+--- !u!114 &6791562686178240039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49c2cadcdc054e409fbbda1a502fca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 3
+--- !u!114 &2569751616500283245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d621ca2ccdf2f74988a0fca8fcbe081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 2
+  _damage: 0
+  _enduranceReduction:
+    Strength: 0
+    Vitality: 0
+    Intelligence: 0
+    Speed: 0
+    Endurance: 10
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0
+--- !u!114 &5481794675377019005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ac8abe766e56648852596e59baf5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 4
+  _damage: 0

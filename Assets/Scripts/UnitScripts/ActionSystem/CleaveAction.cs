@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorRainAction : BaseAction
+public class CleaveAction : BaseAction
 {
+
     [SerializeField]
     private int _damage;
     List<Vector3> _pathVectorList = new List<Vector3>();
+
+    [SerializeField]
+    UnitSO.UnitStats _enduranceReduction;
+
     public void Attack()
     {
-        if (!CanDoAction)
-        {
-            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
-            unit.SelectedAction.Value = UnitAction.Action.None;
-            Debug.Log("Not Enough actions points");
-            return;
-        }
-
         _pathVectorList = new List<Vector3>();
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
@@ -28,9 +25,11 @@ public class MeteorRainAction : BaseAction
             return;
         }
 
-        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
+        bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
 
-        
+        BaseUnit targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
+
+        bool isAValidTarget = targetUnit != null && targetUnit != unit;
         if (!withinAttackRange)
         {
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
@@ -38,64 +37,29 @@ public class MeteorRainAction : BaseAction
             Debug.Log("Target is not withinAttackRange, distance: " + _pathVectorList.Count);
             return;
         }
+        if (!isAValidTarget)
+        {
+            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+            unit.SelectedAction.Value = UnitAction.Action.None;
+            Debug.Log("AttackAction.cs error at Attack() no valid target at x,y =" + unit.TargetPosition.Value.x + "," + unit.TargetPosition.Value.y);
+            return;
+        }
 
-        unit.SpawnMeteorRainClientRpc(unit.TargetPosition.Value);
-
-        StartCoroutine(DoDamage());
-
+        _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 1.5f);
         //AudioManager.Instance.Play("Hit");
-        
-        
-    }
+        targetUnit.TakeDamageClientRpc(_damage);
+        targetUnit.Stats.Value -= _enduranceReduction;
 
-    IEnumerator DoDamage()
-    {
-        yield return new WaitForSeconds(0.1f);
-        HitUnits();
-
-        yield return new WaitForSeconds(0.6f);
-        HitUnits();
-
-        yield return new WaitForSeconds(0.6f);
-        HitUnits();
-
-        yield return new WaitForSeconds(0.6f);
-
+        Debug.Log("Damaged: " + targetUnit.name);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-    }
 
-    void HitUnits()
-    {
-        int distance = 2;
-        _damage = (int)Mathf.Floor(unit.Stats.Value.Intelligence * 1.2f);
-        for (int i = -distance; i <= distance; i++)
-        {
-            for (int j = -distance; j <= distance; j++)
-            {
-                if (Mathf.Abs(i) + Mathf.Abs(j) <= distance)
-                {
-                    Vector3 targetAnOffset = unit.TargetPosition.Value + new Vector3(i, j);
-                    bool isOutOfBounds = targetAnOffset.x < 0 || targetAnOffset.y < 0 || targetAnOffset.x >= 18 || targetAnOffset.y >= 16;
-
-                    if (isOutOfBounds) continue;
-                    BaseUnit targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value + new Vector3(i, j)).GetUnit();
-
-                    bool isAValidTarget = targetUnit != null && targetUnit != unit;
-                    if (isAValidTarget)
-                    {
-                        targetUnit.TakeDamageClientRpc(_damage);
-                        Debug.Log("Damaged: " + targetUnit.name);
-                    }
-                }
-            }
-        }
     }
 
     public void ShowMoveTiles()
     {
-        int distance = 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2);
+        int distance = 1 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2);
         Vector3 position = unit.transform.position - new Vector3(0.5f, 0.5f);
 
         for (int i = -distance; i <= distance; i++)
@@ -116,7 +80,7 @@ public class MeteorRainAction : BaseAction
 
                     if (vectorList != null && vectorList.Count > 1 && vectorList.Count - 1 <= distance)
                     {
-                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0.9f, 0, 0.1f, 0.5f));
+                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0.7f, 0.3f, 0, 0.5f));
                     }
                 }
             }

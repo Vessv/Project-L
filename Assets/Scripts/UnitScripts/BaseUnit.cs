@@ -22,7 +22,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public NetworkVariable<int> CurrentHealth;
     public NetworkVariable<bool> isDead;
     public NetworkVariable<UnitSO.UnitStats> Stats;
-    public int Threat;
+    public NetworkVariable<int> Threat;
 
     public bool CanInteract => IsMyTurn.Value && IsLocalPlayer;
     public bool IsBusy => ActionStatus.Value == ActionState.Busy;

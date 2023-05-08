@@ -77,7 +77,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
     }
 
-    public void Testing(InputAction.CallbackContext context)
+    public void Testing(InputAction.CallbackContext context) //quitar esto porfavor
     {
         if (!IsLocalPlayer || !context.performed) return;
         inventory.Add(3);

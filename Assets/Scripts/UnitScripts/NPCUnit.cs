@@ -106,12 +106,12 @@ public class NPCUnit : BaseUnit
         }
     }
 
-    PlayerUnit GetPlayerWithHighestThreat()
+    PlayerUnit GetPlayerWithHighestThreat() //cambiar esto a tipo rail
     {
         List<int> playersThreat = new List<int>();
         foreach (NetworkClient playerClient in NetworkManager.Singleton.ConnectedClientsList)
         {
-            int Threat = playerClient.PlayerObject.GetComponent<PlayerUnit>().Threat;
+            int Threat = playerClient.PlayerObject.GetComponent<PlayerUnit>().Threat.Value;
             playersThreat.Add(Threat);
         }
         int maxThreat = playersThreat.Max();

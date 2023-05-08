@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorRainAction : BaseAction
+public class PoisonMistAction : BaseAction
 {
     [SerializeField]
     private int _damage;
     List<Vector3> _pathVectorList = new List<Vector3>();
-    public void Attack()
+    public void Posion()
     {
         if (!CanDoAction)
         {
@@ -30,7 +30,7 @@ public class MeteorRainAction : BaseAction
 
         bool withinAttackRange = _pathVectorList.Count > 1 && _pathVectorList.Count <= (1 + 2 + (int)Mathf.Floor(unit.Stats.Value.Dexterity / 2));
 
-        
+
         if (!withinAttackRange)
         {
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
@@ -39,27 +39,33 @@ public class MeteorRainAction : BaseAction
             return;
         }
 
-        unit.SpawnMeteorRainClientRpc(unit.TargetPosition.Value);
+        unit.SpawnObjectClientRpc(unit.TargetPosition.Value, 8);
 
         StartCoroutine(DoDamage());
 
         //AudioManager.Instance.Play("Hit");
-        
-        
+
+
     }
 
     IEnumerator DoDamage()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.7f);
         HitUnits();
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         HitUnits();
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         HitUnits();
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
+        HitUnits();
+
+        yield return new WaitForSeconds(0.5f);
+        HitUnits();
+
+        yield return new WaitForSeconds(0.3f);
 
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
@@ -69,7 +75,7 @@ public class MeteorRainAction : BaseAction
     void HitUnits()
     {
         int distance = 2;
-        _damage = (int)Mathf.Floor(unit.Stats.Value.Intelligence * 1.2f);
+        _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 0.5f);
         for (int i = -distance; i <= distance; i++)
         {
             for (int j = -distance; j <= distance; j++)
@@ -116,7 +122,7 @@ public class MeteorRainAction : BaseAction
 
                     if (vectorList != null && vectorList.Count > 1 && vectorList.Count - 1 <= distance)
                     {
-                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0.9f, 0, 0.1f, 0.5f));
+                        currentPlayer.SetMapVisualTileActiveClientRpc(x, y, new Color(0.2f, 1f, 0.2f, 0.5f));
                     }
                 }
             }

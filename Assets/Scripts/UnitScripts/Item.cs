@@ -11,9 +11,7 @@ public class Item : ScriptableObject
     public Rarity rarity;
     public string description;
     public Sprite icon = null;
-    public Sprite sprite = null;
-    public bool isDefaultItem = false;
-    public float sellPrice = 1;
+    //public float sellPrice = 1;
     public int itemID;
 
     public virtual string ColouredName()
@@ -32,7 +30,7 @@ public class Item : ScriptableObject
         StringBuilder builder = new StringBuilder();
 
         builder.Append("<color=#a7dd9c>Description: ").Append(description).Append("</color>").AppendLine();
-        builder.Append("Sell price: ").Append(sellPrice).Append(" Gold").AppendLine();
+        //builder.Append("Sell price: ").Append(sellPrice).Append(" Gold").AppendLine();
         builder.Append(ColouredRarity()).AppendLine();
         return builder.ToString();
     }
