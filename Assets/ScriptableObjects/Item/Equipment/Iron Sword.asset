@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Iron Sword
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
-  equipSlot: 0
+  name: Iron Sword
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: This iron sword is a formidable weapon for any warrior, crafted from
+    strong and durable iron and forged to a sharp edge.
+  icon: {fileID: 1283002124, guid: 7a242c230fd9c044aa7bbd4b4c7742d4, type: 3}
+  itemID: 17
+  equipSlot: 3
   extraStats:
-    Strength: 0
-    Vitality: 0
+    Strength: 25
+    Vitality: 15
     Intelligence: 0
     Speed: 0
     Endurance: 0

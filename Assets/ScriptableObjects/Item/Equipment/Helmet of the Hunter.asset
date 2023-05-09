@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Helmet of the Hunter
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Helmet of the Hunter
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: The helmet worn by those who seek to master the art of archery. Its
+    sleek design and greenish hue are reminiscent of the forest, and it bears the
+    mark of a hunter etched into its front.
+  icon: {fileID: 1135431819, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 33
   equipSlot: 0
   extraStats:
-    Strength: 0
+    Strength: 35
     Vitality: 0
     Intelligence: 0
     Speed: 0
-    Endurance: 0
-    Dexterity: 0
+    Endurance: 5
+    Dexterity: 2
     Stamina: 0
     Luck: 0

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c153527cea5f58143ae314cd0cce1352, type: 3}
   m_Name: Vigor Tonic
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Vigor Tonic
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: Gives you 10 STR
+  icon: {fileID: -1921981768, guid: 7537323421b8f71499bb673318be42ab, type: 3}
+  itemID: 6
   extraStats:
-    Strength: 0
+    Strength: 10
     Vitality: 0
     Intelligence: 0
     Speed: 0

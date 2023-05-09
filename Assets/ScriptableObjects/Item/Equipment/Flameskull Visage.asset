@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Flameskull Visage
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Flameskull Visage
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: 'The helmet worn by those who wield the power of fire and flame. Its
+    crimson coloration are reminiscent of a burning inferno, heat that can melt even
+    the sturdiest of metals. '
+  icon: {fileID: 262796275, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 34
   equipSlot: 0
   extraStats:
     Strength: 0
     Vitality: 0
-    Intelligence: 0
+    Intelligence: 50
     Speed: 0
     Endurance: 0
     Dexterity: 0
-    Stamina: 0
+    Stamina: 1
     Luck: 0

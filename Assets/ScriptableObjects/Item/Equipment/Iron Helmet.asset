@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Iron Helmet
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Iron Helmet
+  rarity: {fileID: 11400000, guid: f25d957d37a26e0479356b052c281d08, type: 2}
+  description: This iron helmet is a formidable armor for any warrior, crafted from
+    strong and durable iron it can protect it's wearer from most attacks.
+  icon: {fileID: -703165328, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 29
   equipSlot: 0
   extraStats:
     Strength: 0
     Vitality: 0
     Intelligence: 0
     Speed: 0
-    Endurance: 0
-    Dexterity: 0
+    Endurance: 10
+    Dexterity: 3
     Stamina: 0
     Luck: 0

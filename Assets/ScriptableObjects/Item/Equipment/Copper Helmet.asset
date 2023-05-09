@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Copper Helmet
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Copper Helmet
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: This copper helmet is a reliable armor for any adventurer, crafted
+    from sturdy copper it can protect it's wearer from simple attacks.
+  icon: {fileID: -1863426981, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 26
   equipSlot: 0
   extraStats:
     Strength: 0
     Vitality: 0
     Intelligence: 0
     Speed: 0
-    Endurance: 0
-    Dexterity: 0
+    Endurance: 7
+    Dexterity: 2
     Stamina: 0
     Luck: 0

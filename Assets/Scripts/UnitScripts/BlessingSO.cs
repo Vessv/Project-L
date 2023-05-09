@@ -12,16 +12,16 @@ public class BlessingSO : ScriptableObject
     public Rarity rarity;
     public string description;
     public Sprite sprite;
-    public Item item;
+    public int itemID = -1;
     public int actionID;
     public UnitSO.UnitStats blessingStats;
 
 
     public void Get()
     {
-        if( item != null)
+        if(itemID != -1)
         {
-            NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().inventory.Add(item.itemID);
+            NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().inventory.Add(itemID);
         }
         if ( actionID != 0 )
         {

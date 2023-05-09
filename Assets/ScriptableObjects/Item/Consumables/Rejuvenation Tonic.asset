@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c153527cea5f58143ae314cd0cce1352, type: 3}
   m_Name: Rejuvenation Tonic
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Rejuvenation Tonic
+  rarity: {fileID: 11400000, guid: f25d957d37a26e0479356b052c281d08, type: 2}
+  description: Regen 100PT of your HP and gives you Vitality
+  icon: {fileID: 1630441717, guid: 7537323421b8f71499bb673318be42ab, type: 3}
+  itemID: 2
   extraStats:
     Strength: 0
-    Vitality: 0
+    Vitality: 20
     Intelligence: 0
     Speed: 0
     Endurance: 0
     Dexterity: 0
     Stamina: 0
     Luck: 0
-  HealthRegen: 0
+  HealthRegen: 100

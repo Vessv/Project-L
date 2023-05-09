@@ -15,7 +15,9 @@ public class BlessingMiniUI : MonoBehaviour
     public void UpdateBlessingDisplay(BlessingSO blessingSO_)
     {
         BlessingSO = blessingSO_;
-        title.text = blessingSO_.title;
+        string hexColour = ColorUtility.ToHtmlStringRGB(blessingSO_.rarity.textColour);
+        title.text = $"<color=#{hexColour}>{blessingSO_.title}</color>";
+        GetComponent<Image>().color = blessingSO_.rarity.textColour;
         description.text = blessingSO_.description;
         image.sprite = blessingSO_.sprite;
     }

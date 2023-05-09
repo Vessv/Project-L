@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Copper Bow
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
-  equipSlot: 0
+  name: Copper Bow
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: This copper bow is a step up from the wooden bow, crafted from sturdy
+    copper and strung with a powerful bowstring.
+  icon: {fileID: -207629640, guid: 7a242c230fd9c044aa7bbd4b4c7742d4, type: 3}
+  itemID: 15
+  equipSlot: 3
   extraStats:
-    Strength: 0
+    Strength: 20
     Vitality: 0
     Intelligence: 0
     Speed: 0
     Endurance: 0
-    Dexterity: 0
+    Dexterity: 1
     Stamina: 0
     Luck: 0

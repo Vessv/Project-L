@@ -216,6 +216,9 @@ public class GameHandler : NetworkBehaviour
         _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetMap(true);
         _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetMap(true);
         _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(true);
+
+        _itemsSOArray = _itemsSOArray.OrderBy(x => x.itemID).ToArray();
+
     }
 
     void Start()

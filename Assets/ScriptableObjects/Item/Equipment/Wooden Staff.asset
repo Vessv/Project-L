@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Wooden Staff
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
-  equipSlot: 0
+  name: Wooden Staff
+  rarity: {fileID: 11400000, guid: 7e1f86e6b0f54c4479854f8bb809f5a1, type: 2}
+  description: This wooden staff is a vital tool for any aspiring mage, imbued with
+    the power of magic and capable of unleashing devastating spells upon one's enemies.
+  icon: {fileID: 152883655, guid: 7a242c230fd9c044aa7bbd4b4c7742d4, type: 3}
+  itemID: 13
+  equipSlot: 3
   extraStats:
     Strength: 0
     Vitality: 0
-    Intelligence: 0
+    Intelligence: 15
     Speed: 0
     Endurance: 0
     Dexterity: 0

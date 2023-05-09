@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Copper Shoes
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
-  equipSlot: 0
+  name: Copper Shoes
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: This copper shoes are a reliable armor for any adventurer, crafted
+    from sturdy copper it can protect it's wearer from simple wounds.
+  icon: {fileID: -563902097, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 28
+  equipSlot: 2
   extraStats:
     Strength: 0
     Vitality: 0
     Intelligence: 0
-    Speed: 0
-    Endurance: 0
+    Speed: 1
+    Endurance: 10
     Dexterity: 0
     Stamina: 0
     Luck: 0

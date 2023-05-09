@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Wooden Chest
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
-  equipSlot: 0
+  name: Wooden Chest
+  rarity: {fileID: 11400000, guid: 7e1f86e6b0f54c4479854f8bb809f5a1, type: 2}
+  description: This wooden chest is a common practice armor used by novice warriors.
+  icon: {fileID: -215108309, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 24
+  equipSlot: 1
   extraStats:
     Strength: 0
-    Vitality: 0
+    Vitality: 5
     Intelligence: 0
     Speed: 0
-    Endurance: 0
+    Endurance: 10
     Dexterity: 0
     Stamina: 0
     Luck: 0

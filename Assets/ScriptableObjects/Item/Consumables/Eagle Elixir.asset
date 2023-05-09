@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c153527cea5f58143ae314cd0cce1352, type: 3}
   m_Name: Eagle Elixir
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Eagle Elixir
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: Gives you 2 DEX
+  icon: {fileID: -785433729, guid: 7537323421b8f71499bb673318be42ab, type: 3}
+  itemID: 9
   extraStats:
     Strength: 0
     Vitality: 0
     Intelligence: 0
     Speed: 0
     Endurance: 0
-    Dexterity: 0
+    Dexterity: 2
     Stamina: 0
     Luck: 0
   HealthRegen: 0

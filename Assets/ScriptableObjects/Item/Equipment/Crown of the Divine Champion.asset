@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc294e5c89b5ad4ea9630eaa8168780, type: 3}
   m_Name: Crown of the Divine Champion
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Crown of the Divine Champion
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: The helmet worn by those who have dedicated their lives to fighting
+    for righteousness and justice. Its golden finish and intricate patterns are reminiscent
+    of holy symbols and scriptures.
+  icon: {fileID: 1037674279, guid: 997f72f133950eb45ba1a0fbac65ce4a, type: 3}
+  itemID: 32
   equipSlot: 0
   extraStats:
-    Strength: 0
+    Strength: 20
     Vitality: 0
     Intelligence: 0
     Speed: 0
-    Endurance: 0
+    Endurance: 20
     Dexterity: 0
     Stamina: 0
     Luck: 0

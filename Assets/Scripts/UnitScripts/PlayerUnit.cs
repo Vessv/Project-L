@@ -77,11 +77,18 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
     }
 
-    public void Testing(InputAction.CallbackContext context) //quitar esto porfavor
+     public void Testing(InputAction.CallbackContext context) //quitar esto porfavor
     {
         if (!IsLocalPlayer || !context.performed) return;
+        inventory.Add(0);
+        inventory.Add(1);
+        inventory.Add(2);
         inventory.Add(3);
-        GameHandler.Instance.FloorEnd();
+        inventory.Add(12);
+        inventory.Add(14);
+        inventory.Add(17);
+
+        //GameHandler.Instance.FloorEnd();
     }
 
     public override void Die()

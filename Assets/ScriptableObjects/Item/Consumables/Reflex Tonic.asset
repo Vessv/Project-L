@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c153527cea5f58143ae314cd0cce1352, type: 3}
   m_Name: Reflex Tonic
   m_EditorClassIdentifier: 
-  name: New item
-  rarity: {fileID: 0}
-  description: 
-  icon: {fileID: 0}
-  itemID: 0
+  name: Reflex Tonic
+  rarity: {fileID: 11400000, guid: 7e1f86e6b0f54c4479854f8bb809f5a1, type: 2}
+  description: Gives you 1 DEX
+  icon: {fileID: -203415001, guid: 7537323421b8f71499bb673318be42ab, type: 3}
+  itemID: 8
   extraStats:
     Strength: 0
     Vitality: 0
     Intelligence: 0
     Speed: 0
     Endurance: 0
-    Dexterity: 0
+    Dexterity: 1
     Stamina: 0
     Luck: 0
   HealthRegen: 0

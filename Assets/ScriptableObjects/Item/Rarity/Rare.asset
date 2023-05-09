@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rare
   m_EditorClassIdentifier: 
   name: Rare
-  textColour: {r: 0.7317964, g: 0.36765754, b: 0.9622642, a: 0}
+  textColour: {r: 0.1273585, g: 0.8001584, b: 1, a: 1}
