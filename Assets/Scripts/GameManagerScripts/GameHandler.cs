@@ -193,6 +193,16 @@ public class GameHandler : NetworkBehaviour
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
         enemy.transform.position = new Vector3(8.5f, 12.5f);
         Instance.GetGrid().GetGridObject(new Vector3(8.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        enemy = Instantiate(_enemyPrefab);
+        enemy.GetComponent<NetworkObject>().Spawn();
+        EnemyList.Add(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = new Vector3(9.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        enemy = Instantiate(_enemyPrefab);
+        enemy.GetComponent<NetworkObject>().Spawn();
+        EnemyList.Add(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = new Vector3(10.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
     }
 
     //Initalize singleton, grids and TurnHandler.CurrentTurnIndex

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionIndex: 17
   actionName: Poison Mist
-  actionSprite: {fileID: 21300000, guid: 72a159042c6e38d448066739706bfeb5, type: 3}
+  actionSprite: {fileID: 21300000, guid: 35efe15fa540a7f41be8175243758bd2, type: 3}
   actionDescription: Creates a posion mist that deals 100% of STR as damage to all
     units inside
   pointCost: 3

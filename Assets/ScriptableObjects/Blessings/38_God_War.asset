@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
   m_Name: 38_God_War
   m_EditorClassIdentifier: 
-  title: 
-  rarity: {fileID: 0}
-  description: 
-  sprite: {fileID: 0}
+  title: "God of War\xB4s Teaching"
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: You feel a surge of power coursing through your body as you receive
+    the ultimate skill of a warrior.
+  sprite: {fileID: 21300000, guid: dddf59890bdc3c842b41ac82afa69c54, type: 3}
   itemID: -1
-  actionID: 0
+  actionID: 11
   blessingStats:
     Strength: 0
     Vitality: 0

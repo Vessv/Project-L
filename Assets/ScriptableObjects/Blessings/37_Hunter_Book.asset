@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 37_Hunter_Book
   m_EditorClassIdentifier: 
   title: Hunter's Book
-  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  rarity: {fileID: 11400000, guid: f25d957d37a26e0479356b052c281d08, type: 2}
   description: You feel a rush of excitement as you receive the hunter skill, your
     hands shaking slightly with anticipation.
-  sprite: {fileID: 21300000, guid: 93b12ed7999566a44a45375a4772e891, type: 3}
+  sprite: {fileID: 21300000, guid: 3c746c54e3d209347ba3a2b252fed7e0, type: 3}
   itemID: -1
-  actionID: 9
+  actionID: 10
   blessingStats:
     Strength: 0
     Vitality: 0

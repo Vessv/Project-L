@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
   m_Name: 45_Angel_Blessing
   m_EditorClassIdentifier: 
-  title: 
-  rarity: {fileID: 0}
-  description: 
-  sprite: {fileID: 0}
+  title: Angel's Blessing
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: Suddenly, a bright light envelops you, and you feel a warm presence
+    surrounding you as an angel descends from above.
+  sprite: {fileID: -1243188283, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   itemID: -1
   actionID: 0
   blessingStats:
-    Strength: 0
-    Vitality: 0
-    Intelligence: 0
-    Speed: 0
-    Endurance: 0
-    Dexterity: 0
-    Stamina: 0
+    Strength: 15
+    Vitality: 15
+    Intelligence: 15
+    Speed: 1
+    Endurance: 15
+    Dexterity: 2
+    Stamina: 1
     Luck: 0

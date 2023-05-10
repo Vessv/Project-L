@@ -25,5 +25,6 @@ public class BlessingMiniUI : MonoBehaviour
     public void SelectedBlessing()
     {
         BlessingSO.Get();
+        transform.parent.parent.GetComponent<BlessingUI>().BlessingSOArray.Remove(BlessingSO);
     }
 }

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
   m_Name: 43_Warrior_Teaching
   m_EditorClassIdentifier: 
-  title: 
-  rarity: {fileID: 0}
-  description: 
-  sprite: {fileID: 0}
+  title: Warrior's Teaching
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: You feel a surge of power coursing through your body as you receive
+    the warrior skill, honing your combat abilities to new heights
+  sprite: {fileID: 21300000, guid: f8675c9556467ed49a766431338c7e24, type: 3}
   itemID: -1
-  actionID: 0
+  actionID: 16
   blessingStats:
     Strength: 0
     Vitality: 0

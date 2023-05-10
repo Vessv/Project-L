@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
   m_Name: 39_Priest_Scripture
   m_EditorClassIdentifier: 
-  title: 
-  rarity: {fileID: 0}
-  description: 
-  sprite: {fileID: 0}
+  title: "Priest\xB4s Scriptures"
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: You feel a surge of power flow through you as you read the holy skill.
+  sprite: {fileID: 21300000, guid: 5a7ecaec6bf6376409ed9d638b33022e, type: 3}
   itemID: -1
-  actionID: 0
+  actionID: 12
   blessingStats:
     Strength: 0
     Vitality: 0

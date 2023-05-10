@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionIndex: 9
   actionName: Poison
-  actionSprite: {fileID: 21300000, guid: 35efe15fa540a7f41be8175243758bd2, type: 3}
+  actionSprite: {fileID: 21300000, guid: 93b12ed7999566a44a45375a4772e891, type: 3}
   actionDescription: Hit an unit with a poisened weapon, reduces endurance and deals
     50% of STR as damage
   pointCost: 2
