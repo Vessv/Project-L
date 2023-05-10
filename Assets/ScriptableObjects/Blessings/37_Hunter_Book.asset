@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
-  m_Name: Angel_Blessing
+  m_Name: 37_Hunter_Book
   m_EditorClassIdentifier: 
-  title: Angel's strength
+  title: Hunter's Book
   rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
-  description: An angel gives you a strength blessing
-  sprite: {fileID: -391964623, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
-  item: {fileID: 0}
-  actionID: 0
+  description: You feel a rush of excitement as you receive the hunter skill, your
+    hands shaking slightly with anticipation.
+  sprite: {fileID: 21300000, guid: 93b12ed7999566a44a45375a4772e891, type: 3}
+  itemID: -1
+  actionID: 9
   blessingStats:
-    Strength: 5
+    Strength: 0
     Vitality: 0
+    Intelligence: 0
     Speed: 0
     Endurance: 0
     Dexterity: 0

@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
-  m_Name: Sword_Blessing
+  m_Name: 44_Hunter_Book
   m_EditorClassIdentifier: 
-  title: Knight Sword
-  rarity: {fileID: 11400000, guid: 7e1f86e6b0f54c4479854f8bb809f5a1, type: 2}
-  description: Gives you a Knight's sword and bless you with strentgh
-  sprite: {fileID: 21300000, guid: 692e37d03cbcb5346b1fd86af26adc71, type: 3}
-  item: {fileID: 11400000, guid: fe0e5f0d997c0be4cbf159f1bca7e3ae, type: 2}
+  title: 
+  rarity: {fileID: 0}
+  description: 
+  sprite: {fileID: 0}
+  itemID: -1
   actionID: 0
   blessingStats:
-    Strength: 1
+    Strength: 0
     Vitality: 0
+    Intelligence: 0
     Speed: 0
     Endurance: 0
     Dexterity: 0

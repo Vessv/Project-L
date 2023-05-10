@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
+  m_Name: 32_Warrior_Teaching
+  m_EditorClassIdentifier: 
+  title: Warrior's Teaching
+  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
+  description: You feel a surge of power coursing through your body as you receive
+    the warrior skill, honing your combat abilities to new heights
+  sprite: {fileID: 21300000, guid: 98da90eea9e3e134db91afd3114fda51, type: 3}
+  itemID: -1
+  actionID: 5
+  blessingStats:
+    Strength: 0
+    Vitality: 0
+    Intelligence: 0
+    Speed: 0
+    Endurance: 0
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0

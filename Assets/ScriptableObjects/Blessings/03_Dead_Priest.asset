@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
+  m_Name: 03_Dead_Priest
+  m_EditorClassIdentifier: 
+  title: Dead Priest
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: A dead priest lying motionless on the ground, as you search his body,
+    you discover a small vial containing a shimmering red liquid - the fabled elixir
+    of immortality, said to grant eternal life to those who drink it.
+  sprite: {fileID: 1812380622, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
+  itemID: 3
+  actionID: 0
+  blessingStats:
+    Strength: 0
+    Vitality: 0
+    Intelligence: 0
+    Speed: 0
+    Endurance: 0
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0

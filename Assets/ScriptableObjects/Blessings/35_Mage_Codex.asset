@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
+  m_Name: 35_Mage_Codex
+  m_EditorClassIdentifier: 
+  title: You stand before the ancient mage codex, feeling both nervous and excited
+    as it imparts upon you its ultimate spell.
+  rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
+  description: "Mage\xB4s Codex"
+  sprite: {fileID: 21300000, guid: caa2d591f5676644bade1c7da9bad196, type: 3}
+  itemID: -1
+  actionID: 8
+  blessingStats:
+    Strength: 0
+    Vitality: 0
+    Intelligence: 0
+    Speed: 0
+    Endurance: 0
+    Dexterity: 0
+    Stamina: 0
+    Luck: 0

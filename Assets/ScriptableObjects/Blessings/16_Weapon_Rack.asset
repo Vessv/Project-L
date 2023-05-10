@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f53de323632e65f409185adb9ea5cb85, type: 3}
-  m_Name: Fire_Blessing
+  m_Name: 16_Weapon_Rack
   m_EditorClassIdentifier: 
-  title: Fireball action
-  rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
-  description: Shoot a fireball that deals damage
-  sprite: {fileID: 21300000, guid: fcf62c5f84f2d594ea2852ccad2e6854, type: 3}
-  item: {fileID: 0}
-  actionID: 3
+  title: Weapon Rack
+  rarity: {fileID: 11400000, guid: f25d957d37a26e0479356b052c281d08, type: 2}
+  description: As you climbed the tower, you entered a small room and found a weapon
+    rack against the wall.
+  sprite: {fileID: 1848323489, guid: 7a242c230fd9c044aa7bbd4b4c7742d4, type: 3}
+  itemID: 19
+  actionID: 0
   blessingStats:
     Strength: 0
     Vitality: 0
+    Intelligence: 0
     Speed: 0
     Endurance: 0
     Dexterity: 0
