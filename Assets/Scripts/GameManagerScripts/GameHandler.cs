@@ -152,11 +152,6 @@ public class GameHandler : NetworkBehaviour
         }
     }
 
-    private void FloorStart()
-    {
-        //remove black screen?
-    }
-
     public void FloorEnd()
     {
         floorNumber.Value += 1;
@@ -179,13 +174,31 @@ public class GameHandler : NetworkBehaviour
         //change map spawnear cosas, tenerlos en una lista, updatear el pathfinding si ese necesario, remover los anteriores, updatear el pathfinding
         //spawn new enemies, de una lista que tenga waves de enemigos o algo, o que lo haga el turn handler mejor
         //TurnHandler.NextTurn();
-        TurnHandler.CurrentTurnIndex = 0;
-        GameHandler.Instance.SpawnNewWave();
-        //floorstart es necesario floor start?
+
+        if (TurnHandler.hasPlayersCycleBeenDone)
+        {
+            TurnHandler.CurrentTurnIndex = 999;
+            TurnHandler.NextTurn();
+        }
+
+        SpawnNewWave();
     }
 
     public void SpawnNewWave()
     {
+
+        int floorType = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f));
+
+        switch (floorType)
+        {
+            case 1: //Undead
+                break;
+            case 2: //Orc
+                break;
+            case 3: //Demon
+                break;
+        }
+
         GameObject enemy = Instantiate(_enemyPrefab);
         enemy.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy.GetComponent<NPCUnit>());

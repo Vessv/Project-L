@@ -168,7 +168,8 @@ MonoBehaviour:
       Dexterity: 0
       Stamina: 0
       Luck: 0
-  Threat: 0
+  Threat:
+    m_InternalValue: 0
   DifferentPositionFlag: 0
 --- !u!95 &6757460269464322106
 Animator:
@@ -263,11 +264,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1570840874071823092, guid: 5ad5c3ab96a49104683dc49c88660c10, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.062
+      value: 0.104
       objectReference: {fileID: 0}
     - target: {fileID: 1570840874071823092, guid: 5ad5c3ab96a49104683dc49c88660c10, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.3914
+      value: 0.433
       objectReference: {fileID: 0}
     - target: {fileID: 1570840874071823092, guid: 5ad5c3ab96a49104683dc49c88660c10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

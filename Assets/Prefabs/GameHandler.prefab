@@ -84,9 +84,17 @@ MonoBehaviour:
   - {fileID: 999689300300813914, guid: 8b3c5ac7b5207cc48bcffbcf1cbf1efe, type: 3}
   - {fileID: 999689300300813914, guid: 7ed8a7c1209fb9b448fe1862d8df7e3b, type: 3}
   - {fileID: 999689300300813914, guid: 20e59b1c30232ba4483ab2869d4fdea1, type: 3}
-  _skeletonPrefabs: []
-  _orcPrefabs: []
-  _otherPrefabs: []
+  _skeletonPrefabs:
+  - {fileID: 999689300300813914, guid: 43cba967b4faaf345839a986ba626e53, type: 3}
+  - {fileID: 999689300300813914, guid: d7d72e8f493688b44bc30a9e01b58a4d, type: 3}
+  _orcPrefabs:
+  - {fileID: 999689300300813914, guid: da110077e343759408a82add7abb5153, type: 3}
+  - {fileID: 999689300300813914, guid: 26484bac3ce031c4a8e8e53101abcf15, type: 3}
+  - {fileID: 999689300300813914, guid: bc422d00ecaadfc40bad931a25e81638, type: 3}
+  - {fileID: 999689300300813914, guid: a02aa8d099d0662459213237cd455bc4, type: 3}
+  _otherPrefabs:
+  - {fileID: 999689300300813914, guid: 73220642f071af34db6cfe4c22ed273e, type: 3}
+  - {fileID: 999689300300813914, guid: 26507225adb2a1c4d8575ede64e00dc4, type: 3}
   _enemyPrefab: {fileID: 0}
   _hasBeenRegistered: 0000000000
   floorNumber:
