@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1750a9870924945b9d8ddbaa26d736, type: 3}
-  m_Name: Demon_Mini
+  m_Name: Orc_Minion
   m_EditorClassIdentifier: 
-  UnitName: Demon minion
-  UnitSprite: {fileID: 1965810237, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
+  UnitName: Orc Minion
+  UnitSprite: {fileID: -1228642970, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
     Strength: 20
-    Vitality: 200
+    Vitality: 250
     Intelligence: 0
     Speed: 1
-    Endurance: 15
+    Endurance: 20
     Dexterity: 1
     Stamina: 2
     Luck: 0
-  UnitFaction: 1
+  UnitFaction: 3

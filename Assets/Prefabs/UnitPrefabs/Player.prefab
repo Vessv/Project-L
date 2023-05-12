@@ -307,7 +307,8 @@ MonoBehaviour:
       Dexterity: 0
       Stamina: 0
       Luck: 0
-  Threat: 0
+  Threat:
+    m_InternalValue: 0
   DifferentPositionFlag: 0
   inventory: {fileID: 0}
   isPointerOverUI: 0
@@ -319,6 +320,7 @@ MonoBehaviour:
   PlayerInfoUI: {fileID: 5492427046072160567}
   ItemInventoryUI: {fileID: 8756441583315644767}
   GameStateInfoUI: {fileID: 3097183729812640873}
+  NextFloorUI: {fileID: 2685351958464063119}
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
@@ -588,6 +590,11 @@ GameObject:
 --- !u!1 &1343655260679318752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745415665710696874, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+  m_PrefabInstance: {fileID: 2404918777989735754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2685351958464063119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 296029778771231685, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
   m_PrefabInstance: {fileID: 2404918777989735754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3097183729812640873 stripped

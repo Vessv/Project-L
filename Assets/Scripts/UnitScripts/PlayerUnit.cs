@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
+using TMPro;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -25,6 +27,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject PlayerInfoUI;
     public GameObject ItemInventoryUI;
     public GameObject GameStateInfoUI;
+    public GameObject NextFloorUI;
 
     public UnitSO[] UnitSOArray;
 
@@ -134,7 +137,36 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     }
 
     
+    [ClientRpc]
+    public void NextFloorUIClientRpc()
+    {
+        if (!IsLocalPlayer) return;
+        NextFloorUI.SetActive(true);
+        NextFloorUI.GetComponent<Image>().color = new Color(0.1415094f, 0.1415094f, 0.1415094f, 1f);
+        NextFloorUI.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
+        StartCoroutine(FadeNextFloorUI());
+    }
 
+    IEnumerator FadeNextFloorUI()
+    {
+        yield return new WaitForSeconds(1f);
+        bool isVisible = true;
+        float alpha = 1f;
+        NextFloorUI.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+        while (isVisible)
+        {
+            alpha -= 0.05f;
+            NextFloorUI.GetComponent<Image>().color = new Color(0.1415094f, 0.1415094f, 0.1415094f, alpha);
+            yield return new WaitForSeconds(0.05f);
+            if(alpha <= 0f)
+            {
+                isVisible = false;
+                NextFloorUI.SetActive(false);
+                yield break;
+            }
+        }
+        
+    }
 
     [ClientRpc]
     public void SetMapVisualTileActiveClientRpc(int x, int y, Color color) //cambiar esto a una networklist

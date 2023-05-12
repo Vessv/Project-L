@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1750a9870924945b9d8ddbaa26d736, type: 3}
-  m_Name: Hero3
+  m_Name: Orc
   m_EditorClassIdentifier: 
-  UnitName: Archer
-  UnitSprite: {fileID: -2064329923, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
+  UnitName: Orc
+  UnitSprite: {fileID: 21300000, guid: 318fea8bab1f2e248a79afdfbfe93c60, type: 3}
   Stats:
-    Strength: 1
-    Vitality: 2
+    Strength: 35
+    Vitality: 600
+    Intelligence: 0
     Speed: 2
-    Endurance: 4
-    Dexterity: 3
-    Stamina: 4
+    Endurance: 30
+    Dexterity: 2
+    Stamina: 2
     Luck: 0
-  UnitFaction: 0
+  UnitFaction: 3

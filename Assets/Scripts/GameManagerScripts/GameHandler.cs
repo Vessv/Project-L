@@ -15,6 +15,18 @@ public class GameHandler : NetworkBehaviour
     GameObject _playerPrefab;
 
     [SerializeField]
+    GameObject [] _demonPrefabs;
+
+    [SerializeField]
+    GameObject[] _skeletonPrefabs;
+
+    [SerializeField]
+    GameObject[] _orcPrefabs;
+
+    [SerializeField]
+    GameObject[] _otherPrefabs;
+
+    [SerializeField]
     GameObject _enemyPrefab;
 
     //Turn vars
@@ -23,7 +35,7 @@ public class GameHandler : NetworkBehaviour
 
     bool hasPlayers => NetworkManager.Singleton.ConnectedClientsList.Count > 0;
 
-    public int floorNumber = 0;
+    public NetworkVariable<int> floorNumber;
 
     [SerializeField]
     MoveAction _moveAction;
@@ -103,21 +115,6 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(5);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(6);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(7);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(9);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(10);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(14);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(15);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(16);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(17);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -162,10 +159,11 @@ public class GameHandler : NetworkBehaviour
 
     public void FloorEnd()
     {
-        floorNumber += 1;
+        floorNumber.Value += 1;
         //enable ui wtih blessing so they choose
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().NextFloorUIClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().DisplayBlessingSelectionClientRpc();
         }
         //after everyone has choosen black screen algo como player.changeblackscreenclientrpc

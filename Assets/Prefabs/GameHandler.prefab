@@ -79,9 +79,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 0}
+  _demonPrefabs:
+  - {fileID: 999689300300813914, guid: e03bc969525bc7e4da32549865f415d2, type: 3}
+  - {fileID: 999689300300813914, guid: 8b3c5ac7b5207cc48bcffbcf1cbf1efe, type: 3}
+  - {fileID: 999689300300813914, guid: 7ed8a7c1209fb9b448fe1862d8df7e3b, type: 3}
+  - {fileID: 999689300300813914, guid: 20e59b1c30232ba4483ab2869d4fdea1, type: 3}
+  _skeletonPrefabs: []
+  _orcPrefabs: []
+  _otherPrefabs: []
   _enemyPrefab: {fileID: 0}
   _hasBeenRegistered: 0000000000
-  floorNumber: 0
+  floorNumber:
+    m_InternalValue: 0
   _moveAction: {fileID: 0}
   _attackAction: {fileID: 0}
   _actionsSOArray:

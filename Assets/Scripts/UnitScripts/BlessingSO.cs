@@ -22,10 +22,18 @@ public class BlessingSO : ScriptableObject
         if(itemID != -1)
         {
             NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().inventory.Add(itemID);
+            GameObject inventoryUI = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().ItemInventoryUI;
+            inventoryUI.SetActive(false);
+            inventoryUI.SetActive(true);
+
+
         }
         if ( actionID != 0 )
         {
             NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().AddActionToListServerRpc(actionID);
+            GameObject aInventoryUI = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().ActionInventoryUI;
+            aInventoryUI.SetActive(false);
+            aInventoryUI.SetActive(true);
         }
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnit>().SubmitExtraStatsServerRpc(blessingStats);
     }

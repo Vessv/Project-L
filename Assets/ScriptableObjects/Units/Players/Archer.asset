@@ -15,7 +15,7 @@ MonoBehaviour:
   UnitName: Archer
   UnitSprite: {fileID: -2064329923, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
-    Strength: 20
+    Strength: 25
     Vitality: 80
     Intelligence: 20
     Speed: 4

@@ -16,7 +16,9 @@ public class UnitSO : ScriptableObject
     {
         Hero,
         Demon,
-        Undead
+        Undead,
+        Orc,
+        Other
     }
 
     [System.Serializable]
