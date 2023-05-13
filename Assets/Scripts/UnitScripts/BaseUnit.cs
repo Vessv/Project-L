@@ -183,9 +183,9 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     }
 
     [ClientRpc]
-    public void UpdateWalkVariableClientRpc()
+    public void UpdateWalkVariableClientRpc(bool value)
     {
-        GetComponent<Animator>().SetBool("walking", !GetComponent<Animator>().GetBool("walking"));
+        GetComponent<Animator>().SetBool("walking", value);
     }
 
     public enum ActionState

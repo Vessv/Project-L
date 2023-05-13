@@ -171,6 +171,7 @@ MonoBehaviour:
   Threat:
     m_InternalValue: 0
   DifferentPositionFlag: 0
+  OwnedActionArray: 010000000400000009000000
 --- !u!95 &6757460269464322106
 Animator:
   serializedVersion: 4

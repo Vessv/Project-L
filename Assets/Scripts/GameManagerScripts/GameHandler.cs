@@ -53,6 +53,11 @@ public class GameHandler : NetworkBehaviour
 
     public UnitSO[] UnitSOArray;
 
+    //floor things
+    public GameObject[] GroundVariations;
+    public GameObject[] TopwallVariations;
+    public GameObject[] botwallVariations;
+
     //All the grids needed for the game to work
     private Grid<GridObject> _gameGrid;
     private Pathfinding _pathfindingGrid;
@@ -186,34 +191,150 @@ public class GameHandler : NetworkBehaviour
 
     public void SpawnNewWave()
     {
+        if(floorNumber.Value == 1)
+        {
+            botwallVariations[0].SetActive(false);
+            botwallVariations[1].SetActive(true);
+            _pathfindingGrid.GetGrid().GetGridObject(7, 0).SetMap(false);
+            _pathfindingGrid.GetGrid().GetGridObject(8, 0).SetMap(false);
+            _pathfindingGrid.GetGrid().GetGridObject(9, 0).SetMap(false);
+            _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetMap(false);
+            _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetMap(false);
+            _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(false);
+        }
 
+        TopwallVariations[0].SetActive(false);
+        TopwallVariations[1].SetActive(false);
+        TopwallVariations[2].SetActive(false);
+
+        foreach (GameObject groundVariation in GroundVariations)
+        {
+            groundVariation.SetActive(false);
+        }
+
+        for(int x = 0; x < _width; x++)
+        {
+            for(int y=0; y<_height; y++)
+            {
+                _pathfindingGrid.GetGrid().GetGridObject(x, y).SetMap(false);
+
+            }
+        }
+
+        //activating variations and spawning enemies
+        _pathfindingGrid.GetGrid().GetGridObject(6, 15).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(11, 15).SetMap(true);
         int floorType = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f));
-
+        int groundVariationIndex = 0;
         switch (floorType)
         {
             case 1: //Undead
+                groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
+                GroundVariations[6+groundVariationIndex].SetActive(true);
+                TopwallVariations[0].SetActive(true);
+                _pathfindingGrid.GetGrid().GetGridObject(2, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(5, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(15, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(12, 15).SetMap(true);
+
+
+                switch (groundVariationIndex)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        _pathfindingGrid.GetGrid().GetGridObject(3, 8).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(4, 8).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(16, 10).SetMap(true);
+
+                        break;
+                    case 2:
+                        _pathfindingGrid.GetGrid().GetGridObject(1, 4).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(2, 5).SetMap(true);
+
+                        break;
+                }
+
+                int skIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 1.9f));
+                SpawnEnemy(_skeletonPrefabs[skIndex], new Vector3(6, 14f));
+                SpawnEnemy(_skeletonPrefabs[skIndex], new Vector3(11, 14f));
+
+
                 break;
             case 2: //Orc
+                groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
+                GroundVariations[groundVariationIndex].SetActive(true);
+                TopwallVariations[1].SetActive(true);
+                switch (groundVariationIndex)
+                {
+                    case 0:
+                        _pathfindingGrid.GetGrid().GetGridObject(4, 9).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(5, 10).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(6, 10).SetMap(true);
+                        break;
+                    case 1:
+                        _pathfindingGrid.GetGrid().GetGridObject(2, 8).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(16, 10).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(15, 8).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(14, 9).SetMap(true);
+                        break;
+                    case 2:
+                        _pathfindingGrid.GetGrid().GetGridObject(0, 15).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(1, 15).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(15, 15).SetMap(true);
+
+                        break;
+                }
+
+                int orcIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
+                SpawnEnemy(_orcPrefabs[orcIndex], new Vector3(6, 14f));
+                SpawnEnemy(_orcPrefabs[orcIndex], new Vector3(11, 14f));
+
                 break;
             case 3: //Demon
+                groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
+                GroundVariations[3+groundVariationIndex].SetActive(true);
+                TopwallVariations[2].SetActive(true);
+                _pathfindingGrid.GetGrid().GetGridObject(1, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(5, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(16, 15).SetMap(true);
+                _pathfindingGrid.GetGrid().GetGridObject(12, 15).SetMap(true);
+
+                switch (groundVariationIndex)
+                {
+                    case 0:
+                        _pathfindingGrid.GetGrid().GetGridObject(3, 7).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(15, 10).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(16, 11).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(14, 12).SetMap(true);
+
+                        break;
+                    case 1:
+                        _pathfindingGrid.GetGrid().GetGridObject(4, 9).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(15, 11).SetMap(true);
+                        _pathfindingGrid.GetGrid().GetGridObject(13, 10).SetMap(true);
+
+                        break;
+                    case 2:
+                        break;
+                }
+
+                int demIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
+                SpawnEnemy(_demonPrefabs[demIndex], new Vector3(6, 14f));
+                SpawnEnemy(_demonPrefabs[demIndex], new Vector3(11, 14f));
+
                 break;
         }
+    }
 
-        GameObject enemy = Instantiate(_enemyPrefab);
+    void SpawnEnemy(GameObject enemyPrefab, Vector3 pos)
+    {
+        pos += new Vector3(0.5f, 0.5f);
+        GameObject enemy = Instantiate(enemyPrefab);
         enemy.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
-        enemy.transform.position = new Vector3(8.5f, 12.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(8.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
-        enemy = Instantiate(_enemyPrefab);
-        enemy.GetComponent<NetworkObject>().Spawn();
-        EnemyList.Add(enemy.GetComponent<NPCUnit>());
-        enemy.transform.position = new Vector3(9.5f, 12.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
-        enemy = Instantiate(_enemyPrefab);
-        enemy.GetComponent<NetworkObject>().Spawn();
-        EnemyList.Add(enemy.GetComponent<NPCUnit>());
-        enemy.transform.position = new Vector3(10.5f, 12.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        enemy.transform.position = pos;
+        Instance.GetGrid().GetGridObject(pos).SetUnit(enemy.GetComponent<NPCUnit>());
     }
 
     //Initalize singleton, grids and TurnHandler.CurrentTurnIndex
@@ -237,17 +358,13 @@ public class GameHandler : NetworkBehaviour
         _pathfindingGrid.GetGrid().GetGridObject(10, 0).SetMap(true);
         _pathfindingGrid.GetGrid().GetGridObject(6, 2).SetMap(true);
         _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(true);
+
+        _pathfindingGrid.GetGrid().GetGridObject(6, 15).SetMap(true);
+        _pathfindingGrid.GetGrid().GetGridObject(11, 15).SetMap(true);
 
         _itemsSOArray = _itemsSOArray.OrderBy(x => x.itemID).ToArray();
 
-    }
-
-    void Start()
-    {
-
-        //CreateWorld();
-        //InstantiateWorld();
-      
     }
 
 
@@ -256,7 +373,7 @@ public class GameHandler : NetworkBehaviour
     {
         if (!IsServer || !hasPlayers) return;
 
-        if (!_hasBeenRegistered[TurnHandler.CurrentTurnIndex] && TurnHandler.CurrentUnit.UnitScriptableObject.UnitFaction != UnitSO.Faction.Demon)
+        if (!_hasBeenRegistered[TurnHandler.CurrentTurnIndex] && TurnHandler.CurrentUnit.UnitScriptableObject.UnitFaction == UnitSO.Faction.Hero)
         {
             _hasBeenRegistered[TurnHandler.CurrentTurnIndex] = true;
             AddListeners(TurnHandler.CurrentUnit);
@@ -376,93 +493,126 @@ public class GameHandler : NetworkBehaviour
             TurnHandler.CurrentUnit.SelectedAction.Value = UnitAction.Action.None;
             return;
         }
-        TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
         TurnHandler.CurrentUnit.Threat.Value += 50; //esto se puede cambiar
         if (TurnHandler.CurrentUnit.CanMove)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             _moveAction.Setup(TurnHandler.CurrentUnit);
-            TurnHandler.CurrentUnit.UpdateWalkVariableClientRpc();
+            TurnHandler.CurrentUnit.UpdateWalkVariableClientRpc(true);
             _moveAction.Move();
         } 
         else 
         if (TurnHandler.CurrentUnit.CanMeele)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             _attackAction.Setup(TurnHandler.CurrentUnit);
             _attackAction.Attack();
         }
         else
         if (TurnHandler.CurrentUnit.CanRanged)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<RangedAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<RangedAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanMagic)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<MagicAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<MagicAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanShieldBash)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<ShieldBashAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<ShieldBashAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanFireball)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<FireballAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<FireballAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanHeadbutt)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<HeadbuttAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<HeadbuttAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanMeteor)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<MeteorRainAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<MeteorRainAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanPoison)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<PoisonAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<PoisonAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanStun)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<StunAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<StunAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanHoly)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<HolyStrikeAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<HolyStrikeAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanHeal)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<HealAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<HealAction>().Heal();
         }
         else if (TurnHandler.CurrentUnit.CanTree)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<HolyTreeAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<HolyTreeAction>().Heal();
         }
         else if (TurnHandler.CurrentUnit.CanTaunt)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<TauntAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<TauntAction>().Taunt();
         }
         else if (TurnHandler.CurrentUnit.CanIgnite)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<IgniteAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<IgniteAction>().Ignite();
         }
         else if (TurnHandler.CurrentUnit.CanCleave)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<CleaveAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<CleaveAction>().Attack();
         }
         else if (TurnHandler.CurrentUnit.CanMist)
         {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
             GetComponent<PoisonMistAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<PoisonMistAction>().Posion();
         }

@@ -38,16 +38,18 @@ public class MoveAction : BaseAction
                     _pathVectorList.Clear();
                     GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
+                    unit.UpdateWalkVariableClientRpc(false);
+
+                    UseActionPoints();
+
                     unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
 
                     //EndTurnServerRpc();
 
-                    UseActionPoints();
                     //unit.IsMyTurn.Value = false;
 
                     //onPositionReached?.Invoke();
                     unit.SelectedAction.Value = UnitAction.Action.None;
-                    unit.UpdateWalkVariableClientRpc();
                 }
             }
 
@@ -64,7 +66,7 @@ public class MoveAction : BaseAction
 
     public void Move()
     {
-        Debug.Log("Used move action: " + unit.name);
+        //Debug.Log("Used move action: " + unit.name);
         _pathVectorList = new List<Vector3>();
         currentPathIndex = 0;
 

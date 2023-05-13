@@ -143,7 +143,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer) return;
         NextFloorUI.SetActive(true);
         NextFloorUI.GetComponent<Image>().color = new Color(0.1415094f, 0.1415094f, 0.1415094f, 1f);
-        NextFloorUI.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
+        NextFloorUI.transform.GetChild(0).gameObject.SetActive(true);
         StartCoroutine(FadeNextFloorUI());
     }
 
