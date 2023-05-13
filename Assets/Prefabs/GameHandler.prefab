@@ -166,6 +166,7 @@ MonoBehaviour:
   - {fileID: 1624209077952064415, guid: 2a61073fee2afcf4a82e322f6e0e2ef3, type: 3}
   - {fileID: 2823301434793975357, guid: dc66632435065f74eb0ca7f9261f8787, type: 3}
   - {fileID: 9163778896841213378, guid: 00147f91ac79ec3428b7e4a7d8847fee, type: 3}
+  - {fileID: 2823301434793975357, guid: b9585d2aafc6c0c4e944a4b0f73ca78e, type: 3}
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}

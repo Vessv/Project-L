@@ -276,6 +276,7 @@ public class NPCUnit : BaseUnit
         GameHandler.Instance.RemoveEnemyFromList(this);
         ActionPoints.Value = 0;
         StopCoroutine(DoTurn());
+        SpawnObjectClientRpc(transform.position+new Vector3(-0.5f, 0.5f), 9);
         //playsound?
         Destroy(this.gameObject);
     }
@@ -349,6 +350,12 @@ public class NPCUnit : BaseUnit
         Vector3 offSetVector = Vector3.zero;
         if (IsTargetLeft) offSetVector = offSetVector + new Vector3(1f, 0f);
         if (IsTargetRight) offSetVector = offSetVector + new Vector3(-1f, 0f);
+        PathNode targetNode = Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition);
+        if (!targetNode.isWalkable)
+        {
+            if (IsTargetUp) offSetVector = offSetVector + new Vector3(0f, -1f);
+            if (IsTargetDown) offSetVector = offSetVector + new Vector3(0, 1f);
+        }
 
         return offSetVector;
     }

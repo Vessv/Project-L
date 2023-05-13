@@ -52,7 +52,6 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         LoadUnitStats();
         CurrentHealth.Value = Stats.Value.Vitality; //cambiar de health a esto
         CurrentHealth.OnValueChanged += OnHealthChanged;
-        ActionPoints.Value = 2;
         ownedActionList = new NetworkList<int>();
 
     }

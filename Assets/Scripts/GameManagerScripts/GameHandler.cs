@@ -110,6 +110,10 @@ public class GameHandler : NetworkBehaviour
             player.GetComponent<PlayerUnit>().UpdateUnitSOClientRpc(ServerGameNetPortal.Instance.choosenHero[(int)client.ClientId]);
             //player.GetComponent<PlayerUnit>().ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(client.ClientId);
             player.transform.position = player.transform.position + new Vector3((float)(client.ClientId + 8f),1f);
+            if(client.ClientId == 0)
+            {
+                client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
+            }
             _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
 
             //Dandole skills base o algo
@@ -254,10 +258,22 @@ public class GameHandler : NetworkBehaviour
 
                         break;
                 }
-
-                int skIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 1.9f));
-                SpawnEnemy(_skeletonPrefabs[skIndex], new Vector3(6, 14f));
-                SpawnEnemy(_skeletonPrefabs[skIndex], new Vector3(11, 14f));
+                for (int i = 0; i < 2 + floorNumber.Value; i++)
+                {
+                    int skIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 1.9f));
+                    float randomX = Mathf.Floor((UnityEngine.Random.Range(6f, 11.9f)));
+                    float randomY = Mathf.Floor(UnityEngine.Random.Range(9f, 14.9f));
+                    if(GetGrid().GetGridObject((int)randomX,(int)randomY).GetUnit() != null)
+                    {
+                        i--;
+                        continue;
+                    }
+                    else
+                    {
+                        SpawnEnemy(_skeletonPrefabs[skIndex], new Vector3(randomX, randomY));
+                    }
+                }
+                
 
 
                 break;
@@ -285,10 +301,26 @@ public class GameHandler : NetworkBehaviour
 
                         break;
                 }
-
-                int orcIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
-                SpawnEnemy(_orcPrefabs[orcIndex], new Vector3(6, 14f));
-                SpawnEnemy(_orcPrefabs[orcIndex], new Vector3(11, 14f));
+                for (int i = 0; i < 1 + floorNumber.Value; i++)
+                {
+                    int orcIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
+                    float randomX = Mathf.Floor((UnityEngine.Random.Range(6f, 11.9f)));
+                    float randomY = Mathf.Floor(UnityEngine.Random.Range(9f, 14.9f));
+                    if (GetGrid().GetGridObject((int)randomX, (int)randomY).GetUnit() != null)
+                    {
+                        i--;
+                        continue;
+                    }
+                    else
+                    {
+                        if(floorNumber.Value < 3 && orcIndex >= 3)
+                        {
+                            i--;
+                            continue;
+                        }
+                        SpawnEnemy(_orcPrefabs[orcIndex], new Vector3(randomX, randomY));
+                    }
+                }
 
                 break;
             case 3: //Demon
@@ -319,9 +351,26 @@ public class GameHandler : NetworkBehaviour
                         break;
                 }
 
-                int demIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
-                SpawnEnemy(_demonPrefabs[demIndex], new Vector3(6, 14f));
-                SpawnEnemy(_demonPrefabs[demIndex], new Vector3(11, 14f));
+                for (int i = 0; i < 1 + floorNumber.Value; i++)
+                {
+                    int demIndex = (int)Mathf.Floor(UnityEngine.Random.Range(0f, 3.9f));
+                    float randomX = Mathf.Floor((UnityEngine.Random.Range(6f, 11.9f)));
+                    float randomY = Mathf.Floor(UnityEngine.Random.Range(9f, 14.9f));
+                    if (GetGrid().GetGridObject((int)randomX, (int)randomY).GetUnit() != null)
+                    {
+                        i--;
+                        continue;
+                    }
+                    else
+                    {
+                        if (floorNumber.Value < 3 && demIndex >= 3)
+                        {
+                            i--;
+                            continue;
+                        }
+                        SpawnEnemy(_demonPrefabs[demIndex], new Vector3(randomX, randomY));
+                    }
+                }
 
                 break;
         }
