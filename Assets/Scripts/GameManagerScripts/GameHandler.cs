@@ -110,10 +110,6 @@ public class GameHandler : NetworkBehaviour
             player.GetComponent<PlayerUnit>().UpdateUnitSOClientRpc(ServerGameNetPortal.Instance.choosenHero[(int)client.ClientId]);
             //player.GetComponent<PlayerUnit>().ActionInventory.GetComponent<NetworkObject>().SpawnWithOwnership(client.ClientId);
             player.transform.position = player.transform.position + new Vector3((float)(client.ClientId + 8f),1f);
-            if(client.ClientId == 0)
-            {
-                client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
-            }
             _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
 
             //Dandole skills base o algo
@@ -125,12 +121,18 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
+
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
+
                     break;
                 case 2:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
+                    client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
+
                     break;
             }
 
@@ -203,6 +205,7 @@ public class GameHandler : NetworkBehaviour
         {
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().NextFloorUIClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().DisplayBlessingSelectionClientRpc();
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().FloorNumber = floorNumber.Value;
         }
         //after everyone has choosen black screen algo como player.changeblackscreenclientrpc
         //move to initial position

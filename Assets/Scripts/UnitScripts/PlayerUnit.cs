@@ -29,6 +29,8 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject GameStateInfoUI;
     public GameObject NextFloorUI;
 
+    public int FloorNumber = 0;
+
     public UnitSO[] UnitSOArray;
 
     private void Start()
@@ -104,10 +106,16 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         base.Die();
     }
 
+
+    bool wait = true;
     public void OnStatsChange(UnitSO.UnitStats previous, UnitSO.UnitStats current)
     {
-        PlayerInfoUI.GetComponentInChildren<PlayerInfoUI>().UpdateInfoUI();
         GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
+        if (!wait)
+        {
+            PlayerInfoUI.GetComponentInChildren<PlayerInfoUI>().UpdateInfoUI();
+        }
+        wait = false;
 
     }
 

@@ -36,7 +36,7 @@ public class GameStateInfoUI : MonoBehaviour
 
         myActionPoints.text = "Action points: "  + unit.ActionPoints.Value;
 
-        currentFloor.text = "Current floor: " + GameHandler.Instance.floorNumber.Value;
+        currentFloor.text = "Current floor: " + unit.FloorNumber;
 
     }
 }
