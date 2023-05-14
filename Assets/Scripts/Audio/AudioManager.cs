@@ -31,8 +31,19 @@ public class AudioManager : MonoBehaviour
 
             s.Source.loop = s.loop;
         }
+
+        StartMusic();
     }
 
+    void StartMusic()
+    {
+        Play("music2", true);
+    }
+
+    public void Click()
+    {
+        Play("click", true);
+    }
 
     public void Play(string name, bool instant)
     {
@@ -68,7 +79,7 @@ public class AudioManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             sound.Source.volume += 0.08f;
         }
-
+        yield break;
     }
 
     IEnumerator StopSound(Sound sound)
@@ -80,6 +91,7 @@ public class AudioManager : MonoBehaviour
         }
 
         sound.Source.Stop();
+        yield break;
 
     }
 

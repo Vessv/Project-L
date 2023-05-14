@@ -100,7 +100,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public void TakeDamageClientRpc(int damage)
     {
         TakeDamage(damage);
-        AudioManager.Instance.Play("hit", true);
+        AudioManager.Instance.Play("hurt_hit", true);
     }
 
     [ClientRpc]

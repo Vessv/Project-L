@@ -25,6 +25,7 @@ public class Equipment : Item
 
         builder.Append("<color=#333333> ").Append(description).Append("</color>").AppendLine();
         builder.Append(GetStatsText());
+        builder.Append("<color=#FFFF00> ").Append("Right Click: Use").Append("</color>").AppendLine();
         builder.Append(ColouredRarity()).AppendLine();
         return builder.ToString();
     }

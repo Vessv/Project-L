@@ -125,14 +125,6 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(5);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(14);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(15);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(16);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(17);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -143,18 +135,19 @@ public class GameHandler : NetworkBehaviour
             }
 
         }
+        StopSoundToAllPlayers("music2", true);
+        PlaySoundToAllPlayers("music", true);
 
-        //Enemy spawn placeholder change later
-        GameObject enemy = Instantiate(_enemyPrefab);
+        GameObject enemy = Instantiate(_skeletonPrefabs[0]);
         enemy.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy.GetComponent<NPCUnit>());
-        enemy.transform.position = new Vector3(10.5f, 12.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(10.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
-        GameObject enemy2 = Instantiate(_enemyPrefab);
+        enemy.transform.position = new Vector3(6.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(6.5f, 12.5f)).SetUnit(enemy.GetComponent<NPCUnit>());
+        GameObject enemy2 = Instantiate(_skeletonPrefabs[0]);
         enemy2.GetComponent<NetworkObject>().Spawn();
         EnemyList.Add(enemy2.GetComponent<NPCUnit>());
-        enemy2.transform.position = new Vector3(12.5f, 12.5f);
-        Instance.GetGrid().GetGridObject(new Vector3(12.5f, 12.5f)).SetUnit(enemy2.GetComponent<NPCUnit>());
+        enemy2.transform.position = new Vector3(11.5f, 12.5f);
+        Instance.GetGrid().GetGridObject(new Vector3(11.5f, 12.5f)).SetUnit(enemy2.GetComponent<NPCUnit>());
 
 
     }
