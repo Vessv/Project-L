@@ -52,6 +52,7 @@ public class IgniteAction : BaseAction
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
         unit.SpawnObjectClientRpc(unit.TargetPosition.Value + new Vector3(-0.5f, 0.2f), 7);
+        PlaySound("fire");
         StartCoroutine(BurnTarget());
         //AudioManager.Instance.Play("Hit");
 
@@ -92,6 +93,7 @@ public class IgniteAction : BaseAction
             targetUnit.TakeDamageClientRpc(_damage);
 
         }
+        StopSound("fire");
 
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;

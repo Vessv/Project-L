@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 6791562686178240039}
   - component: {fileID: 2569751616500283245}
   - component: {fileID: 5481794675377019005}
+  - component: {fileID: 6538197361878893394}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -120,6 +121,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a7cb6b33365adec4da608adb1c8195a0, type: 2}
   - {fileID: 11400000, guid: f86f4e18e1de24e46addf4a426d7ec96, type: 2}
   - {fileID: 11400000, guid: 319ec81452f089540916840a24ebe920, type: 2}
+  - {fileID: 11400000, guid: 723a2ad2e38d2e247a7cafdc1d3d5f85, type: 2}
   _itemsSOArray:
   - {fileID: 11400000, guid: a350323a63f46dd48ba97aa8e7f479b0, type: 2}
   - {fileID: 11400000, guid: 812ab986821e3824d8262d363192c5b6, type: 2}
@@ -473,6 +475,20 @@ MonoBehaviour:
   unit: {fileID: 0}
   actionPointsCost: 4
   _damage: 0
+--- !u!114 &6538197361878893394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108855679348828784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af2fac52ab9cb34baed81e3945d21ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  actionPointsCost: 0
 --- !u!1001 &1057462796725999176
 PrefabInstance:
   m_ObjectHideFlags: 0

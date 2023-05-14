@@ -43,7 +43,7 @@ public class AttackAction : BaseAction
         }
 
         _damage = unit.Stats.Value.Strength;
-        PlaySound("slash");
+        PlaySound("hit");
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
 

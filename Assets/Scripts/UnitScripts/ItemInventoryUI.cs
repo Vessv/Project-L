@@ -5,41 +5,33 @@ using UnityEngine;
 
 public class ItemInventoryUI : MonoBehaviour
 {
-	public Transform itemsParent;   // The parent object of all the items
-	//public GameObject inventoryUI;  // The entire UI
+	public Transform itemsParent;
 
 	public GameObject PlayerObject;
 
-	ItemInventory inventory;    // Our current inventory
+	ItemInventory inventory; 
 
-	ItemInventorySlot[] slots;  // List of all the slots
+	ItemInventorySlot[] slots; 
 
 	void Start()
 	{
 		inventory = PlayerObject.GetComponent<ItemInventory>();
 		inventory.itemsID.OnListChanged += UpdateUI;
-		//inventory.onItemChangedCallback.AddListener(UpdateUI);    // Subscribe to the onItemChanged callback
-		// Populate our slots array
 		slots = itemsParent.GetComponentsInChildren<ItemInventorySlot>();
 	}
 
-	// Update the inventory UI by:
-	//		- Adding items
-	//		- Clearing empty slots
 	public void UpdateUI(NetworkListEvent<int> changeevent)
 	{
-		//Debug.Log("Estoy funciando correctamente updateui");
 		// Loop through all the slots
 		for (int i = 0; i < slots.Length; i++)
 		{
-			if (i < inventory.itemsID.Count)  // If there is an item to add
+			if (i < inventory.itemsID.Count)
 			{
 				Item itemToAdd = GameHandler.Instance.GetItemsSOArray()[inventory.itemsID[i]];
-				slots[i].AddItem(itemToAdd);   // Add it
+				slots[i].AddItem(itemToAdd); 
 			}
 			else
 			{
-				// Otherwise clear the slot
 				slots[i].ClearSlot();
 			}
 		}

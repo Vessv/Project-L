@@ -73,6 +73,7 @@ public class UnitAction : NetworkBehaviour
         Taunt,
         Ignite,
         Cleave,
-        Mist
+        Mist,
+        Skip
     }
 }

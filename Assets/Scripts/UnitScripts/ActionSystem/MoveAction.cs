@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveAction : BaseAction
 {
-
     //Pathfinding vars
     List<Vector3> _pathVectorList = new List<Vector3>();
     public float Speed = 4f;
@@ -35,6 +34,8 @@ public class MoveAction : BaseAction
                 currentPathIndex++;
                 if (currentPathIndex >= _pathVectorList.Count || currentPathIndex >= unit.Stats.Value.Speed)
                 {
+                    StopSound("walk");
+
                     _pathVectorList.Clear();
                     GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).SetUnit(unit);
                     //unit.SetStateServerRpc(State.Normal);
@@ -61,6 +62,7 @@ public class MoveAction : BaseAction
             unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
             unit.SelectedAction.Value = UnitAction.Action.None;
 
+
         }
     }
 
@@ -78,6 +80,7 @@ public class MoveAction : BaseAction
         {
             _pathVectorList.RemoveAt(0);
             GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).RemoveUnit();
+            PlaySound("walk", true);
             //OnPositionReachedServerRpc();
         }
         else

@@ -60,7 +60,7 @@ public class NPCUnit : BaseUnit
         {
             yield return new WaitForSeconds(0.15f);
             whilebreak++;
-            if(whilebreak > 50)
+            if(whilebreak > 20)
             {
                 Debug.Log("while break");
                 ActionPoints.Value = 0;
@@ -198,7 +198,7 @@ public class NPCUnit : BaseUnit
                             GameHandler.Instance.DoAction(Vector3.zero, TargetPosition.Value);
 
                             Debug.Log("Melee Attack");
-                            yield return new WaitForSeconds(0.1f);
+                            yield return new WaitForSeconds(0.2f);
                             continue;
                         }
                         break;
@@ -220,7 +220,7 @@ public class NPCUnit : BaseUnit
                             GameHandler.Instance.DoAction(Vector3.zero, TargetPosition.Value);
 
                             Debug.Log("Melee Attack");
-                            yield return new WaitForSeconds(0.1f);
+                            yield return new WaitForSeconds(0.2f);
                             continue;
                         }
                         break;
@@ -242,7 +242,7 @@ public class NPCUnit : BaseUnit
                 SelectedAction.Value = UnitAction.Action.Move;
                 TargetPosition.Value = _targetUnitPosition;
                 GameHandler.Instance.DoAction(Vector3.zero, TargetPosition.Value);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 continue;
             }  
         }
@@ -276,7 +276,7 @@ public class NPCUnit : BaseUnit
         GameHandler.Instance.RemoveEnemyFromList(this);
         if (IsMyTurn.Value)
         {
-            ActionPoints.Value -= 999;
+            IsMyTurn.Value = false;
         }
         StopCoroutine(DoTurn());
         SpawnObjectClientRpc(transform.position+new Vector3(-0.5f, 0.5f), 9);

@@ -30,6 +30,7 @@ public class Item : ScriptableObject
         StringBuilder builder = new StringBuilder();
 
         builder.Append("<color=#333333> ").Append(description).Append("</color>").AppendLine();
+        builder.Append("<color=#FFFF00> ").Append("Right Click: Use").Append("</color>").AppendLine();
         //builder.Append("Sell price: ").Append(sellPrice).Append(" Gold").AppendLine();
         builder.Append(ColouredRarity()).AppendLine();
         return builder.ToString();

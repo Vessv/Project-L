@@ -44,6 +44,7 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public bool CanIgnite => SelectedAction.Value == UnitAction.Action.Ignite;
     public bool CanCleave => SelectedAction.Value == UnitAction.Action.Cleave;
     public bool CanMist => SelectedAction.Value == UnitAction.Action.Mist;
+    public bool CanSkip => SelectedAction.Value == UnitAction.Action.Skip;
 
     public bool DifferentPositionFlag;
 
@@ -80,11 +81,11 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
         if(meteorCount > 0)
         {
             Vector3 offset = new Vector3(0f,0f);
-            offset.x += Random.Range(-2f, 2f);
+            offset.x += Random.Range(-2.5f, 2.5f);
             offset.y += Random.Range(-2f, 2f);
             Instantiate(meteorPrefab, targetPosition+ offset-new Vector3(-0.5f, 0.5f), Quaternion.identity);
             meteorCount--;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.2f);
             StartCoroutine(SpawnMeteor(targetPosition, meteorPrefab));
         }
     }
@@ -99,18 +100,19 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     public void TakeDamageClientRpc(int damage)
     {
         TakeDamage(damage);
+        AudioManager.Instance.Play("hit", true);
     }
 
     [ClientRpc]
-    public void PlaySoundClientRpc(string name)
+    public void PlaySoundClientRpc(string name, bool instant = false)
     {
-        AudioManager.Instance.Play(name);
+        AudioManager.Instance.Play(name, instant);
     }
 
     [ClientRpc]
-    public void StopSoundClientRpc(string name)
+    public void StopSoundClientRpc(string name, bool instant = false)
     {
-        AudioManager.Instance.Stop(name);
+        AudioManager.Instance.Stop(name, instant);
     }
 
     public void TakeDamage(int damage)

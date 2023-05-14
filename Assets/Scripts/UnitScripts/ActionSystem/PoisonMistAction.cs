@@ -41,6 +41,7 @@ public class PoisonMistAction : BaseAction
 
         unit.SpawnObjectClientRpc(unit.TargetPosition.Value, 8);
 
+        PlaySound("poison_mist");
         StartCoroutine(DoDamage());
 
         //AudioManager.Instance.Play("Hit");
@@ -64,6 +65,8 @@ public class PoisonMistAction : BaseAction
 
         yield return new WaitForSeconds(0.5f);
         HitUnits();
+
+        StopSound("poison_mist");
 
         yield return new WaitForSeconds(0.3f);
 

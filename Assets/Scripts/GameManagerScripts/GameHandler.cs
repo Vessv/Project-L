@@ -117,6 +117,7 @@ public class GameHandler : NetworkBehaviour
             _gameGrid.GetGridObject(player.transform.position).SetUnit(player.GetComponent<BaseUnit>());
 
             //Dandole skills base o algo
+            player.GetComponent<PlayerUnit>().ownedActionList.Add(18);
             player.GetComponent<PlayerUnit>().ownedActionList.Add(1);
 
             //habilidades inciailes de cada heore e items si es necesario
@@ -124,19 +125,14 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(5);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(6);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(7);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(9);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(10);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(14);
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(15);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(16);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(17);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -163,19 +159,19 @@ public class GameHandler : NetworkBehaviour
 
     }
 
-    public void PlaySoundToAllPlayers(string name)
+    public void PlaySoundToAllPlayers(string name, bool instant = false)
     {
         foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            client.PlayerObject.GetComponent<PlayerUnit>().PlaySoundClientRpc(name);
+            client.PlayerObject.GetComponent<PlayerUnit>().PlaySoundClientRpc(name, instant);
         }
     }
 
-    public void StopSoundToAllPlayers(string name)
+    public void StopSoundToAllPlayers(string name, bool instant = false)
     {
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            client.PlayerObject.GetComponent<PlayerUnit>().StopSoundClientRpc(name);
+            client.PlayerObject.GetComponent<PlayerUnit>().StopSoundClientRpc(name, instant);
         }
     }
 
@@ -185,8 +181,25 @@ public class GameHandler : NetworkBehaviour
         EnemyList.Remove(unit);
         if(EnemyList.Count == 0)
         {
+            StartCoroutine(PlaySoundStair());
+            if (TurnHandler.hasPlayersCycleBeenDone)
+            {
+                TurnHandler.hasPlayersCycleBeenDone = false;
+                TurnHandler.CurrentTurnIndex = -1;
+                TurnHandler.NextTurn();
+
+            }
             FloorEnd();
         }
+    }
+
+    IEnumerator PlaySoundStair()
+    {
+        PlaySoundToAllPlayers("stair");
+        yield return new WaitForSeconds(1.5f);
+        StopSoundToAllPlayers("stair");
+        yield break;
+
     }
 
     public void FloorEnd()
@@ -211,12 +224,6 @@ public class GameHandler : NetworkBehaviour
         //change map spawnear cosas, tenerlos en una lista, updatear el pathfinding si ese necesario, remover los anteriores, updatear el pathfinding
         //spawn new enemies, de una lista que tenga waves de enemigos o algo, o que lo haga el turn handler mejor
         //TurnHandler.NextTurn();
-
-        if (TurnHandler.hasPlayersCycleBeenDone)
-        {
-            TurnHandler.CurrentTurnIndex = 999;
-            TurnHandler.NextTurn();
-        }
 
         SpawnNewWave();
     }
@@ -692,6 +699,13 @@ public class GameHandler : NetworkBehaviour
 
             GetComponent<PoisonMistAction>().Setup(TurnHandler.CurrentUnit);
             GetComponent<PoisonMistAction>().Posion();
+        }
+        else if (TurnHandler.CurrentUnit.CanSkip)
+        {
+            TurnHandler.CurrentUnit.ActionStatus.Value = BaseUnit.ActionState.Busy;
+
+            GetComponent<SkipAction>().Setup(TurnHandler.CurrentUnit);
+            GetComponent<SkipAction>().Skip();
         }
 
     }

@@ -20,6 +20,14 @@ public class ShieldBashAction : BaseAction
         _pathVectorList = new List<Vector3>();
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
+        int distance = _pathVectorList.Count;
+
+        if (distance == 2)
+        {
+            StartCoroutine(JustDamage());
+            return;
+        }
+
         _pathVectorList.RemoveAt(_pathVectorList.Count - 1);
         if (_pathVectorList == null)
         {
@@ -28,6 +36,7 @@ public class ShieldBashAction : BaseAction
             Debug.Log("obstacles in the way an path is not reachable");
             return;
         }
+
         _pathVectorList = Pathfinding.Instance.FindPath(unit.transform.position, _pathVectorList[_pathVectorList.Count - 1]);
         if (_pathVectorList == null)
         {
@@ -62,6 +71,20 @@ public class ShieldBashAction : BaseAction
         
         //unit.IsMyTurn.Value = false;
 
+    }
+
+    IEnumerator JustDamage()
+    {
+        targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
+        _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 1.5f);
+        PlaySound("shield");
+        yield return new WaitForSeconds(0.05f);
+        targetUnit.TakeDamageClientRpc(_damage);
+        Debug.Log("Damaged: " + targetUnit.name);
+        unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+        unit.SelectedAction.Value = UnitAction.Action.None;
+        UseActionPoints();
+        yield break;
     }
 
     IEnumerator ShieldBash(List<Vector3> vectorList)

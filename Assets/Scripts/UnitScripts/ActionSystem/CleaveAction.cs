@@ -14,6 +14,14 @@ public class CleaveAction : BaseAction
 
     public void Attack()
     {
+        if (!CanDoAction)
+        {
+            unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
+            unit.SelectedAction.Value = UnitAction.Action.None;
+            Debug.Log("Not Enough actions points");
+            return;
+        }
+
         _pathVectorList = new List<Vector3>();
         _pathVectorList.Clear();
         _pathVectorList = Pathfinding.Instance.FindPathToNotWalkable(unit.transform.position, unit.TargetPosition.Value);
@@ -49,12 +57,19 @@ public class CleaveAction : BaseAction
         //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamageClientRpc(_damage);
         targetUnit.Stats.Value -= _enduranceReduction;
-
+        PlaySound("cleave");
         Debug.Log("Damaged: " + targetUnit.name);
+
+        StartCoroutine(EndAction());
+
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.2f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-
     }
 
     public void ShowMoveTiles()

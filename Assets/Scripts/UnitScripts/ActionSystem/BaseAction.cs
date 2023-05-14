@@ -8,10 +8,6 @@ using Unity.Netcode;
 public abstract class BaseAction :  NetworkBehaviour, IUnitAction
 {
 
-    public event EventHandler OnActionStarted;
-    public event EventHandler OnActionComplete;
-
-
     [SerializeField]
     protected BaseUnit unit;
     protected Action onActionComplete;
@@ -37,12 +33,12 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
         return false;
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(string name, bool instant = false)
     {
-        GameHandler.Instance.PlaySoundToAllPlayers(name);
+        GameHandler.Instance.PlaySoundToAllPlayers(name, instant);
     }
-    public void StopSound(string name)
+    public void StopSound(string name, bool instant = false)
     {
-        GameHandler.Instance.StopSoundToAllPlayers(name);
+        GameHandler.Instance.StopSoundToAllPlayers(name, instant);
     }
 }

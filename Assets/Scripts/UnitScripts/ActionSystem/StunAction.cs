@@ -57,7 +57,7 @@ public class StunAction : BaseAction
     IEnumerator EndTurn(BaseUnit targetUnit)
     {
         PlaySound("stun");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.25f);
         targetUnit.TakeDamageClientRpc(0);
         targetUnit.ActionPoints.Value = -999;
 

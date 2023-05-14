@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PrefabDestroyer : MonoBehaviour
 {
-    private float timeBeforeDelete = 0.5f;
+    public float timeBeforeDelete = 0.5f;
 
 
     private void Update()

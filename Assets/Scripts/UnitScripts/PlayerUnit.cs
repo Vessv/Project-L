@@ -61,6 +61,8 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer || !context.performed) return;
 
         ItemInventoryUI.SetActive(!ItemInventoryUI.activeSelf);
+        AudioManager.Instance.Play("inventory", true);
+
 
     }
 
@@ -69,6 +71,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer || !context.performed) return;
 
         ActionInventoryUI.SetActive(!ActionInventoryUI.activeSelf);
+        AudioManager.Instance.Play("inventory", true);
 
     }
 
@@ -77,12 +80,14 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         if (!IsLocalPlayer || !context.performed) return;
 
         PlayerInfoUI.SetActive(!PlayerInfoUI.activeSelf);
+        AudioManager.Instance.Play("inventory", true);
+
 
     }
 
-     public void Testing(InputAction.CallbackContext context) //quitar esto porfavor
+    public void Testing(InputAction.CallbackContext context) //quitar esto porfavor
     {
-        if (!IsLocalPlayer || !context.performed) return;
+        /*if (!IsLocalPlayer || !context.performed) return;
         inventory.Add(0);
         inventory.Add(1);
         inventory.Add(2);
@@ -91,7 +96,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         inventory.Add(14);
         inventory.Add(17);
 
-        //GameHandler.Instance.FloorEnd();
+        //GameHandler.Instance.FloorEnd();*/
     }
 
     public override void Die()

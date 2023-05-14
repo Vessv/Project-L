@@ -44,8 +44,25 @@ public class MeteorRainAction : BaseAction
         StartCoroutine(DoDamage());
 
         //AudioManager.Instance.Play("Hit");
+
+        StartCoroutine(PlaySounds());
         
+    }
+
+    IEnumerator PlaySounds()
+    {
+
+        for(int i = 0; i < 10; i++)
+        {
+            string soundName = "meteor_fall" + i;
+            PlaySound(soundName);
+            yield return new WaitForSeconds(0.2f);
+            
+        }
         
+
+
+
     }
 
     IEnumerator DoDamage()

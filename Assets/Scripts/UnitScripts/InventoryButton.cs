@@ -7,6 +7,12 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 {
     public ItemInventorySlot slot;
     public TooltipPopUp tooltipPopUp;
+
+    private void OnEnable()
+    {
+        tooltipPopUp.HideInfo();
+    }
+
     void Start()
     {
         slot = GetComponentInParent<ItemInventorySlot>();
@@ -23,10 +29,10 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (eventData.button == PointerEventData.InputButton.Left)
             Debug.Log("Left click");
         else if (eventData.button == PointerEventData.InputButton.Middle)
-        { slot.UseItem(); tooltipPopUp.HideInfo(); }
+        { }
 
         else if (eventData.button == PointerEventData.InputButton.Right)
-            Debug.Log("Right click");
+        { slot.UseItem(); tooltipPopUp.HideInfo(); }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

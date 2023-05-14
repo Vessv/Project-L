@@ -26,6 +26,7 @@ public class TauntAction : BaseAction
 
     IEnumerator TauntEffect()
     {
+        PlaySound("taunt");
         yield return new WaitForSeconds(0.3f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
