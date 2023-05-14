@@ -43,6 +43,8 @@ public class HolyTreeAction : BaseAction
         }
 
         unit.SpawnObjectClientRpc(unit.TargetPosition.Value, 5);
+        PlaySound("tree_leaves");
+        PlaySound("tree_birds");
 
         StartCoroutine(DoHeal());
 
@@ -54,6 +56,9 @@ public class HolyTreeAction : BaseAction
         yield return new WaitForSeconds(1.3f);
         HitUnits();
 
+        yield return new WaitForSeconds(2f);
+        StopSound("tree_leaves");
+        StopSound("tree_birds");
 
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;

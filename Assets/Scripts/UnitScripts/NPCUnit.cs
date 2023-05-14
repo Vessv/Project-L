@@ -274,8 +274,10 @@ public class NPCUnit : BaseUnit
         base.Die();
         GameHandler.Instance.GetGrid().GetGridObject(transform.position).RemoveUnit();
         GameHandler.Instance.RemoveEnemyFromList(this);
-        ActionPoints.Value = 0;
-        IsMyTurn.Value = false;
+        if (IsMyTurn.Value)
+        {
+            ActionPoints.Value -= 999;
+        }
         StopCoroutine(DoTurn());
         SpawnObjectClientRpc(transform.position+new Vector3(-0.5f, 0.5f), 9);
         //playsound?

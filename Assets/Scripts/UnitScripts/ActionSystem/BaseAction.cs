@@ -36,4 +36,13 @@ public abstract class BaseAction :  NetworkBehaviour, IUnitAction
         }
         return false;
     }
+
+    public void PlaySound(string name)
+    {
+        GameHandler.Instance.PlaySoundToAllPlayers(name);
+    }
+    public void StopSound(string name)
+    {
+        GameHandler.Instance.StopSoundToAllPlayers(name);
+    }
 }

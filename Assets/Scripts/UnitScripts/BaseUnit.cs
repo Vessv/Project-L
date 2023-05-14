@@ -100,6 +100,19 @@ public abstract class BaseUnit : NetworkBehaviour, IDamageable
     {
         TakeDamage(damage);
     }
+
+    [ClientRpc]
+    public void PlaySoundClientRpc(string name)
+    {
+        AudioManager.Instance.Play(name);
+    }
+
+    [ClientRpc]
+    public void StopSoundClientRpc(string name)
+    {
+        AudioManager.Instance.Stop(name);
+    }
+
     public void TakeDamage(int damage)
     {
         if (isDead.Value) return;

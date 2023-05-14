@@ -77,7 +77,8 @@ public class ShieldBashAction : BaseAction
         }
         GameHandler.Instance.GetGrid().GetGridObject(unit.transform.position).SetUnit(unit);
         _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 1.5f);
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("shield");
+        yield return new WaitForSeconds(0.05f);
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;

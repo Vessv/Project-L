@@ -42,15 +42,28 @@ public class HeadbuttAction : BaseAction
         }
 
         _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 1.5f);
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("headbutt");
         targetUnit.TakeDamageClientRpc(_damage);
-        unit.TakeDamageClientRpc((int)Mathf.Floor(unit.Stats.Value.Vitality * 0.1f));
+
+        int selfDamage = (int)Mathf.Floor(unit.Stats.Value.Vitality * 0.1f);
+        if(selfDamage >= unit.CurrentHealth.Value)
+        {
+            selfDamage = unit.CurrentHealth.Value-1;
+        }
+
+        unit.TakeDamageClientRpc(selfDamage);
         Debug.Log("Damaged: " + targetUnit.name);
+
+        StartCoroutine(EndAction());
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.1f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
-
+        yield break;
     }
 
     public void ShowMoveTiles()

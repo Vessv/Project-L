@@ -50,15 +50,21 @@ public class StunAction : BaseAction
             return;
         }
 
-        //AudioManager.Instance.Play("Hit");
+        StartCoroutine(EndTurn(targetUnit));
+
+    }
+
+    IEnumerator EndTurn(BaseUnit targetUnit)
+    {
+        PlaySound("stun");
+        yield return new WaitForSeconds(0.1f);
         targetUnit.TakeDamageClientRpc(0);
         targetUnit.ActionPoints.Value = -999;
 
+        yield return new WaitForSeconds(0.1f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
-
     }
 
     public void ShowMoveTiles()

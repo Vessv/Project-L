@@ -124,6 +124,19 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(5);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(6);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(7);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(9);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(10);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(12);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(14);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(15);
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
@@ -150,6 +163,21 @@ public class GameHandler : NetworkBehaviour
 
     }
 
+    public void PlaySoundToAllPlayers(string name)
+    {
+        foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.GetComponent<PlayerUnit>().PlaySoundClientRpc(name);
+        }
+    }
+
+    public void StopSoundToAllPlayers(string name)
+    {
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.GetComponent<PlayerUnit>().StopSoundClientRpc(name);
+        }
+    }
 
     public void RemoveEnemyFromList(NPCUnit unit)
     {

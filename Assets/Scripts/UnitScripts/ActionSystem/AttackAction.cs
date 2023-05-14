@@ -43,14 +43,21 @@ public class AttackAction : BaseAction
         }
 
         _damage = unit.Stats.Value.Strength;
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("slash");
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
+
+        //unit.IsMyTurn.Value = false;
+        StartCoroutine(EndAction());
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.1f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
-
+        yield break;
     }
 
     public void ShowMoveTiles()

@@ -43,7 +43,7 @@ public class HolyStrikeAction : BaseAction
 
         StartCoroutine(DoDamage());
 
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("sword_summon");
 
 
     }
@@ -53,6 +53,7 @@ public class HolyStrikeAction : BaseAction
         yield return new WaitForSeconds(1.3f);
         HitUnits();
 
+        PlaySound("sword_dig");
         yield return new WaitForSeconds(0.2f);
         HitUnits();
 
@@ -64,12 +65,18 @@ public class HolyStrikeAction : BaseAction
 
         yield return new WaitForSeconds(0.2f);
         HitUnits();
+
 
         yield return new WaitForSeconds(0.1f);
 
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
+
+        yield return new WaitForSeconds(0.5f);
+        StopSound("sword_dig");
+
+
     }
 
     void HitUnits()

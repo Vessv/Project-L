@@ -40,16 +40,24 @@ public class MagicAction : BaseAction
             return;
         }
         unit.SpawnProjectileClientRpc(1);
+        PlaySound("magic");
+
 
         _damage = (int)Mathf.Floor(unit.Stats.Value.Intelligence * 1.5f);
-        //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
+
+        StartCoroutine(EndAction());
+
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.2f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
-
+        yield break;
     }
 
     public void ShowMoveTiles()

@@ -32,17 +32,26 @@ public class RangedAction : BaseAction
             Debug.Log("AttackAction.cs error at Attack() no valid target at x,y =" + unit.TargetPosition.Value.x + "," + unit.TargetPosition.Value.y);
             return;
         }
+
         unit.SpawnProjectileClientRpc(0);
+        PlaySound("projectile");
+
 
         _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 0.75f);
-        //AudioManager.Instance.Play("Hit");
         targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
+
+        StartCoroutine(EndAction());
+
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.2f);
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
-
+        yield break;
     }
 
     public void ShowMoveTiles()

@@ -48,7 +48,7 @@ public class HealAction : BaseAction
             return;
         }
 
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("heal");
         int regenValue = (int)(unit.Stats.Value.Vitality * 0.1f);
         targetUnit.CurrentHealth.Value += regenValue;
 

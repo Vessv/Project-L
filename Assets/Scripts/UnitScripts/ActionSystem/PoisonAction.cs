@@ -53,18 +53,25 @@ public class PoisonAction : BaseAction
         }
 
         _damage = (int)Mathf.Floor(unit.Stats.Value.Strength * 0.5f);
-        //AudioManager.Instance.Play("Hit");
+        PlaySound("poison");
         targetUnit.TakeDamageClientRpc(_damage);
         targetUnit.Stats.Value -= _enduranceReduction;
 
         Debug.Log("Damaged: " + targetUnit.name);
+
+        StartCoroutine(EndAction());
+    }
+
+    IEnumerator EndAction()
+    {
+        yield return new WaitForSeconds(0.1f);
+        StopSound("poison");
         unit.ActionStatus.Value = BaseUnit.ActionState.Normal;
         unit.SelectedAction.Value = UnitAction.Action.None;
         UseActionPoints();
-        //unit.IsMyTurn.Value = false;
+        yield break;
 
     }
-
     public void ShowMoveTiles()
     {
         int distance = 1;
