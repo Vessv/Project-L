@@ -50,6 +50,7 @@ public class IgniteAction : BaseAction
 
         _damage = (int)Mathf.Floor(unit.Stats.Value.Vitality * 0.05f);
         targetUnit.TakeDamageClientRpc(_damage);
+        targetUnit.TakeDamageClientRpc(_damage);
         Debug.Log("Damaged: " + targetUnit.name);
         unit.SpawnObjectClientRpc(unit.TargetPosition.Value + new Vector3(-0.5f, 0.2f), 7);
         PlaySound("fire");
@@ -66,6 +67,7 @@ public class IgniteAction : BaseAction
         if (isAValidTarget)
         {
             targetUnit.TakeDamageClientRpc(_damage);
+            targetUnit.TakeDamageClientRpc(_damage);
 
         }
 
@@ -75,13 +77,6 @@ public class IgniteAction : BaseAction
         if (isAValidTarget)
         {
             targetUnit.TakeDamageClientRpc(_damage);
-
-        }
-        yield return new WaitForSeconds(0.5f);
-        targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
-        isAValidTarget = targetUnit != null && targetUnit != unit;
-        if (isAValidTarget)
-        {
             targetUnit.TakeDamageClientRpc(_damage);
 
         }
@@ -90,6 +85,16 @@ public class IgniteAction : BaseAction
         isAValidTarget = targetUnit != null && targetUnit != unit;
         if (isAValidTarget)
         {
+            targetUnit.TakeDamageClientRpc(_damage);
+            targetUnit.TakeDamageClientRpc(_damage);
+
+        }
+        yield return new WaitForSeconds(0.5f);
+        targetUnit = GameHandler.Instance.GetGrid().GetGridObject(unit.TargetPosition.Value).GetUnit();
+        isAValidTarget = targetUnit != null && targetUnit != unit;
+        if (isAValidTarget)
+        {
+            targetUnit.TakeDamageClientRpc(_damage);
             targetUnit.TakeDamageClientRpc(_damage);
 
         }

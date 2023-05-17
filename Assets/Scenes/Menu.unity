@@ -2745,6 +2745,12 @@ MonoBehaviour:
     Pitch: 1
     loop: 1
     Source: {fileID: 0}
+  - Name: skip
+    Clip: {fileID: 8300000, guid: e981538182eb29045a38f87605e08cbc, type: 3}
+    Volume: 0.098
+    Pitch: 1
+    loop: 0
+    Source: {fileID: 0}
   audioMixer: {fileID: 24300002, guid: 14dce17fed4e1f249b0c5991a6c6f4de, type: 2}
 --- !u!4 &953248744
 Transform:

@@ -6,7 +6,7 @@ public class SkipAction : BaseAction
 {
     public void Skip()
     {
-        PlaySound("hit");
+        PlaySound("skip");
         Debug.Log("skiped: " + unit.name);
 
 

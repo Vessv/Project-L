@@ -53,14 +53,16 @@ public class PoisonMistAction : BaseAction
     {
         yield return new WaitForSeconds(0.7f);
         HitUnits();
-
-        yield return new WaitForSeconds(0.5f);
         HitUnits();
 
         yield return new WaitForSeconds(0.5f);
         HitUnits();
 
         yield return new WaitForSeconds(0.5f);
+        HitUnits();
+
+        yield return new WaitForSeconds(0.5f);
+        HitUnits();
         HitUnits();
 
         yield return new WaitForSeconds(0.5f);

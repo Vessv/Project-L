@@ -13,6 +13,8 @@ using UnityEditor;
 
 public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 {
+    public NetworkVariable<bool> IsDead = new NetworkVariable<bool>();
+
     public ItemInventory inventory;
 
     [SerializeField]
@@ -117,6 +119,15 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public override void Die()
     {
         base.Die();
+        GameHandler.Instance.GetGrid().GetGridObject(transform.position).RemoveUnit();
+        if (IsMyTurn.Value)
+        {
+            IsMyTurn.Value = false;
+        }
+        SetThreatServerRpc(-9999);
+        UpdateIsDeadServerRpc(true);
+        SpawnObjectClientRpc(transform.position + new Vector3(-0.5f, 0.5f), 9);
+        //playsound?
     }
 
 
@@ -134,6 +145,11 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
     public void OnMyTurnChange(bool previous, bool current)
     {
+        if (IsDead.Value)
+        {
+            SetThreatServerRpc(-9999);
+            SetIsMyTurnServerRpc(false);
+        }
         GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
     }
 
@@ -257,6 +273,18 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     }
 
     [ServerRpc]
+    public void SetIsMyTurnServerRpc(bool isMyTurn)
+    {
+        IsMyTurn.Value = isMyTurn;
+    }
+
+    [ServerRpc]
+    public void SetThreatServerRpc(int value)
+    {
+        Threat.Value = value;
+    }
+
+    [ServerRpc]
     public void SubmitUnitActionServerRpc(UnitAction.Action action)
     {
         SelectedAction.Value = action;
@@ -278,6 +306,12 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public void SubmitExtraStatsServerRpc(UnitSO.UnitStats extraStats)
     {
         Stats.Value += extraStats;
+    }
+
+    [ServerRpc]
+    public void UpdateIsDeadServerRpc(bool isDead)
+    {
+        IsDead.Value = isDead;
     }
 
     [ServerRpc]

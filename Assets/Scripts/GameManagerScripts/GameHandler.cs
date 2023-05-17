@@ -121,17 +121,20 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(11);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
 
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
 
 
                     break;
                 case 2:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
 
                     break;
@@ -204,6 +207,8 @@ public class GameHandler : NetworkBehaviour
         //enable ui wtih blessing so they choose
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().CurrentHealth.Value = 80;
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().IsDead.Value = false;
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().NextFloorUIClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().DisplayBlessingSelectionClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().FloorNumber = floorNumber.Value;
