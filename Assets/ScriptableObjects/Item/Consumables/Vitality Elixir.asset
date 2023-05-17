@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Vitality Elixir
   rarity: {fileID: 11400000, guid: 78644b13d7e85a54e8dd01eea3141159, type: 2}
-  description: Regen 50PT of your HP
+  description: Regen 100PT of your HP
   icon: {fileID: -500842024, guid: 7537323421b8f71499bb673318be42ab, type: 3}
   itemID: 1
   extraStats:
@@ -26,4 +26,4 @@ MonoBehaviour:
     Dexterity: 0
     Stamina: 0
     Luck: 0
-  HealthRegen: 50
+  HealthRegen: 100

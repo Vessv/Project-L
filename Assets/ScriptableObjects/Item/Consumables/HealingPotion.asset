@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Healing Potion
   rarity: {fileID: 11400000, guid: 7e1f86e6b0f54c4479854f8bb809f5a1, type: 2}
-  description: Regen 20% of your HP
+  description: Regen 50 of your HP
   icon: {fileID: 1804970323, guid: 7537323421b8f71499bb673318be42ab, type: 3}
   itemID: 0
   extraStats:
@@ -26,4 +26,4 @@ MonoBehaviour:
     Dexterity: 0
     Stamina: 0
     Luck: 0
-  HealthRegen: 20
+  HealthRegen: 50

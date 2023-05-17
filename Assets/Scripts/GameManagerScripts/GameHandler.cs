@@ -127,14 +127,14 @@ public class GameHandler : NetworkBehaviour
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
 
 
                     break;
                 case 2:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(4);
-                    player.GetComponent<PlayerUnit>().ownedActionList.Add(13);
+                    player.GetComponent<PlayerUnit>().ownedActionList.Add(8);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
 
                     break;
@@ -201,14 +201,35 @@ public class GameHandler : NetworkBehaviour
 
     }
 
+    public void EndGame(bool previous, bool current)
+    {
+        if (!current) return;
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            if (!client.PlayerObject.gameObject.GetComponent<PlayerUnit>().IsDead.Value)
+            {
+                return;
+            }
+        }
+
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().ActiveGameEndUIClientRpc();
+        }
+    }
+
     public void FloorEnd()
     {
         floorNumber.Value += 1;
         //enable ui wtih blessing so they choose
         foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().CurrentHealth.Value = 80;
-            client.PlayerObject.gameObject.GetComponent<PlayerUnit>().IsDead.Value = false;
+            if (client.PlayerObject.gameObject.GetComponent<PlayerUnit>().IsDead.Value)
+            {
+                client.PlayerObject.gameObject.GetComponent<PlayerUnit>().CurrentHealth.Value = 80;
+                client.PlayerObject.gameObject.GetComponent<PlayerUnit>().IsDead.Value = false;
+
+            }
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().NextFloorUIClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().DisplayBlessingSelectionClientRpc();
             client.PlayerObject.gameObject.GetComponent<PlayerUnit>().FloorNumber = floorNumber.Value;
@@ -514,6 +535,8 @@ public class GameHandler : NetworkBehaviour
         unit.TargetPosition.OnValueChanged += DoAction;
         unit.ActionPoints.OnValueChanged += TurnHandler.OnUnitActionPointsChanged;
         unit.SelectedAction.OnValueChanged += ShowVisualMap;
+        PlayerUnit playerUnit = (PlayerUnit)unit;
+        playerUnit.IsDead.OnValueChanged += EndGame;
     }
 
     

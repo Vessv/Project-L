@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Elixir of Immortality
   rarity: {fileID: 11400000, guid: 5d6d170eafa506c42a99bc1a373f72ff, type: 2}
-  description: Regen 200PT of your HP and gives you Vitality
+  description: Regen 500PT of your HP and gives you Vitality
   icon: {fileID: -50885520, guid: 7537323421b8f71499bb673318be42ab, type: 3}
   itemID: 3
   extraStats:
@@ -26,4 +26,4 @@ MonoBehaviour:
     Dexterity: 0
     Stamina: 0
     Luck: 0
-  HealthRegen: 200
+  HealthRegen: 500

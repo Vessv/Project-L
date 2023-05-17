@@ -310,17 +310,22 @@ MonoBehaviour:
   Threat:
     m_InternalValue: 0
   DifferentPositionFlag: 0
+  IsDead:
+    m_InternalValue: 0
   inventory: {fileID: 0}
   isPointerOverUI: 0
   ActionCanvas: {fileID: 510471905758919742}
   MapHolder: {fileID: 0}
   ActionInventory: {fileID: 510471904280366999}
   BlessingDisplay: {fileID: 5128483919328644011}
+  EndUI: {fileID: 5939232784163937006}
   ActionInventoryUI: {fileID: 510471905572029374}
   PlayerInfoUI: {fileID: 5492427046072160567}
   ItemInventoryUI: {fileID: 8756441583315644767}
   GameStateInfoUI: {fileID: 3097183729812640873}
   NextFloorUI: {fileID: 2685351958464063119}
+  GameHandlerObject: {fileID: 0}
+  FloorNumber: 0
   UnitSOArray:
   - {fileID: 11400000, guid: dd40268bdb2cdd3459aaab20da9ea547, type: 2}
   - {fileID: 11400000, guid: 6f9c8f11f218e7042943a79f740c0c1e, type: 2}
@@ -906,6 +911,11 @@ GameObject:
 --- !u!1 &5492427046072160567 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7883262729255892093, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
+  m_PrefabInstance: {fileID: 2404918777989735754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5939232784163937006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8301146063135096740, guid: 53ad4ce5058652642b1a318b3e34e95f, type: 3}
   m_PrefabInstance: {fileID: 2404918777989735754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8756441583315644767 stripped

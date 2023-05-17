@@ -208,7 +208,7 @@ TextureImporter:
         width: 6
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,6 +216,27 @@ TextureImporter:
       bones: []
       spriteID: 8d520de803f381a4e9539323bb6b24f1
       internalID: -1880160379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buttons_1x_5
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 8
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7086910e37aaf342ae326ee12cc30e6
+      internalID: -1771913165
       vertices: []
       indices: 
       edges: []
@@ -234,6 +255,7 @@ TextureImporter:
       buttons_1x_0: -1018635476
       buttons_1x_3: -228664823
       buttons_1x_2: -1811428684
+      buttons_1x_5: -1771913165
       buttons_1x_1: -1289958489
       buttons_1x_4: -1880160379
   spritePackingTag: 

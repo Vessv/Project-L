@@ -25,6 +25,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject ActionInventory;
     public GameObject BlessingDisplay;
 
+    public GameObject EndUI;
     public GameObject ActionInventoryUI;
     public GameObject PlayerInfoUI;
     public GameObject ItemInventoryUI;
@@ -199,6 +200,13 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         return mousePosition;
     }
 
+
+    [ClientRpc]
+    public void ActiveGameEndUIClientRpc()
+    {
+        if (!IsLocalPlayer) return;
+        EndUI.SetActive(true);
+    }
     
     [ClientRpc]
     public void NextFloorUIClientRpc()
