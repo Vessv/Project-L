@@ -29,6 +29,8 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public GameObject GameStateInfoUI;
     public GameObject NextFloorUI;
 
+    public GameObject GameHandlerObject;
+
     public int FloorNumber = 0;
 
     public UnitSO[] UnitSOArray;
@@ -48,6 +50,13 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         IsMyTurn.OnValueChanged += OnMyTurnChange;
         CurrentHealth.OnValueChanged += OnHealthChangePlayer;
         ActionPoints.OnValueChanged += OnHealthChangePlayer;
+        StartCoroutine(InitializeGameHandler());
+    }
+
+    IEnumerator InitializeGameHandler()
+    {
+        yield return new WaitForSeconds(2f);
+        GameHandlerObject = GameHandler.Instance.gameObject;
     }
 
     public void Click(InputAction.CallbackContext context)
@@ -131,6 +140,27 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
     public void OnHealthChangePlayer(int previous, int current)
     {
         GameStateInfoUI.GetComponent<GameStateInfoUI>().UpdateUI();
+    }
+
+
+    [ClientRpc]
+    public void UpdateTilesetGroundClientRpc(int index, bool active)
+    {
+        if (!IsLocalPlayer) return;
+        GameHandler.Instance.GroundVariations[index].SetActive(active);
+    }
+
+    [ClientRpc]
+    public void UpdateTilesetTopWallClientRpc(int index, bool active)
+    {
+        if (!IsLocalPlayer) return;
+        GameHandler.Instance.TopwallVariations[index].SetActive(active);
+    }
+    [ClientRpc]
+    public void UpdateTilesetBotWallClientRpc(int index, bool active)
+    {
+        if (!IsLocalPlayer) return;
+        GameHandler.Instance.botwallVariations[index].SetActive(active);
     }
 
     [ClientRpc]

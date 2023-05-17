@@ -225,12 +225,39 @@ public class GameHandler : NetworkBehaviour
         SpawnNewWave();
     }
 
+
+    void UpdateBotWall(int index, bool active)
+    {
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.GetComponent<PlayerUnit>().UpdateTilesetBotWallClientRpc(index, active);
+        }
+    }
+
+    void UpdateTopWall(int index, bool active)
+    {
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.GetComponent<PlayerUnit>().UpdateTilesetTopWallClientRpc(index, active);
+        }
+    }
+
+    void UpdateGround(int index, bool active)
+    {
+        foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            client.PlayerObject.GetComponent<PlayerUnit>().UpdateTilesetGroundClientRpc(index, active);
+        }
+    }
+
     public void SpawnNewWave()
     {
         if(floorNumber.Value == 1)
         {
-            botwallVariations[0].SetActive(false);
-            botwallVariations[1].SetActive(true);
+            UpdateBotWall(0, false);
+            UpdateBotWall(1, true);
+            //botwallVariations[0].SetActive(false);
+            //botwallVariations[1].SetActive(true);
             _pathfindingGrid.GetGrid().GetGridObject(7, 0).SetMap(false);
             _pathfindingGrid.GetGrid().GetGridObject(8, 0).SetMap(false);
             _pathfindingGrid.GetGrid().GetGridObject(9, 0).SetMap(false);
@@ -239,14 +266,22 @@ public class GameHandler : NetworkBehaviour
             _pathfindingGrid.GetGrid().GetGridObject(11, 2).SetMap(false);
         }
 
-        TopwallVariations[0].SetActive(false);
-        TopwallVariations[1].SetActive(false);
-        TopwallVariations[2].SetActive(false);
+        UpdateTopWall(0, false);
+        UpdateTopWall(1, false);
+        UpdateTopWall(2, false);
+        //TopwallVariations[0].SetActive(false);
+        //TopwallVariations[1].SetActive(false);
+        //TopwallVariations[2].SetActive(false);
 
-        foreach (GameObject groundVariation in GroundVariations)
+        for(int i = 0; i < GroundVariations.Length; i++)
+        {
+            UpdateGround(i,false);
+        }
+
+        /*foreach (GameObject groundVariation in GroundVariations)
         {
             groundVariation.SetActive(false);
-        }
+        }*/
 
         for(int x = 0; x < _width; x++)
         {
@@ -266,8 +301,10 @@ public class GameHandler : NetworkBehaviour
         {
             case 1: //Undead
                 groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
-                GroundVariations[6+groundVariationIndex].SetActive(true);
-                TopwallVariations[0].SetActive(true);
+                UpdateGround(6 + groundVariationIndex, true);
+                //GroundVariations[6+groundVariationIndex].SetActive(true);
+                UpdateTopWall(0,true);
+                //TopwallVariations[0].SetActive(true);
                 _pathfindingGrid.GetGrid().GetGridObject(2, 15).SetMap(true);
                 _pathfindingGrid.GetGrid().GetGridObject(5, 15).SetMap(true);
                 _pathfindingGrid.GetGrid().GetGridObject(15, 15).SetMap(true);
@@ -311,8 +348,10 @@ public class GameHandler : NetworkBehaviour
                 break;
             case 2: //Orc
                 groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
-                GroundVariations[groundVariationIndex].SetActive(true);
-                TopwallVariations[1].SetActive(true);
+                UpdateGround(groundVariationIndex, true);
+                //GroundVariations[groundVariationIndex].SetActive(true);
+                UpdateTopWall(1, true);
+                //TopwallVariations[1].SetActive(true);
                 switch (groundVariationIndex)
                 {
                     case 0:
@@ -357,8 +396,10 @@ public class GameHandler : NetworkBehaviour
                 break;
             case 3: //Demon
                 groundVariationIndex = (int)Mathf.Floor(UnityEngine.Random.Range(1f, 3.9f)) -1;
-                GroundVariations[3+groundVariationIndex].SetActive(true);
-                TopwallVariations[2].SetActive(true);
+                UpdateGround(3+groundVariationIndex, true);
+                //GroundVariations[3+groundVariationIndex].SetActive(true);
+                UpdateTopWall(2, true);
+                //TopwallVariations[2].SetActive(true);
                 _pathfindingGrid.GetGrid().GetGridObject(1, 15).SetMap(true);
                 _pathfindingGrid.GetGrid().GetGridObject(5, 15).SetMap(true);
                 _pathfindingGrid.GetGrid().GetGridObject(16, 15).SetMap(true);
