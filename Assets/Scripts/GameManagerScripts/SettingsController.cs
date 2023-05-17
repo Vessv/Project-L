@@ -53,4 +53,9 @@ public class SettingsController : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

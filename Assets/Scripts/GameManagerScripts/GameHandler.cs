@@ -121,12 +121,13 @@ public class GameHandler : NetworkBehaviour
             {
                 case 0:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(2);
-                    client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 2;
+                    client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
 
                     break;
                 case 1:
                     player.GetComponent<PlayerUnit>().ownedActionList.Add(3);
                     client.PlayerObject.GetComponent<PlayerUnit>().ActionPoints.Value = 3;
+
 
                     break;
                 case 2:
@@ -344,7 +345,7 @@ public class GameHandler : NetworkBehaviour
                     }
                     else
                     {
-                        if(floorNumber.Value < 3 && orcIndex >= 3)
+                        if(floorNumber.Value <= 4 && orcIndex >= 3)
                         {
                             i--;
                             continue;
@@ -394,7 +395,7 @@ public class GameHandler : NetworkBehaviour
                     }
                     else
                     {
-                        if (floorNumber.Value < 3 && demIndex >= 3)
+                        if (floorNumber.Value <= 4 && demIndex >= 3)
                         {
                             i--;
                             continue;

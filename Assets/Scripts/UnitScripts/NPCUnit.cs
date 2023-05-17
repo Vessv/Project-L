@@ -24,7 +24,6 @@ public class NPCUnit : BaseUnit
         //Test starting positions remember to remove
         if (UnitScriptableObject.UnitFaction != UnitSO.Faction.Hero)
         {
-            Debug.Log("Spawneado enemigo");
             IsMyTurn.OnValueChanged += GameHandler.Instance.TurnHandler.OnIsMyTurnValueChanged;
             IsMyTurn.OnValueChanged += MyTurn;
             ActionPoints.OnValueChanged += GameHandler.Instance.TurnHandler.OnUnitActionPointsChanged;
@@ -37,7 +36,6 @@ public class NPCUnit : BaseUnit
     void MyTurn(bool previous, bool current)
     {
         if (!current || !IsServer || IsBusy) return;
-        Debug.Log("MyTurn npc logic");
 
         //Getting target unit
         _targetUnit = GetPlayerWithHighestThreat();
@@ -60,7 +58,7 @@ public class NPCUnit : BaseUnit
         {
             yield return new WaitForSeconds(0.15f);
             whilebreak++;
-            if(whilebreak > 20)
+            if(whilebreak > 15)
             {
                 Debug.Log("while break");
                 ActionPoints.Value = 0;
@@ -228,20 +226,14 @@ public class NPCUnit : BaseUnit
             }
             if(ActionPoints.Value >= 1)
             {
+                _targetUnitPosition = _targetUnit.transform.position;
+                SetWalkableTargetPosition();
 
-                _targetUnitPosition = _targetUnit.transform.position + GetOffSetVector();
-
-                PathNode targetNode = Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition);
-
-                if (!targetNode.isWalkable)
-                {
-                    SetWalkableTargetPosition();
-                }
 
 
                 SelectedAction.Value = UnitAction.Action.Move;
                 TargetPosition.Value = _targetUnitPosition;
-                GameHandler.Instance.DoAction(Vector3.zero, TargetPosition.Value);
+                GameHandler.Instance.DoAction(Vector3.zero, _targetUnitPosition);
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }  
@@ -353,12 +345,13 @@ public class NPCUnit : BaseUnit
         Vector3 offSetVector = Vector3.zero;
         if (IsTargetLeft) offSetVector = offSetVector + new Vector3(1f, 0f);
         if (IsTargetRight) offSetVector = offSetVector + new Vector3(-1f, 0f);
-        PathNode targetNode = Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition);
+        PathNode targetNode = Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition + offSetVector);
         if (!targetNode.isWalkable)
         {
             if (IsTargetUp) offSetVector = offSetVector + new Vector3(0f, -1f);
             if (IsTargetDown) offSetVector = offSetVector + new Vector3(0, 1f);
         }
+
 
         return offSetVector;
     }
@@ -375,15 +368,16 @@ public class NPCUnit : BaseUnit
             if (Pathfinding.Instance.FindPath(transform.position, pathNodePosition.GetPosition()) != null)
                 pathsVectorCount.Add(Pathfinding.Instance.FindPath(transform.position, pathNodePosition.GetPosition()).Count);
         }
-
-
         while (!Pathfinding.Instance.GetGrid().GetGridObject(_targetUnitPosition).isWalkable)
         {
             whileCount++;
             int minCount = pathsVectorCount.Min();
             int minIndex = pathsVectorCount.IndexOf(minCount);
             pathsVectorCount.Remove(minIndex);
-            _targetUnitPosition = neighbourPathsNodeList[minIndex].GetPosition();
+            _targetUnitPosition = neighbourPathsNodeList[minIndex].GetPosition() + new Vector3(0.5f,0.5f);
+            neighbourPathsNodeList.RemoveAt(minIndex);
+            Debug.Log("position: " + _targetUnitPosition);
+
             if (pathsVectorCount.Count < 1 || whileCount > 10)
             {
                 Debug.Log("Whilecount break");

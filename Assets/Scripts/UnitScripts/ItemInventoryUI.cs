@@ -20,7 +20,16 @@ public class ItemInventoryUI : MonoBehaviour
 		slots = itemsParent.GetComponentsInChildren<ItemInventorySlot>();
 	}
 
-	public void UpdateUI(NetworkListEvent<int> changeevent)
+    private void OnEnable()
+    {
+		if(slots != null)
+        {
+			UpdateUIEnable();
+
+		}
+	}
+
+    public void UpdateUI(NetworkListEvent<int> changeevent)
 	{
 		// Loop through all the slots
 		for (int i = 0; i < slots.Length; i++)
@@ -29,6 +38,23 @@ public class ItemInventoryUI : MonoBehaviour
 			{
 				Item itemToAdd = GameHandler.Instance.GetItemsSOArray()[inventory.itemsID[i]];
 				slots[i].AddItem(itemToAdd); 
+			}
+			else
+			{
+				slots[i].ClearSlot();
+			}
+		}
+	}
+
+	public void UpdateUIEnable()
+	{
+		// Loop through all the slots
+		for (int i = 0; i < slots.Length; i++)
+		{
+			if (i < inventory.itemsID.Count)
+			{
+				Item itemToAdd = GameHandler.Instance.GetItemsSOArray()[inventory.itemsID[i]];
+				slots[i].AddItem(itemToAdd);
 			}
 			else
 			{

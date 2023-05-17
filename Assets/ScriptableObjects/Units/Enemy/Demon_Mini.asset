@@ -16,7 +16,7 @@ MonoBehaviour:
   UnitSprite: {fileID: 1965810237, guid: 403f11cbeb5d0da4587f31389b6bfe54, type: 3}
   Stats:
     Strength: 20
-    Vitality: 200
+    Vitality: 100
     Intelligence: 0
     Speed: 2
     Endurance: 15

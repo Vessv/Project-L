@@ -52,6 +52,8 @@ public class EquipmentManager : NetworkBehaviour
 
         EquipServerRPC(slotIndex, itemID);
         GetComponent<PlayerUnit>().SubmitExtraStatsServerRpc(GetEquipmentFromItemID(itemID).extraStats);
+        GetComponent<PlayerUnit>().PlayerInfoUI.GetComponentInChildren<PlayerInfoUI>().UpdateInfoUI();
+
     }
 
     [ServerRpc]

@@ -40,6 +40,10 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
         ActionCanvas.SetActive(true);
         GameStateInfoUI.SetActive(true);
         inventory = GetComponent<ItemInventory>();
+        inventory.Add(11);
+        inventory.Add(12);
+        inventory.Add(13);
+        inventory.Add(1);
         Stats.OnValueChanged += OnStatsChange;
         IsMyTurn.OnValueChanged += OnMyTurnChange;
         CurrentHealth.OnValueChanged += OnHealthChangePlayer;
@@ -162,7 +166,7 @@ public class PlayerUnit : BaseUnit, IPointerEnterHandler, IPointerExitHandler
 
     IEnumerator FadeNextFloorUI()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         bool isVisible = true;
         float alpha = 1f;
         NextFloorUI.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);

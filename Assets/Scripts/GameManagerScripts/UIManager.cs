@@ -47,4 +47,9 @@ public class UIManager : NetworkBehaviour
         });
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 }

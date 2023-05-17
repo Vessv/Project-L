@@ -100,6 +100,7 @@ public class TurnHandler : NetworkBehaviour
             OnTurnStart();
             return;
         }
+        CurrentUnit.UpdateWalkVariableClientRpc(false);
         OnTurnEnd();
     }
 
